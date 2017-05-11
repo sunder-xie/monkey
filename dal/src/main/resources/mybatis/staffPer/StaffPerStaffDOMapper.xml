@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.staffPer.StaffPerStaffDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.staffPer.StaffPerStaffDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="staff_name" property="staffName" jdbcType="VARCHAR" />
+    <result column="staff_no" property="staffNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gmt_create, gmt_modified, is_deleted, staff_name, staff_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_per_staff
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_per_staff
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerStaffDO" >
+    insert into db_per_staff (id, gmt_create, gmt_modified, 
+      is_deleted, staff_name, staff_no
+      )
+    values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerStaffDO" >
+    insert into db_per_staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="staffName != null" >
+        staff_name,
+      </if>
+      <if test="staffNo != null" >
+        staff_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffNo != null" >
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerStaffDO" >
+    update db_per_staff
+    <set >
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        staff_name = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffNo != null" >
+        staff_no = #{staffNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerStaffDO" >
+    update db_per_staff
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      staff_name = #{staffName,jdbcType=VARCHAR},
+      staff_no = #{staffNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--自己业务-->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerStaffDO" >
+    select
+    <include refid="Base_Column_List" />
+    from db_per_staff
+    where is_deleted = 'N'
+  </select>
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_per_staff
+    <where>
+      is_deleted = 'N'
+      <if test="staffName != null">
+        and staff_name = #{staffName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

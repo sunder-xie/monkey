@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.commodity.CommodityGoodsOeDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsOeDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_uuId" property="goodsUuId" jdbcType="VARCHAR" />
+    <result column="oe_number" property="oeNumber" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_uuId, oe_number, creator, modifier, gmt_modified, gmt_create, 
+    isdelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_commodity_goods_oe
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_commodity_goods_oe
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsOeDO" >
+    insert into db_monkey_commodity_goods_oe (id, goods_uuId, oe_number, 
+      creator, modifier, gmt_modified, 
+      gmt_create, isdelete)
+    values (#{id,jdbcType=INTEGER}, #{goodsUuId,jdbcType=VARCHAR}, #{oeNumber,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsOeDO" >
+    insert into db_monkey_commodity_goods_oe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsUuId != null" >
+        goods_uuId,
+      </if>
+      <if test="oeNumber != null" >
+        oe_number,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+        gmt_modified,
+        gmt_create,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsUuId != null" >
+        #{goodsUuId,jdbcType=VARCHAR},
+      </if>
+      <if test="oeNumber != null" >
+        #{oeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsOeDO" >
+    update db_monkey_commodity_goods_oe
+    <set >
+      <if test="goodsUuId != null" >
+        goods_uuId = #{goodsUuId,jdbcType=VARCHAR},
+      </if>
+      <if test="oeNumber != null" >
+        oe_number = #{oeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+        gmt_modified = now(),
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsOeDO" >
+    update db_monkey_commodity_goods_oe
+    set goods_uuId = #{goodsUuId,jdbcType=VARCHAR},
+      oe_number = #{oeNumber,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      modifier = #{modifier,jdbcType=INTEGER},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      isdelete = #{isdelete,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--批量插入关系-->
+  <insert id="insertBatch" >
+    insert IGNORE into db_monkey_commodity_goods_oe ( goods_uuId, oe_number,  creator,
+    modifier, gmt_modified, gmt_create
+    )
+    values
+    <foreach collection="list" item="item" index="index" open="" separator=","  close="">
+      (  #{item.goodsUuId,jdbcType=VARCHAR}, #{item.oeNumber,jdbcType=VARCHAR}, #{item.creator,jdbcType=INTEGER},
+      #{item.modifier,jdbcType=INTEGER}, now(),now())
+    </foreach>
+  </insert>
+
+
+  <!--批量删除。以商品编码-->
+  <update id="deleteBatchGoodsUuId" parameterType="map" >
+    update db_monkey_commodity_goods_oe
+    set
+    modifier = #{modifier,jdbcType=INTEGER},
+    gmt_modified = now(),
+    isdelete = 1
+    where goods_uuId in
+    <foreach collection="list" item="item" index="index" open="(" separator=","  close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+
+  </update>
+
+  <!--删除。以商品编码-->
+  <update id="deleteGoodsUuId" >
+    update db_monkey_commodity_goods_oe
+    set
+    modifier = #{userId,jdbcType=INTEGER},
+    gmt_modified = now(),
+    isdelete = 1
+    where goods_uuId =  #{goodsUuId,jdbcType=VARCHAR}
+
+  </update>
+
+  <select id="selectOeByUuId" resultMap="BaseResultMap" parameterType="hashmap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_commodity_goods_oe
+    where isdelete = 0
+    <if test="goodsUuId != null" >
+      and goods_uuId = #{goodsUuId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectByUuIdOe" resultMap="BaseResultMap" parameterType="hashmap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_commodity_goods_oe
+    where
+       goods_uuId = #{goodsUuId,jdbcType=VARCHAR} and
+        oe_number = #{oe,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <!--批量更新。以id-->
+  <update id="updateBatchIds" parameterType="map" >
+    update db_monkey_commodity_goods_oe
+    <set >
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      gmt_modified = now(),
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id in
+    <foreach collection="list" item="item" index="index" open="(" separator=","  close=")">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+
+  </update>
+
+</mapper>

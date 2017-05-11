@@ -1,0 +1,34 @@
+.tq_notice_item{
+	display:table;
+    width:100%;
+}
+.text_box,.arrow{
+  display:table-cell;
+  vertical-align:middle 
+}
+.tq_notice_list{
+	margin:0
+}
+.tq_notice_item{
+	padding:20px 0;
+	background:#fff;
+	border-bottom:1px solid #dedede
+}
+.tq_notice_item .visit_time{
+	padding:0 18px 0 11px
+}
+.arrow{
+  width:10px;
+  padding-right:10px 
+}
+#PrevButton,#NextButton{
+	/*display:none*/
+}
+.btn-group{
+  float:right;
+  padding:20px 10px 20px 0
+}
+.order_time{
+	padding:0 0 0 11px;
+	width:100px
+}

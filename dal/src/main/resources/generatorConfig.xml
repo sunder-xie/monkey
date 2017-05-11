@@ -1,0 +1,123 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config.dtd">
+<!--mvn mybatis-generator:generate -->
+<generatorConfiguration>
+    <classPathEntry location="/Users/zxg/Documents/soft/tools/mysql-connector-java-5.1.22-bin.jar" />
+    <!--<classPathEntry location="C:/Users/Administrator/.m2/repository/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar" />-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://121.199.28.244:3306/modeldatas"-->
+                        <!--userId="shop_S_modeldata"-->
+                        <!--password="j_MWhcdAA55u">-->
+        <!--</jdbcConnection>-->
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/modeldatas"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.tqmall.monkey.domain.entity.part" targetProject="../domain/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="."  targetProject="src/main/resources/mybatis/part">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.tqmall.monkey.dal.mapper.part"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table tableName="db_monkey_part_liyang_table_relation" domainObjectName="PartLiyangTableDO"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <!--<table tableName="db_monkey_part_subjoin" domainObjectName="PartSubjoinDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        
+        <!--<table tableName="db_goods" domainObjectName="MyDbGoodsDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="dw_crawl_goods" domainObjectName="CrawlGoodsDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="db_monkey_offer_goods" domainObjectName="OfferGoodsDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="db_monkey_offer_record" domainObjectName="OfferRecordDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="db_monkey_offer_goods_online_car" domainObjectName="OfferGoodsAndOnlineCarDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="db_monkey_offer_shopping_goods" domainObjectName="ShoppingListGoodsDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="db_monkey_offer_shopping_list" domainObjectName="ShoppingListDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table tableName="db_mokery_provider_goods" domainObjectName="ProviderGoodsDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--权限控制-->
+        <!--<table tableName="db_monkey_sys_resource" domainObjectName="ResourceDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="db_monkey_sys_role" domainObjectName="RoleDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="all_category_view" domainObjectName="AllCategoryViewDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="db_pool_goods" domainObjectName="PoolGoodsDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="db_monkey_offer_data_input" domainObjectName="OfferWrongDataDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="db_monkey_offer_li_car" domainObjectName="OfferLiCarDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="db_category_part" domainObjectName="CategoryPartDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

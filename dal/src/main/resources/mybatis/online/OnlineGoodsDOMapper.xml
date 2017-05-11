@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.online.OnlineGoodsDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.online.OnlineGoodsDO" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="cat_id" property="catId" jdbcType="SMALLINT" />
+    <result column="goods_sn" property="goodsSn" jdbcType="VARCHAR" />
+    <result column="new_goods_sn" property="newGoodsSn" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_name_style" property="goodsNameStyle" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="SMALLINT" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+    <result column="goods_number" property="goodsNumber" jdbcType="INTEGER" />
+    <result column="goods_weight" property="goodsWeight" jdbcType="DECIMAL" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="goods_brief" property="goodsBrief" jdbcType="VARCHAR" />
+    <result column="goods_thumb" property="goodsThumb" jdbcType="VARCHAR" />
+    <result column="goods_img" property="goodsImg" jdbcType="VARCHAR" />
+    <result column="is_real" property="isReal" jdbcType="TINYINT" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="is_best" property="isBest" jdbcType="BIT" />
+    <result column="is_new" property="isNew" jdbcType="BIT" />
+    <result column="is_hot" property="isHot" jdbcType="BIT" />
+    <result column="is_promote" property="isPromote" jdbcType="BIT" />
+    <result column="goods_type" property="goodsType" jdbcType="SMALLINT" />
+    <result column="seller_note" property="sellerNote" jdbcType="VARCHAR" />
+    <result column="goods_format" property="goodsFormat" jdbcType="VARCHAR" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="package_format" property="packageFormat" jdbcType="VARCHAR" />
+    <result column="factory_code" property="factoryCode" jdbcType="VARCHAR" />
+    <result column="min_package" property="minPackage" jdbcType="VARCHAR" />
+    <result column="product_company" property="productCompany" jdbcType="VARCHAR" />
+    <result column="measure_unit" property="measureUnit" jdbcType="VARCHAR" />
+    <result column="conversion_value" property="conversionValue" jdbcType="INTEGER" />
+    <result column="min_measure_unit" property="minMeasureUnit" jdbcType="VARCHAR" />
+    <result column="oe_num" property="oeNum" jdbcType="VARCHAR" />
+    <result column="repaire_num" property="repaireNum" jdbcType="VARCHAR" />
+    <result column="product_region" property="productRegion" jdbcType="VARCHAR" />
+    <result column="brand_partcode" property="brandPartcode" jdbcType="VARCHAR" />
+    <result column="init_score" property="initScore" jdbcType="INTEGER" />
+    <result column="seller_id" property="sellerId" jdbcType="INTEGER" />
+    <result column="seller_nick" property="sellerNick" jdbcType="VARCHAR" />
+    <result column="seller_type" property="sellerType" jdbcType="BIT" />
+    <result column="sales_volume" property="salesVolume" jdbcType="INTEGER" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="goods_car_type" property="goodsCarType" jdbcType="TINYINT" />
+    <result column="packing_value" property="packingValue" jdbcType="INTEGER" />
+    <result column="car_parts_type" property="carPartsType" jdbcType="TINYINT" />
+    <result column="package_measure_unit" property="packageMeasureUnit" jdbcType="VARCHAR" />
+    <result column="goods_quality_type" property="goodsQualityType" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tqmall.monkey.domain.entity.online.OnlineGoodsDOWithBLOBs" extends="BaseResultMap" >
+    <result column="goods_desc" property="goodsDesc" jdbcType="LONGVARCHAR" />
+    <result column="car_model" property="carModel" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, cat_id, goods_sn, new_goods_sn, goods_name, goods_name_style, brand_id, 
+    provider_name, goods_number, goods_weight, keywords, goods_brief, goods_thumb, goods_img, 
+    is_real, add_time, is_delete, is_best, is_new, is_hot, is_promote, goods_type, seller_note, 
+    goods_format, barcode, package_format, factory_code, min_package, product_company, 
+    measure_unit, conversion_value, min_measure_unit, oe_num, repaire_num, product_region, 
+    brand_partcode, init_score, seller_id, seller_nick, seller_type, sales_volume, gmt_modified, 
+    goods_car_type, packing_value, car_parts_type, package_measure_unit, goods_quality_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    goods_desc, car_model
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from db_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.online.OnlineGoodsDOWithBLOBs" >
+    insert into db_goods (goods_id, cat_id, goods_sn, 
+      new_goods_sn, goods_name, goods_name_style, 
+      brand_id, provider_name, goods_number, 
+      goods_weight, keywords, goods_brief, 
+      goods_thumb, goods_img, is_real, 
+      add_time, is_delete, is_best, 
+      is_new, is_hot, is_promote, goods_type, 
+      seller_note, goods_format, barcode, 
+      package_format, factory_code, min_package, 
+      product_company, measure_unit, conversion_value, 
+      min_measure_unit, oe_num, repaire_num, 
+      product_region, brand_partcode, init_score, 
+      seller_id, seller_nick, seller_type, 
+      sales_volume, gmt_modified, goods_car_type, 
+      packing_value, car_parts_type, package_measure_unit, 
+      goods_quality_type, goods_desc, car_model
+      )
+    values (#{goodsId,jdbcType=INTEGER}, #{catId,jdbcType=SMALLINT}, #{goodsSn,jdbcType=VARCHAR}, 
+      #{newGoodsSn,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsNameStyle,jdbcType=VARCHAR}, 
+      #{brandId,jdbcType=SMALLINT}, #{providerName,jdbcType=VARCHAR}, #{goodsNumber,jdbcType=INTEGER}, 
+      #{goodsWeight,jdbcType=DECIMAL}, #{keywords,jdbcType=VARCHAR}, #{goodsBrief,jdbcType=VARCHAR}, 
+      #{goodsThumb,jdbcType=VARCHAR}, #{goodsImg,jdbcType=VARCHAR}, #{isReal,jdbcType=TINYINT}, 
+      #{addTime,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}, #{isBest,jdbcType=BIT}, 
+      #{isNew,jdbcType=BIT}, #{isHot,jdbcType=BIT}, #{isPromote,jdbcType=BIT}, #{goodsType,jdbcType=SMALLINT}, 
+      #{sellerNote,jdbcType=VARCHAR}, #{goodsFormat,jdbcType=VARCHAR}, #{barcode,jdbcType=VARCHAR}, 
+      #{packageFormat,jdbcType=VARCHAR}, #{factoryCode,jdbcType=VARCHAR}, #{minPackage,jdbcType=VARCHAR}, 
+      #{productCompany,jdbcType=VARCHAR}, #{measureUnit,jdbcType=VARCHAR}, #{conversionValue,jdbcType=INTEGER}, 
+      #{minMeasureUnit,jdbcType=VARCHAR}, #{oeNum,jdbcType=VARCHAR}, #{repaireNum,jdbcType=VARCHAR}, 
+      #{productRegion,jdbcType=VARCHAR}, #{brandPartcode,jdbcType=VARCHAR}, #{initScore,jdbcType=INTEGER}, 
+      #{sellerId,jdbcType=INTEGER}, #{sellerNick,jdbcType=VARCHAR}, #{sellerType,jdbcType=BIT}, 
+      #{salesVolume,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{goodsCarType,jdbcType=TINYINT}, 
+      #{packingValue,jdbcType=INTEGER}, #{carPartsType,jdbcType=TINYINT}, #{packageMeasureUnit,jdbcType=VARCHAR}, 
+      #{goodsQualityType,jdbcType=INTEGER}, #{goodsDesc,jdbcType=LONGVARCHAR}, #{carModel,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.online.OnlineGoodsDOWithBLOBs" >
+    insert into db_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="catId != null" >
+        cat_id,
+      </if>
+      <if test="goodsSn != null" >
+        goods_sn,
+      </if>
+      <if test="newGoodsSn != null" >
+        new_goods_sn,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsNameStyle != null" >
+        goods_name_style,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="providerName != null" >
+        provider_name,
+      </if>
+      <if test="goodsNumber != null" >
+        goods_number,
+      </if>
+      <if test="goodsWeight != null" >
+        goods_weight,
+      </if>
+      <if test="keywords != null" >
+        keywords,
+      </if>
+      <if test="goodsBrief != null" >
+        goods_brief,
+      </if>
+      <if test="goodsThumb != null" >
+        goods_thumb,
+      </if>
+      <if test="goodsImg != null" >
+        goods_img,
+      </if>
+      <if test="isReal != null" >
+        is_real,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="isBest != null" >
+        is_best,
+      </if>
+      <if test="isNew != null" >
+        is_new,
+      </if>
+      <if test="isHot != null" >
+        is_hot,
+      </if>
+      <if test="isPromote != null" >
+        is_promote,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="sellerNote != null" >
+        seller_note,
+      </if>
+      <if test="goodsFormat != null" >
+        goods_format,
+      </if>
+      <if test="barcode != null" >
+        barcode,
+      </if>
+      <if test="packageFormat != null" >
+        package_format,
+      </if>
+      <if test="factoryCode != null" >
+        factory_code,
+      </if>
+      <if test="minPackage != null" >
+        min_package,
+      </if>
+      <if test="productCompany != null" >
+        product_company,
+      </if>
+      <if test="measureUnit != null" >
+        measure_unit,
+      </if>
+      <if test="conversionValue != null" >
+        conversion_value,
+      </if>
+      <if test="minMeasureUnit != null" >
+        min_measure_unit,
+      </if>
+      <if test="oeNum != null" >
+        oe_num,
+      </if>
+      <if test="repaireNum != null" >
+        repaire_num,
+      </if>
+      <if test="productRegion != null" >
+        product_region,
+      </if>
+      <if test="brandPartcode != null" >
+        brand_partcode,
+      </if>
+      <if test="initScore != null" >
+        init_score,
+      </if>
+      <if test="sellerId != null" >
+        seller_id,
+      </if>
+      <if test="sellerNick != null" >
+        seller_nick,
+      </if>
+      <if test="sellerType != null" >
+        seller_type,
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="goodsCarType != null" >
+        goods_car_type,
+      </if>
+      <if test="packingValue != null" >
+        packing_value,
+      </if>
+      <if test="carPartsType != null" >
+        car_parts_type,
+      </if>
+      <if test="packageMeasureUnit != null" >
+        package_measure_unit,
+      </if>
+      <if test="goodsQualityType != null" >
+        goods_quality_type,
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc,
+      </if>
+      <if test="carModel != null" >
+        car_model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="catId != null" >
+        #{catId,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsSn != null" >
+        #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="newGoodsSn != null" >
+        #{newGoodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNameStyle != null" >
+        #{goodsNameStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=SMALLINT},
+      </if>
+      <if test="providerName != null" >
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNumber != null" >
+        #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsWeight != null" >
+        #{goodsWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrief != null" >
+        #{goodsBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsThumb != null" >
+        #{goodsThumb,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImg != null" >
+        #{goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isReal != null" >
+        #{isReal,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="isBest != null" >
+        #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isNew != null" >
+        #{isNew,jdbcType=BIT},
+      </if>
+      <if test="isHot != null" >
+        #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isPromote != null" >
+        #{isPromote,jdbcType=BIT},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=SMALLINT},
+      </if>
+      <if test="sellerNote != null" >
+        #{sellerNote,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsFormat != null" >
+        #{goodsFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="packageFormat != null" >
+        #{packageFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryCode != null" >
+        #{factoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="minPackage != null" >
+        #{minPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="productCompany != null" >
+        #{productCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="measureUnit != null" >
+        #{measureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="conversionValue != null" >
+        #{conversionValue,jdbcType=INTEGER},
+      </if>
+      <if test="minMeasureUnit != null" >
+        #{minMeasureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="oeNum != null" >
+        #{oeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="repaireNum != null" >
+        #{repaireNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productRegion != null" >
+        #{productRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="brandPartcode != null" >
+        #{brandPartcode,jdbcType=VARCHAR},
+      </if>
+      <if test="initScore != null" >
+        #{initScore,jdbcType=INTEGER},
+      </if>
+      <if test="sellerId != null" >
+        #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerNick != null" >
+        #{sellerNick,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerType != null" >
+        #{sellerType,jdbcType=BIT},
+      </if>
+      <if test="salesVolume != null" >
+        #{salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsCarType != null" >
+        #{goodsCarType,jdbcType=TINYINT},
+      </if>
+      <if test="packingValue != null" >
+        #{packingValue,jdbcType=INTEGER},
+      </if>
+      <if test="carPartsType != null" >
+        #{carPartsType,jdbcType=TINYINT},
+      </if>
+      <if test="packageMeasureUnit != null" >
+        #{packageMeasureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsQualityType != null" >
+        #{goodsQualityType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="carModel != null" >
+        #{carModel,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.online.OnlineGoodsDOWithBLOBs" >
+    update db_goods
+    <set >
+      <if test="catId != null" >
+        cat_id = #{catId,jdbcType=SMALLINT},
+      </if>
+      <if test="goodsSn != null" >
+        goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="newGoodsSn != null" >
+        new_goods_sn = #{newGoodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNameStyle != null" >
+        goods_name_style = #{goodsNameStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=SMALLINT},
+      </if>
+      <if test="providerName != null" >
+        provider_name = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNumber != null" >
+        goods_number = #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsWeight != null" >
+        goods_weight = #{goodsWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrief != null" >
+        goods_brief = #{goodsBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsThumb != null" >
+        goods_thumb = #{goodsThumb,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImg != null" >
+        goods_img = #{goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isReal != null" >
+        is_real = #{isReal,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="isBest != null" >
+        is_best = #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isNew != null" >
+        is_new = #{isNew,jdbcType=BIT},
+      </if>
+      <if test="isHot != null" >
+        is_hot = #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isPromote != null" >
+        is_promote = #{isPromote,jdbcType=BIT},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=SMALLINT},
+      </if>
+      <if test="sellerNote != null" >
+        seller_note = #{sellerNote,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsFormat != null" >
+        goods_format = #{goodsFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        barcode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="packageFormat != null" >
+        package_format = #{packageFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryCode != null" >
+        factory_code = #{factoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="minPackage != null" >
+        min_package = #{minPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="productCompany != null" >
+        product_company = #{productCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="measureUnit != null" >
+        measure_unit = #{measureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="conversionValue != null" >
+        conversion_value = #{conversionValue,jdbcType=INTEGER},
+      </if>
+      <if test="minMeasureUnit != null" >
+        min_measure_unit = #{minMeasureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="oeNum != null" >
+        oe_num = #{oeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="repaireNum != null" >
+        repaire_num = #{repaireNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productRegion != null" >
+        product_region = #{productRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="brandPartcode != null" >
+        brand_partcode = #{brandPartcode,jdbcType=VARCHAR},
+      </if>
+      <if test="initScore != null" >
+        init_score = #{initScore,jdbcType=INTEGER},
+      </if>
+      <if test="sellerId != null" >
+        seller_id = #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerNick != null" >
+        seller_nick = #{sellerNick,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerType != null" >
+        seller_type = #{sellerType,jdbcType=BIT},
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume = #{salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsCarType != null" >
+        goods_car_type = #{goodsCarType,jdbcType=TINYINT},
+      </if>
+      <if test="packingValue != null" >
+        packing_value = #{packingValue,jdbcType=INTEGER},
+      </if>
+      <if test="carPartsType != null" >
+        car_parts_type = #{carPartsType,jdbcType=TINYINT},
+      </if>
+      <if test="packageMeasureUnit != null" >
+        package_measure_unit = #{packageMeasureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsQualityType != null" >
+        goods_quality_type = #{goodsQualityType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc = #{goodsDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="carModel != null" >
+        car_model = #{carModel,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tqmall.monkey.domain.entity.online.OnlineGoodsDOWithBLOBs" >
+    update db_goods
+    set cat_id = #{catId,jdbcType=SMALLINT},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      new_goods_sn = #{newGoodsSn,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_name_style = #{goodsNameStyle,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=SMALLINT},
+      provider_name = #{providerName,jdbcType=VARCHAR},
+      goods_number = #{goodsNumber,jdbcType=INTEGER},
+      goods_weight = #{goodsWeight,jdbcType=DECIMAL},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      goods_brief = #{goodsBrief,jdbcType=VARCHAR},
+      goods_thumb = #{goodsThumb,jdbcType=VARCHAR},
+      goods_img = #{goodsImg,jdbcType=VARCHAR},
+      is_real = #{isReal,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      is_best = #{isBest,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_promote = #{isPromote,jdbcType=BIT},
+      goods_type = #{goodsType,jdbcType=SMALLINT},
+      seller_note = #{sellerNote,jdbcType=VARCHAR},
+      goods_format = #{goodsFormat,jdbcType=VARCHAR},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      package_format = #{packageFormat,jdbcType=VARCHAR},
+      factory_code = #{factoryCode,jdbcType=VARCHAR},
+      min_package = #{minPackage,jdbcType=VARCHAR},
+      product_company = #{productCompany,jdbcType=VARCHAR},
+      measure_unit = #{measureUnit,jdbcType=VARCHAR},
+      conversion_value = #{conversionValue,jdbcType=INTEGER},
+      min_measure_unit = #{minMeasureUnit,jdbcType=VARCHAR},
+      oe_num = #{oeNum,jdbcType=VARCHAR},
+      repaire_num = #{repaireNum,jdbcType=VARCHAR},
+      product_region = #{productRegion,jdbcType=VARCHAR},
+      brand_partcode = #{brandPartcode,jdbcType=VARCHAR},
+      init_score = #{initScore,jdbcType=INTEGER},
+      seller_id = #{sellerId,jdbcType=INTEGER},
+      seller_nick = #{sellerNick,jdbcType=VARCHAR},
+      seller_type = #{sellerType,jdbcType=BIT},
+      sales_volume = #{salesVolume,jdbcType=INTEGER},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      goods_car_type = #{goodsCarType,jdbcType=TINYINT},
+      packing_value = #{packingValue,jdbcType=INTEGER},
+      car_parts_type = #{carPartsType,jdbcType=TINYINT},
+      package_measure_unit = #{packageMeasureUnit,jdbcType=VARCHAR},
+      goods_quality_type = #{goodsQualityType,jdbcType=INTEGER},
+      goods_desc = #{goodsDesc,jdbcType=LONGVARCHAR},
+      car_model = #{carModel,jdbcType=LONGVARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.online.OnlineGoodsDO" >
+    update db_goods
+    set cat_id = #{catId,jdbcType=SMALLINT},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      new_goods_sn = #{newGoodsSn,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_name_style = #{goodsNameStyle,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=SMALLINT},
+      provider_name = #{providerName,jdbcType=VARCHAR},
+      goods_number = #{goodsNumber,jdbcType=INTEGER},
+      goods_weight = #{goodsWeight,jdbcType=DECIMAL},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      goods_brief = #{goodsBrief,jdbcType=VARCHAR},
+      goods_thumb = #{goodsThumb,jdbcType=VARCHAR},
+      goods_img = #{goodsImg,jdbcType=VARCHAR},
+      is_real = #{isReal,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      is_best = #{isBest,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_promote = #{isPromote,jdbcType=BIT},
+      goods_type = #{goodsType,jdbcType=SMALLINT},
+      seller_note = #{sellerNote,jdbcType=VARCHAR},
+      goods_format = #{goodsFormat,jdbcType=VARCHAR},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      package_format = #{packageFormat,jdbcType=VARCHAR},
+      factory_code = #{factoryCode,jdbcType=VARCHAR},
+      min_package = #{minPackage,jdbcType=VARCHAR},
+      product_company = #{productCompany,jdbcType=VARCHAR},
+      measure_unit = #{measureUnit,jdbcType=VARCHAR},
+      conversion_value = #{conversionValue,jdbcType=INTEGER},
+      min_measure_unit = #{minMeasureUnit,jdbcType=VARCHAR},
+      oe_num = #{oeNum,jdbcType=VARCHAR},
+      repaire_num = #{repaireNum,jdbcType=VARCHAR},
+      product_region = #{productRegion,jdbcType=VARCHAR},
+      brand_partcode = #{brandPartcode,jdbcType=VARCHAR},
+      init_score = #{initScore,jdbcType=INTEGER},
+      seller_id = #{sellerId,jdbcType=INTEGER},
+      seller_nick = #{sellerNick,jdbcType=VARCHAR},
+      seller_type = #{sellerType,jdbcType=BIT},
+      sales_volume = #{salesVolume,jdbcType=INTEGER},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      goods_car_type = #{goodsCarType,jdbcType=TINYINT},
+      packing_value = #{packingValue,jdbcType=INTEGER},
+      car_parts_type = #{carPartsType,jdbcType=TINYINT},
+      package_measure_unit = #{packageMeasureUnit,jdbcType=VARCHAR},
+      goods_quality_type = #{goodsQualityType,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getGoodsIdListByFormatBrand" resultType="java.lang.Integer" parameterType="hashmap" >
+    select dg.goods_id
+    from db_goods dg,db_brand db
+    where  dg.is_delete = 0 and dg.seller_id = 1
+    and dg.brand_id = db.brand_id
+    <if test="goodsFormat != null" >
+      and dg.goods_format = #{goodsFormat,jdbcType=VARCHAR}
+    </if>
+    <if test="brandName != null" >
+      and db.brand_name = #{brandName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="getGoodsListOfFormatBrand" resultType="map" >
+    select dg.goods_id as 'goodsId',dg.goods_format as 'format',db.brand_name as 'brandName'
+    from db_goods dg,db_brand db
+    where  dg.is_delete = 0 and dg.seller_id = 1
+    and dg.brand_id = db.brand_id
+  </select>
+</mapper>

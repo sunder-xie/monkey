@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>monkey</artifactId>
+        <groupId>com.tqmall.monkey</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>monkey.client</artifactId>
+    <version>1.0.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>com.tqmall.monkey</groupId>
+            <artifactId>monkey.component</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tqmall.monkey</groupId>
+            <artifactId>monkey.external</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tqmall.monkey</groupId>
+            <artifactId>monkey.dal</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <!-- 表示开发的时候引入，发布的时候不会加载此包 -->
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

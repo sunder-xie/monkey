@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.category.CategoryXPartMapper">
+    <select id="selectCategoryXPart" resultType="hashMap" parameterType="hashMap">
+        select
+        cp.vehicle_code as vehicleCode,
+        f_cat.cat_name as catNameF,
+        f_cat.cat_code as catCodeF,
+        s_cat.cat_name as catNameS,
+        s_cat.cat_code as catCodeS,
+        t_cat.cat_name as catNameT,
+        t_cat.cat_code as catCodeT,
+        cp.id as partId,
+        cp.part_name as partName,
+        cp.part_code as partCode,
+        cp.sum_code as sumCode,
+        cp.label_name_text as labelNameText,
+        cp.aliss_name_text as alissNameText,
+        cp.cat_kind as catKind
+        from
+        (select cat_id,cat_name,cat_code,vehicle_code from db_category where cat_level =1 and vehicle_code is not null
+        and is_deleted = 'N'
+        <if test="levelF != null and levelF !=''">
+            and cat_id = #{levelF}
+        </if>
+        ) f_cat
+        right join
+        (select cat_id,cat_name,cat_code,vehicle_code,parent_id from db_category where cat_level =2 and vehicle_code is
+        not null and is_deleted = 'N'
+        <if test="levelS != null and levelS !=''">
+            and cat_id = #{levelS}
+        </if>
+        ) s_cat
+        on f_cat.cat_id = s_cat.parent_id
+        right join
+        (select cat_id,cat_name,cat_code,vehicle_code,parent_id from db_category where cat_level =3 and vehicle_code is
+        not null and is_deleted = 'N'
+        <if test="levelT != null and levelT !=''">
+            and cat_id = #{levelT}
+        </if>
+        ) t_cat
+        on s_cat.cat_id = t_cat.parent_id
+        right join
+        (select id,part_name,part_code,sum_code,label_name_text,aliss_name_text,cat_kind,third_cat_id,vehicle_code from db_category_part
+        where vehicle_code is not null and is_deleted ='N'
+        <if test="partName != null and partName !=''">
+            and part_name like CONCAT('%',#{partName},'%')
+        </if>
+        ) cp
+        on t_cat.cat_id = cp.third_cat_id
+        <if test="vehicleCode != null and vehicleCode !=''">
+            where f_cat.vehicle_code = #{vehicleCode}
+        </if>
+
+        <if test="partName == null or partName ==''">
+            union all
+            select vehicle_code,cat_name,cat_code,null,null,null,null,null,null,null,null,null,null,null
+            from db_category d
+            where cat_level =1 and vehicle_code is not null and is_deleted = 'N' and is_leaf = 1
+            <if test="vehicleCode != null and vehicleCode !=''">
+                and vehicle_code = #{vehicleCode}
+            </if>
+            <if test="levelF != null and levelF !=''">
+                and cat_id = #{levelF}
+            </if>
+
+            union all
+            select s.vehicle_code,f.cat_name,f.cat_code,s.cat_name,s.cat_code,null,null,null,null,null,null,null,null,null
+            from db_category f
+            right join
+            db_category s
+            on f.cat_id = s.parent_id and f.is_deleted = 'N'
+            where s.cat_level = 2 and s.vehicle_code is not null and s.is_deleted = 'N' and s.is_leaf = 1
+            <if test="vehicleCode != null and vehicleCode !=''">
+                and f.vehicle_code = #{vehicleCode}
+            </if>
+            <if test="levelF != null and levelF !=''">
+                and f.cat_id = #{levelF}
+            </if>
+            <if test="levelS != null and levelS !=''">
+                and s.cat_id = #{levelS}
+            </if>
+
+            union all
+            select
+            t.vehicle_code,f.cat_name,f.cat_code,s.cat_name,s.cat_code,t.cat_name,t.cat_code,null,null,null,null,null,null,null
+            from db_category f
+            right join
+            db_category s
+            on f.cat_id = s.parent_id and f.is_deleted = 'N'
+            right join
+            db_category t
+            on s.cat_id = t.parent_id and s.is_deleted = 'N'
+            where t.cat_level = 3 and t.vehicle_code is not null and t.is_deleted = 'N' and t.is_leaf = 1
+            <if test="vehicleCode != null and vehicleCode !=''">
+                and f.vehicle_code = #{vehicleCode}
+            </if>
+            <if test="levelF != null and levelF !=''">
+                and f.cat_id = #{levelF}
+            </if>
+            <if test="levelS != null and levelS !=''">
+                and s.cat_id = #{levelS}
+            </if>
+            <if test="levelT != null and levelT !=''">
+                and t.cat_id = #{levelT}
+            </if>
+        </if>
+
+        order by sumCode
+        <if test="startNum != null and pageSize != null">
+            limit #{startNum},#{pageSize}
+        </if>
+    </select>
+    <select id="selectCategoryXPartCount" resultType="int" parameterType="hashMap">
+        select sum(u.total) from
+        (select
+        count(1) as total
+        from
+        (select cat_id,cat_name,cat_code,vehicle_code from db_category where cat_level =1 and vehicle_code is not null
+        and is_deleted = 'N'
+        <if test="levelF != null and levelF !=''">
+            and cat_id = #{levelF}
+        </if>
+        ) f_cat
+        right join
+        (select cat_id,cat_name,cat_code,vehicle_code,parent_id from db_category where cat_level =2 and vehicle_code is
+        not null and is_deleted = 'N'
+        <if test="levelS != null and levelS !=''">
+            and cat_id = #{levelS}
+        </if>
+        ) s_cat
+        on f_cat.cat_id = s_cat.parent_id
+        right join
+        (select cat_id,cat_name,cat_code,vehicle_code,parent_id from db_category where cat_level =3 and vehicle_code is
+        not null and is_deleted = 'N'
+        <if test="levelT != null and levelT !=''">
+            and cat_id = #{levelT}
+        </if>
+        ) t_cat
+        on s_cat.cat_id = t_cat.parent_id
+        right join
+        (select part_name,part_code,sum_code,label_name_text,aliss_name_text,cat_kind,third_cat_id from db_category_part
+        where vehicle_code is not null and is_deleted ='N'
+        <if test="partName != null and partName !=''">
+            and part_name like CONCAT('%',#{partName},'%')
+        </if>
+        ) cp
+        on t_cat.cat_id = cp.third_cat_id
+        <if test="vehicleCode != null and vehicleCode !=''">
+            where f_cat.vehicle_code = #{vehicleCode}
+        </if>
+
+        <if test="partName == null or partName ==''">
+            union all
+            select count(1) as total
+            from db_category d
+            where cat_level =1 and vehicle_code is not null and is_deleted = 'N' and is_leaf = 1
+            <if test="vehicleCode != null and vehicleCode !=''">
+                and vehicle_code = #{vehicleCode}
+            </if>
+            <if test="levelF != null and levelF !=''">
+                and cat_id = #{levelF}
+            </if>
+
+            union all
+            select count(1) as total
+            from db_category f
+            right join
+            db_category s
+            on f.cat_id = s.parent_id and f.is_deleted = 'N'
+            where s.cat_level = 2 and s.vehicle_code is not null and s.is_deleted = 'N' and s.is_leaf = 1
+            <if test="vehicleCode != null and vehicleCode !=''">
+                and f.vehicle_code = #{vehicleCode}
+            </if>
+            <if test="levelF != null and levelF !=''">
+                and f.cat_id = #{levelF}
+            </if>
+            <if test="levelS != null and levelS !=''">
+                and s.cat_id = #{levelS}
+            </if>
+
+            union all
+            select count(1) as total
+            from db_category f
+            right join
+            db_category s
+            on f.cat_id = s.parent_id and f.is_deleted = 'N'
+            right join
+            db_category t
+            on s.cat_id = t.parent_id and s.is_deleted = 'N'
+            where t.cat_level = 3 and t.vehicle_code is not null and t.is_deleted = 'N' and t.is_leaf = 1
+            <if test="vehicleCode != null and vehicleCode !=''">
+                and f.vehicle_code = #{vehicleCode}
+            </if>
+            <if test="levelF != null and levelF !=''">
+                and f.cat_id = #{levelF}
+            </if>
+            <if test="levelS != null and levelS !=''">
+                and s.cat_id = #{levelS}
+            </if>
+            <if test="levelT != null and levelT !=''">
+                and t.cat_id = #{levelT}
+            </if>
+        </if>
+        ) u
+    </select>
+    <select id="selectVehicleCode" resultType="String">
+        select distinct vehicle_code
+        from db_category
+        where is_deleted='N' and vehicle_code is not null
+        order by vehicle_code
+    </select>
+    <select id="selectCategoryAttrToUseInSelect" resultType="hashMap" parameterType="Map">
+        select
+        cat_id as catId,
+        cat_name as catName,
+        vehicle_code as vehicleCode,
+        cat_code as catCode
+        from db_category
+        where is_deleted = 'N'
+        and vehicle_code is not null
+        <if test="vehicleCode != null and vehicleCode != ''">
+            and vehicle_code = #{vehicleCode}
+        </if>
+        <if test="level != null and level != ''">
+            and cat_level = #{level}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            and parent_id=#{parentId}
+        </if>
+        order by cat_code /*这个排序在前台是有用的！！！*/
+    </select>
+    <select id="selectPartAttrToUseInTable" resultType="hashMap" parameterType="Map">
+        select
+        id as id,
+        part_name as partName,
+        part_code as partCode
+        from db_category_part
+        where is_deleted = 'N'
+        and vehicle_code is not null
+        <if test="thirdCatId != null and thirdCatId != ''">
+            and third_cat_id=#{thirdCatId}
+        </if>
+        order by part_code /*这个排序在前台是有用的！！！*/
+    </select>
+</mapper>

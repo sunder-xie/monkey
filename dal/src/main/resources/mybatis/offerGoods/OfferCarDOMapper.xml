@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.car.OfferCarDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.car.OfferCarDO" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="offer_car_name" property="offerCarName" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="online_car_id" property="onlineCarId" jdbcType="INTEGER" />
+    <result column="online_brand_id" property="onlineBrandId" jdbcType="INTEGER" />
+    <result column="start_year" property="startYear" jdbcType="VARCHAR" />
+    <result column="end_year" property="endYear" jdbcType="VARCHAR" />
+    <result column="displacement" property="displacement" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="wrong" property="wrong" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, brand_name, offer_car_name, company, create_id, update_id, gmt_create, gmt_modified, 
+    online_car_id, online_brand_id, start_year, end_year, displacement, status, wrong
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_car
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_offer_car
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.car.OfferCarDO" >
+    insert into db_monkey_offer_car (Id, brand_name, offer_car_name, 
+      company, create_id, update_id, 
+      gmt_create, gmt_modified, online_car_id, 
+      online_brand_id, start_year, end_year, 
+      displacement, status, wrong
+      )
+    values (#{id,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{offerCarName,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{updateId,jdbcType=INTEGER}, 
+      now(),now(), #{onlineCarId,jdbcType=INTEGER},
+      #{onlineBrandId,jdbcType=INTEGER}, #{startYear,jdbcType=VARCHAR}, #{endYear,jdbcType=VARCHAR}, 
+      #{displacement,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{wrong,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.tqmall.monkey.domain.entity.car.OfferCarDO" >
+    insert into db_monkey_offer_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="offerCarName != null" >
+        offer_car_name,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+        gmt_create,
+        gmt_modified,
+      <if test="onlineCarId != null" >
+        online_car_id,
+      </if>
+      <if test="onlineBrandId != null" >
+        online_brand_id,
+      </if>
+      <if test="startYear != null" >
+        start_year,
+      </if>
+      <if test="endYear != null" >
+        end_year,
+      </if>
+      <if test="displacement != null" >
+        displacement,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="wrong != null" >
+        wrong,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="offerCarName != null" >
+        #{offerCarName,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      now(),now(),
+      <if test="onlineCarId != null" >
+        #{onlineCarId,jdbcType=INTEGER},
+      </if>
+      <if test="onlineBrandId != null" >
+        #{onlineBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="startYear != null" >
+        #{startYear,jdbcType=VARCHAR},
+      </if>
+      <if test="endYear != null" >
+        #{endYear,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null" >
+        #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="wrong != null" >
+        #{wrong,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.car.OfferCarDO" >
+    update db_monkey_offer_car
+    <set >
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="offerCarName != null" >
+        offer_car_name = #{offerCarName,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+        gmt_modified = now(),
+      <if test="onlineCarId != null" >
+        online_car_id = #{onlineCarId,jdbcType=INTEGER},
+      </if>
+      <if test="onlineBrandId != null" >
+        online_brand_id = #{onlineBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="startYear != null" >
+        start_year = #{startYear,jdbcType=VARCHAR},
+      </if>
+      <if test="endYear != null" >
+        end_year = #{endYear,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null" >
+        displacement = #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="wrong != null" >
+        wrong = #{wrong,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.car.OfferCarDO" >
+    update db_monkey_offer_car
+    set brand_name = #{brandName,jdbcType=VARCHAR},
+      offer_car_name = #{offerCarName,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=INTEGER},
+      gmt_modified = now(),
+      online_car_id = #{onlineCarId,jdbcType=INTEGER},
+      online_brand_id = #{onlineBrandId,jdbcType=INTEGER},
+      start_year = #{startYear,jdbcType=VARCHAR},
+      end_year = #{endYear,jdbcType=VARCHAR},
+      displacement = #{displacement,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      wrong = #{wrong,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getCarsPage" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_car
+    order by brand_name ASC,offer_car_name ASC
+  </select>
+
+  <select id="getAllCarsByStatus" resultMap="BaseResultMap" parameterType="Map">
+    select Id, brand_name, offer_car_name, company, start_year, end_year, displacement, status
+    from db_monkey_offer_car
+    where wrong = 0
+    <if test="status != null" >
+      and status = #{status}
+    </if>
+    order by brand_name ASC,offer_car_name ASC,Id ASC
+  </select>
+  <select id="getAllCarsSumByStatus" resultType="java.lang.Integer" parameterType="Map">
+    select COUNT(1)
+    from db_monkey_offer_car
+    where wrong = 0
+    <if test="status != null" >
+      and status = #{status}
+    </if>
+  </select>
+
+
+  <select id="getAllCarBrand" resultType="String" parameterType="Map">
+    select distinct brand_name
+    from db_monkey_offer_car
+    where wrong = 0
+    <if test="status != null" >
+      and status = #{status}
+    </if>
+    order by brand_name ASC
+  </select>
+
+  <select id="getCarsByBrandName" resultMap="BaseResultMap" parameterType="Map">
+    select Id, brand_name, offer_car_name, company, start_year, end_year, displacement, status
+    from db_monkey_offer_car
+    where brand_name = #{brandName}
+    and wrong = 0
+    <if test="status != null" >
+      and status = #{status}
+    </if>
+    order by brand_name ASC,offer_car_name ASC,Id ASC
+  </select>
+
+  <select id="getCarYearsById" resultType="String" parameterType="int">
+    select car_year
+    from db_offer_car_year
+    where offer_car_id=#{carId}
+  </select>
+
+  <select id="selectByOfferCarDO" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.entity.car.OfferCarDO" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_car
+    where 1=1
+      <if test="brandName != null" >
+        AND brand_name = #{brandName,jdbcType=VARCHAR}
+      </if>
+      <if test="offerCarName != null" >
+        AND offer_car_name = #{offerCarName,jdbcType=VARCHAR}
+      </if>
+      <if test="company != null" >
+        AND company = #{company,jdbcType=VARCHAR}
+      </if>
+      <if test="createId != null" >
+        AND create_id = #{createId,jdbcType=INTEGER}
+      </if>
+      <if test="updateId != null" >
+        AND update_id = #{updateId,jdbcType=INTEGER}
+      </if>
+      <if test="onlineCarId != null" >
+        AND online_car_id = #{onlineCarId,jdbcType=INTEGER}
+      </if>
+      <if test="onlineBrandId != null" >
+        AND online_brand_id = #{onlineBrandId,jdbcType=INTEGER}
+      </if>
+      <if test="startYear != null" >
+        AND start_year = #{startYear,jdbcType=VARCHAR}
+      </if>
+      <if test="endYear != null" >
+        AND end_year = #{endYear,jdbcType=VARCHAR}
+      </if>
+      <if test="displacement != null" >
+        AND displacement = #{displacement,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null" >
+        AND  status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="wrong != null" >
+        AND wrong = #{wrong,jdbcType=INTEGER}
+      </if>
+
+  </select>
+
+
+  <!--车型跟商品的对应关系-->
+  <select id="ExitCarAndGoodsRelation" resultType="boolean" parameterType="hashmap" >
+    select COUNT(1)
+    from db_monkey_offer_goods_car_relation
+    where offer_goods_id = #{goodsId,jdbcType=INTEGER} AND car_id = #{carId,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertCarAndGoods" parameterType="hashmap" >
+    insert into db_monkey_offer_goods_car_relation
+    (offer_goods_id,car_id,gmt_create, gmt_modified)
+    values (#{goodsId,jdbcType=INTEGER}, #{carId,jdbcType=VARCHAR}, now(),now())
+  </insert>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.sys.ResourceDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.sys.ResourceDO" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="parent_ids" property="parentIds" jdbcType="INTEGER" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="available" property="available" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="check_flag" property="checkFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, resource_name, type, url, priority, parent_id, parent_ids, permission, available, 
+    create_id, update_id, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_sys_resource
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_sys_resource
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.sys.ResourceDO" >
+    insert into db_monkey_sys_resource (Id, resource_name, type, 
+      url, priority, parent_id, 
+      parent_ids, permission, available, 
+      create_id, update_id, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{resourceName,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{parentIds,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, #{available,jdbcType=INTEGER}, 
+      #{createId,jdbcType=INTEGER}, #{updateId,jdbcType=INTEGER}, now(),now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.sys.ResourceDO" >
+    insert into db_monkey_sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="resourceName != null" >
+        resource_name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="parentIds != null" >
+        parent_ids,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="available != null" >
+        available,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+        gmt_create,
+        gmt_modified,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resourceName != null" >
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentIds != null" >
+        #{parentIds,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      now(),now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.sys.ResourceDO" >
+    update db_monkey_sys_resource
+    <set >
+      <if test="resourceName != null" >
+        resource_name = #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentIds != null" >
+        parent_ids = #{parentIds,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        available = #{available,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+        gmt_modified = now(),
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.sys.ResourceDO" >
+    update db_monkey_sys_resource
+    set resource_name = #{resourceName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      parent_ids = #{parentIds,jdbcType=INTEGER},
+      permission = #{permission,jdbcType=VARCHAR},
+      available = #{available,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=INTEGER},
+      gmt_create = now(),
+      gmt_modified = now()
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--根据角色ID 返回资源列表-->
+  <select id="selectResourceListByRoleId" resultType="com.tqmall.monkey.domain.entity.sys.ResourceDO" parameterType="hashmap" >
+    select
+    dmsr.Id as id,
+    dmsr.resource_name as resourceName ,
+    dmsr.type as type ,
+    dmsr.url as url ,
+    dmsr.priority as priority ,
+    dmsr.parent_id as parentId ,
+    dmsr.parent_ids as parentIds ,
+    dmsr.permission as permission
+    from db_monkey_sys_resource dmsr
+    JOIN  db_monkey_sys_role_resource dmsrr on dmsr.Id = dmsrr.resource_id
+    where dmsr.available = 0
+    <if test="roleId != null">AND dmsrr.role_id = #{roleId,jdbcType=INTEGER}</if>
+    <if test="type != null">and dmsr.type = #{type,jdbcType=INTEGER}</if>
+    <if test="relationParentId != null">and dmsr.parent_id = #{relationParentId,jdbcType=INTEGER}</if>
+    <if test="roleList != null">and dmsrr.role_id  in
+      <foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+
+  </select>
+
+  <select id="getAllResource" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_sys_resource
+    where available = 0
+    order by priority
+  </select>
+
+  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_sys_resource
+    where available = 0
+    and parent_id = #{parentId,jdbcType=INTEGER}
+    order by priority
+  </select>
+
+  <select id="selectResourceForRole" resultMap="BaseResultMap" parameterType="Map">
+    select r.Id,r.resource_name,r.parent_id,r.type, r.priority,
+        (case rr.role_id when #{roleId,jdbcType=INTEGER} then 1 else 0 end) as check_flag
+    from db_monkey_sys_resource r
+    left join db_monkey_sys_role_resource rr
+    on r.Id = rr.resource_id and rr.role_id = #{roleId,jdbcType=INTEGER}
+    where r.available = 0
+
+  </select>
+
+
+</mapper>

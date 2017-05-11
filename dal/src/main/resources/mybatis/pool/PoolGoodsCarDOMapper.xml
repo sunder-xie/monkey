@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.pool.PoolGoodsCarDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.car.PoolGoodsCarDO" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="car_id" property="carId" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="car_parent_id" property="carParentId" jdbcType="INTEGER" />
+    <result column="goods_oe_num" property="goodsOeNum" jdbcType="VARCHAR" />
+    <result column="car_brand_id" property="carBrandId" jdbcType="INTEGER" />
+    <result column="car_brand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="car_series_id" property="carSeriesId" jdbcType="INTEGER" />
+    <result column="car_series" property="carSeries" jdbcType="VARCHAR" />
+    <result column="car_power_id" property="carPowerId" jdbcType="INTEGER" />
+    <result column="car_power" property="carPower" jdbcType="VARCHAR" />
+    <result column="car_year_id" property="carYearId" jdbcType="INTEGER" />
+    <result column="car_year" property="carYear" jdbcType="CHAR" />
+    <result column="after_oe" property="afterOe" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, car_id, gmt_create, gmt_modified, car_parent_id, goods_oe_num, car_brand_id, 
+    car_brand, car_series_id, car_series, car_power_id, car_power, car_year_id, car_year, 
+    after_oe, source, isdelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_pool_goods_car
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_pool_goods_car
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.car.PoolGoodsCarDO" >
+    insert into db_pool_goods_car (Id, car_id, gmt_create, 
+      gmt_modified, car_parent_id, goods_oe_num, 
+      car_brand_id, car_brand, car_series_id, 
+      car_series, car_power_id, car_power, 
+      car_year_id, car_year, after_oe, 
+      source, isdelete)
+    values (#{id,jdbcType=INTEGER}, #{carId,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{carParentId,jdbcType=INTEGER}, #{goodsOeNum,jdbcType=VARCHAR}, 
+      #{carBrandId,jdbcType=INTEGER}, #{carBrand,jdbcType=VARCHAR}, #{carSeriesId,jdbcType=INTEGER}, 
+      #{carSeries,jdbcType=VARCHAR}, #{carPowerId,jdbcType=INTEGER}, #{carPower,jdbcType=VARCHAR}, 
+      #{carYearId,jdbcType=INTEGER}, #{carYear,jdbcType=CHAR}, #{afterOe,jdbcType=VARCHAR}, 
+      #{source,jdbcType=INTEGER}, #{isdelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.car.PoolGoodsCarDO" >
+    insert into db_pool_goods_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="carId != null" >
+        car_id,
+      </if>
+        gmt_create,
+        gmt_modified,
+      <if test="carParentId != null" >
+        car_parent_id,
+      </if>
+      <if test="goodsOeNum != null" >
+        goods_oe_num,
+      </if>
+      <if test="carBrandId != null" >
+        car_brand_id,
+      </if>
+      <if test="carBrand != null" >
+        car_brand,
+      </if>
+      <if test="carSeriesId != null" >
+        car_series_id,
+      </if>
+      <if test="carSeries != null" >
+        car_series,
+      </if>
+      <if test="carPowerId != null" >
+        car_power_id,
+      </if>
+      <if test="carPower != null" >
+        car_power,
+      </if>
+      <if test="carYearId != null" >
+        car_year_id,
+      </if>
+      <if test="carYear != null" >
+        car_year,
+      </if>
+      <if test="afterOe != null" >
+        after_oe,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="carId != null" >
+        #{carId,jdbcType=INTEGER},
+      </if>
+        now(),
+        now(),
+      <if test="carParentId != null" >
+        #{carParentId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOeNum != null" >
+        #{goodsOeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandId != null" >
+        #{carBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="carBrand != null" >
+        #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carSeriesId != null" >
+        #{carSeriesId,jdbcType=INTEGER},
+      </if>
+      <if test="carSeries != null" >
+        #{carSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="carPowerId != null" >
+        #{carPowerId,jdbcType=INTEGER},
+      </if>
+      <if test="carPower != null" >
+        #{carPower,jdbcType=VARCHAR},
+      </if>
+      <if test="carYearId != null" >
+        #{carYearId,jdbcType=INTEGER},
+      </if>
+      <if test="carYear != null" >
+        #{carYear,jdbcType=CHAR},
+      </if>
+      <if test="afterOe != null" >
+        #{afterOe,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.car.PoolGoodsCarDO" >
+    update db_pool_goods_car
+    <set >
+      <if test="carId != null" >
+        car_id = #{carId,jdbcType=INTEGER},
+      </if>
+        gmt_modified = now(),
+      <if test="carParentId != null" >
+        car_parent_id = #{carParentId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOeNum != null" >
+        goods_oe_num = #{goodsOeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrandId != null" >
+        car_brand_id = #{carBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="carBrand != null" >
+        car_brand = #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carSeriesId != null" >
+        car_series_id = #{carSeriesId,jdbcType=INTEGER},
+      </if>
+      <if test="carSeries != null" >
+        car_series = #{carSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="carPowerId != null" >
+        car_power_id = #{carPowerId,jdbcType=INTEGER},
+      </if>
+      <if test="carPower != null" >
+        car_power = #{carPower,jdbcType=VARCHAR},
+      </if>
+      <if test="carYearId != null" >
+        car_year_id = #{carYearId,jdbcType=INTEGER},
+      </if>
+      <if test="carYear != null" >
+        car_year = #{carYear,jdbcType=CHAR},
+      </if>
+      <if test="afterOe != null" >
+        after_oe = #{afterOe,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.car.PoolGoodsCarDO" >
+    update db_pool_goods_car
+    set car_id = #{carId,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      car_parent_id = #{carParentId,jdbcType=INTEGER},
+      goods_oe_num = #{goodsOeNum,jdbcType=VARCHAR},
+      car_brand_id = #{carBrandId,jdbcType=INTEGER},
+      car_brand = #{carBrand,jdbcType=VARCHAR},
+      car_series_id = #{carSeriesId,jdbcType=INTEGER},
+      car_series = #{carSeries,jdbcType=VARCHAR},
+      car_power_id = #{carPowerId,jdbcType=INTEGER},
+      car_power = #{carPower,jdbcType=VARCHAR},
+      car_year_id = #{carYearId,jdbcType=INTEGER},
+      car_year = #{carYear,jdbcType=CHAR},
+      after_oe = #{afterOe,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      isdelete = #{isdelete,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getPoolGoodsCarList" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.entity.car.PoolGoodsCarDO">
+    select
+    <include refid="Base_Column_List" />
+    from db_pool_goods_car
+    where car_id = #{carId}
+    and goods_oe_num = #{goodsOeNum}
+  </select>
+
+  <insert id="insertBashPoolCar" >
+    insert IGNORE into db_pool_goods_car ( car_id, car_parent_id, goods_oe_num,
+
+    car_brand_id, car_brand, car_series_id,
+    car_series, car_power_id, car_power,
+    car_year_id, car_year, after_oe,
+    source, isdelete, gmt_create,
+    gmt_modified)
+    values
+    <foreach collection="list" item="item" index="index" open="" separator=","  close="">
+
+      (#{item.carId,jdbcType=INTEGER},
+      #{item.carParentId,jdbcType=INTEGER}, #{item.goodsOeNum,jdbcType=VARCHAR},
+      #{item.carBrandId,jdbcType=INTEGER}, #{item.carBrand,jdbcType=VARCHAR}, #{item.carSeriesId,jdbcType=INTEGER},
+      #{item.carSeries,jdbcType=VARCHAR}, #{item.carPowerId,jdbcType=INTEGER}, #{item.carPower,jdbcType=VARCHAR},
+      #{item.carYearId,jdbcType=INTEGER}, #{item.carYear,jdbcType=CHAR}, #{item.afterOe,jdbcType=VARCHAR},
+      #{item.source,jdbcType=INTEGER},#{item.isdelete,jdbcType=INTEGER},
+      now(),
+      now()
+      )
+
+
+    </foreach>
+  </insert>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 会话Cookie模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!-- 超时时间1天 -->
+        <property name="globalSessionTimeout" value="86400000"/>
+        <!-- 定时检查失效的session -->
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionDAO" ref="shiroSessionDao"/>
+    </bean>
+
+    <!-- Shiro Filter安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 单realm应用。如果有多个realm，使用‘realms’属性代替 -->
+        <property name="realm" ref="monkeyJdbcRealm"/>
+        <!-- session 管理器 -->
+        <property name="sessionManager" ref="sessionManager" />
+        <!-- 缓存管理器 -->
+        <property name="cacheManager" ref="shiroCacheManager" />
+    </bean>
+
+    <!-- session存储的实现 -->
+    <bean id="shiroSessionDao" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO"/>
+    <!-- 缓存管理实现 -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+
+
+    <bean id="monkeyJdbcRealm" class="com.tqmall.monkey.client.shiro.MonkeyJdbcRealm"/>
+    <bean id="shiroFilter"
+          class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/loginController/login"/>
+        <property name="successUrl" value="/common/main"/>
+        <property name="unauthorizedUrl" value="/loginController/login"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /loginController/** = anon
+                /rest/** = anon
+                /resources/** = anon
+
+
+                /**=authc
+                <!--/**=port[8002]-->
+            </value>
+        </property>
+    </bean>
+
+
+    <!--添加Shiro Spring AOP权限注解的支持-->
+    <aop:config proxy-target-class="true"></aop:config>
+    <bean class=" org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.apache.shiro.authz.UnauthorizedException">/static/403.html</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after
+         the lifecycleBeanProcessor has run: -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+</beans>

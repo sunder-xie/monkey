@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>monkey</artifactId>
+        <groupId>com.tqmall.monkey</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>monkey.external</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tqmall.monkey</groupId>
+            <artifactId>monkey.component</artifactId>
+        </dependency>
+
+        <!--ISERVER DUBBO 外部接口-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tqmall.athena</groupId>
+            <artifactId>athena-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tqmall.data</groupId>
+            <artifactId>epc-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tqmall.tqmallstall</groupId>
+            <artifactId>tqmallstall-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tqmall.search</groupId>
+            <artifactId>dubbo-client</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

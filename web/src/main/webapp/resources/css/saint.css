@@ -1,0 +1,65 @@
+table tr th {
+	position: relative;
+	cursor: pointer;
+}
+
+table tr th.arrow-up:hover,table tr th.arrow-down:hover {
+	background: #eee;
+}
+
+table tr th.arrow-up:after {
+	position: absolute;
+	bottom: 15px;
+	right: 5px;
+	content: ".";
+	display: block;
+	height: 0;
+	width: 0;
+	border-color: transparent transparent #ccc transparent;
+	border-style: solid;
+	border-width: 5px;
+	font-size: 0;
+	line-height: 0;
+}
+
+table tr th.arrow-down:after {
+	position: absolute;
+	bottom: 10px;
+	right: 5px;
+	content: ".";
+	display: block;
+	height: 0;
+	width: 0;
+	border-color: #ccc transparent transparent transparent;
+	border-style: solid;
+	border-width: 5px;
+	font-size: 0;
+	line-height: 0;
+}
+
+.about-crm,.about-erp{
+    position: relative;
+    right: -45px;
+    margin-top: -4px;
+    margin-bottom: 14px;
+}
+
+.intro-crm>ul>li,.intro-erp>ul>li {
+    position: relative;
+    right: -27px;
+    margin-bottom: 10px;
+}
+.intro-crm,.intro-erp {
+    margin-bottom: 80px;
+}
+.intro-saint {
+    text-align: center;
+    line-height: 140px;
+}
+.logo-saint{
+    margin-top: 60px;
+    width: 100%;
+}
+.intro-saint-detail {
+    margin-top: 55px;
+}

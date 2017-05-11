@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.offerGoods.OfferLiCarDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.offerGoods.OfferLiCarDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="offer_goods_id" property="offerGoodsId" jdbcType="INTEGER" />
+    <result column="li_id" property="liId" jdbcType="VARCHAR" />
+    <result column="online_car_id" property="onlineCarId" jdbcType="INTEGER" />
+    <result column="online_pid" property="onlinePid" jdbcType="INTEGER" />
+    <result column="online_brand" property="onlineBrand" jdbcType="VARCHAR" />
+    <result column="online_company" property="onlineCompany" jdbcType="VARCHAR" />
+    <result column="online_series" property="onlineSeries" jdbcType="VARCHAR" />
+    <result column="online_power" property="onlinePower" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="wrong_reason" property="wrongReason" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, offer_goods_id, li_id, online_car_id, online_pid, online_brand, online_company, 
+    online_series, online_power, create_id, update_id, status, wrong_reason, gmt_create, 
+    gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_li_car
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_offer_li_car
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferLiCarDO" >
+    insert into db_monkey_offer_li_car (id, offer_goods_id, li_id, 
+      online_car_id, online_pid, online_brand, 
+      online_company, online_series, online_power, 
+      create_id, update_id, status, 
+      wrong_reason, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=INTEGER}, #{offerGoodsId,jdbcType=INTEGER}, #{liId,jdbcType=VARCHAR}, 
+      #{onlineCarId,jdbcType=INTEGER}, #{onlinePid,jdbcType=INTEGER}, #{onlineBrand,jdbcType=VARCHAR}, 
+      #{onlineCompany,jdbcType=VARCHAR}, #{onlineSeries,jdbcType=VARCHAR}, #{onlinePower,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=INTEGER}, #{updateId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{wrongReason,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferLiCarDO" >
+    insert into db_monkey_offer_li_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="offerGoodsId != null" >
+        offer_goods_id,
+      </if>
+      <if test="liId != null" >
+        li_id,
+      </if>
+      <if test="onlineCarId != null" >
+        online_car_id,
+      </if>
+      <if test="onlinePid != null" >
+        online_pid,
+      </if>
+      <if test="onlineBrand != null" >
+        online_brand,
+      </if>
+      <if test="onlineCompany != null" >
+        online_company,
+      </if>
+      <if test="onlineSeries != null" >
+        online_series,
+      </if>
+      <if test="onlinePower != null" >
+        online_power,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="wrongReason != null" >
+        wrong_reason,
+      </if>
+        gmt_create,
+        gmt_modified,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="offerGoodsId != null" >
+        #{offerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="liId != null" >
+        #{liId,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineCarId != null" >
+        #{onlineCarId,jdbcType=INTEGER},
+      </if>
+      <if test="onlinePid != null" >
+        #{onlinePid,jdbcType=INTEGER},
+      </if>
+      <if test="onlineBrand != null" >
+        #{onlineBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineCompany != null" >
+        #{onlineCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineSeries != null" >
+        #{onlineSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinePower != null" >
+        #{onlinePower,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="wrongReason != null" >
+        #{wrongReason,jdbcType=VARCHAR},
+      </if>
+     now(),
+     now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferLiCarDO" >
+    update db_monkey_offer_li_car
+    <set >
+      <if test="offerGoodsId != null" >
+        offer_goods_id = #{offerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="liId != null" >
+        li_id = #{liId,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineCarId != null" >
+        online_car_id = #{onlineCarId,jdbcType=INTEGER},
+      </if>
+      <if test="onlinePid != null" >
+        online_pid = #{onlinePid,jdbcType=INTEGER},
+      </if>
+      <if test="onlineBrand != null" >
+        online_brand = #{onlineBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineCompany != null" >
+        online_company = #{onlineCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineSeries != null" >
+        online_series = #{onlineSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinePower != null" >
+        online_power = #{onlinePower,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="wrongReason != null" >
+        wrong_reason = #{wrongReason,jdbcType=VARCHAR},
+      </if>
+        gmt_modified = now(),
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferLiCarDO" >
+    update db_monkey_offer_li_car
+    set offer_goods_id = #{offerGoodsId,jdbcType=INTEGER},
+      li_id = #{liId,jdbcType=VARCHAR},
+      online_car_id = #{onlineCarId,jdbcType=INTEGER},
+      online_pid = #{onlinePid,jdbcType=INTEGER},
+      online_brand = #{onlineBrand,jdbcType=VARCHAR},
+      online_company = #{onlineCompany,jdbcType=VARCHAR},
+      online_series = #{onlineSeries,jdbcType=VARCHAR},
+      online_power = #{onlinePower,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      wrong_reason = #{wrongReason,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findOfferLiByGoodsIdLiIdStatus" resultMap="BaseResultMap" parameterType="hashmap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_li_car
+    where 1=1
+    <if test="goodsId != null" >
+      and offer_goods_id = #{goodsId,jdbcType=INTEGER}
+    </if>
+    <if test="liyangId != null" >
+      and li_id = #{liyangId,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=INTEGER}
+    </if>
+  </select>
+
+
+  <select id="getCarsSumByStatus" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select count(1)
+    from db_monkey_offer_li_car
+    where status = #{status,jdbcType=INTEGER}
+  </select>
+
+
+  <update id="updateOfferLiCarDOByCustom" >
+    update db_monkey_offer_li_car
+    <set >
+      <if test="updateDO.offerGoodsId != null" >
+        offer_goods_id = #{updateDO.offerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="updateDO.liId != null" >
+        li_id = #{updateDO.liId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDO.onlineCarId != null" >
+        online_car_id = #{updateDO.onlineCarId,jdbcType=INTEGER},
+      </if>
+      <if test="updateDO.onlinePid != null" >
+        online_pid = #{updateDO.onlinePid,jdbcType=INTEGER},
+      </if>
+      <if test="updateDO.onlineBrand != null" >
+        online_brand = #{updateDO.onlineBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDO.onlineCompany != null" >
+        online_company = #{updateDO.onlineCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDO.onlineSeries != null" >
+        online_series = #{updateDO.onlineSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDO.onlinePower != null" >
+        online_power = #{updateDO.onlinePower,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDO.createId != null" >
+        create_id = #{updateDO.createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateDO.updateId != null" >
+        update_id = #{updateDO.updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateDO.status != null" >
+        status = #{updateDO.status,jdbcType=INTEGER},
+      </if>
+      <if test="updateDO.wrongReason != null" >
+        wrong_reason = #{updateDO.wrongReason,jdbcType=VARCHAR},
+      </if>
+      gmt_modified = now(),
+    </set>
+    <where>
+      <if test="existDO.offerGoodsId != null" >
+        and offer_goods_id = #{existDO.offerGoodsId,jdbcType=INTEGER}
+      </if>
+      <if test="existDO.liId != null" >
+        and li_id = #{existDO.liId,jdbcType=VARCHAR}
+      </if>
+      <if test="existDO.onlineCarId != null" >
+        and online_car_id = #{existDO.onlineCarId,jdbcType=INTEGER}
+      </if>
+      <if test="existDO.onlinePid != null" >
+        and online_pid = #{existDO.onlinePid,jdbcType=INTEGER}
+      </if>
+      <if test="existDO.onlineBrand != null" >
+        and online_brand = #{existDO.onlineBrand,jdbcType=VARCHAR}
+      </if>
+      <if test="existDO.onlineCompany != null" >
+        and online_company = #{existDO.onlineCompany,jdbcType=VARCHAR}
+      </if>
+      <if test="existDO.onlineSeries != null" >
+        and online_series = #{existDO.onlineSeries,jdbcType=VARCHAR}
+      </if>
+      <if test="existDO.onlinePower != null" >
+        and online_power = #{existDO.onlinePower,jdbcType=VARCHAR}
+      </if>
+      <if test="existDO.createId != null" >
+        and create_id = #{existDO.createId,jdbcType=INTEGER}
+      </if>
+      <if test="existDO.updateId != null" >
+        and update_id = #{existDO.updateId,jdbcType=INTEGER}
+      </if>
+      <if test="existDO.status != null" >
+        and status = #{existDO.status,jdbcType=INTEGER}
+      </if>
+      <if test="existDO.wrongReason != null" >
+        and wrong_reason = #{existDO.wrongReason,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </update>
+
+</mapper>

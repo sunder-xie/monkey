@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.part.PartPictureDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.part.PartPictureDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuId" jdbcType="VARCHAR" />
+    <result column="picture_num" property="pictureNum" jdbcType="VARCHAR" />
+    <result column="picture_index" property="pictureIndex" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uuid,picture_num, picture_index, creator, modifier, gmt_modified, gmt_create
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_part_picture
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_part_picture
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
+          parameterType="com.tqmall.monkey.domain.entity.part.PartPictureDO" >
+    insert into db_monkey_part_picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="uuId != null" >
+        uuid,
+      </if>
+      <if test="pictureNum != null" >
+        picture_num,
+      </if>
+      <if test="pictureIndex != null" >
+        picture_index,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+        gmt_modified,
+        gmt_create,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuId != null" >
+        #{uuId,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureNum != null" >
+        #{pictureNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureIndex != null" >
+        #{pictureIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.part.PartPictureDO" >
+    update db_monkey_part_picture
+    <set >
+      <if test="uuId != null" >
+        uuid = #{uuId,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureNum != null" >
+        picture_num = #{pictureNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureIndex != null" >
+        picture_index = #{pictureIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectByUuid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_part_picture
+    where uuid = #{uuid}
+  </select>
+
+  <select id="exitPartPicture" resultMap="BaseResultMap"  parameterType="com.tqmall.monkey.domain.entity.part.PartPictureDO" >
+    select <include refid="Base_Column_List" />
+    from db_monkey_part_picture
+    where
+    <if test="pictureNum != null and pictureNum != ''" >
+      picture_num = #{pictureNum,jdbcType=VARCHAR} AND
+    </if>
+    <if test="pictureIndex != null  and pictureIndex != ''" >
+      picture_index = #{pictureIndex,jdbcType=VARCHAR} AND
+    </if>
+    1=1
+  </select>
+
+
+
+
+  <delete id="deleteBatchGoodsByUuId" parameterType="map" >
+    delete from db_monkey_part_picture
+    where uuid in
+    <foreach collection="list" item="item" index="index" open="(" separator=","  close=") ">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+</mapper>

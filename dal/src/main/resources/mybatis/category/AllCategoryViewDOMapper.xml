@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.category.AllCategoryViewDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.category.AllCategoryViewDO" >
+    <result column="vehicle_code" property="vehicleCode" jdbcType="VARCHAR" />
+    <result column="first_cat_id" property="firstCatId" jdbcType="SMALLINT" />
+    <result column="first_cat_name" property="firstCatName" jdbcType="VARCHAR" />
+    <result column="first_cat_code" property="firstCatCode" jdbcType="VARCHAR" />
+    <result column="second_cat_id" property="secondCatId" jdbcType="SMALLINT" />
+    <result column="second_cat_name" property="secondCatName" jdbcType="VARCHAR" />
+    <result column="second_cat_code" property="secondCatCode" jdbcType="VARCHAR" />
+    <result column="third_cat_id" property="thirdCatId" jdbcType="SMALLINT" />
+    <result column="third_cat_name" property="thirdCatName" jdbcType="VARCHAR" />
+    <result column="third_cat_code" property="thirdCatCode" jdbcType="VARCHAR" />
+    <result column="part_id" property="partId" jdbcType="INTEGER" />
+    <result column="cate_id" property="cateId" jdbcType="INTEGER" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_code" property="partCode" jdbcType="VARCHAR" />
+    <result column="sum_code" property="sumCode" jdbcType="VARCHAR" />
+    <result column="label_name_text" property="labelNameText" jdbcType="VARCHAR" />
+    <result column="aliss_name_text" property="alissNameText" jdbcType="LONGVARCHAR" />
+    <result column="first_cat_deleted" property="firstCatDeleted" jdbcType="VARCHAR" />
+    <result column="second_cat_deleted" property="secondCatDeleted" jdbcType="VARCHAR" />
+    <result column="third_cat_deleted" property="thirdCatDeleted" jdbcType="VARCHAR" />
+    <result column="part_deleted" property="partDeleted" jdbcType="VARCHAR" />
+    <result column="part_kind" property="partKind" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    vehicle_code, first_cat_id, first_cat_name, first_cat_code,
+    second_cat_id, second_cat_name, second_cat_code,
+    third_cat_id, third_cat_name, third_cat_code,
+    part_id, cate_id, part_name, part_code, sum_code,
+    label_name_text, aliss_name_text
+  </sql>
+
+  <sql id="columnList" >
+    f_cat.vehicle_code,f_cat.cat_id as first_cat_id,
+    f_cat.cat_name as first_cat_name,f_cat.code as first_cat_code,
+    f_cat.is_deleted as first_cat_deleted,
+    s_cat.cat_id as second_cat_id,s_cat.cat_name as second_cat_name,
+    s_cat.code as second_cat_code,s_cat.is_deleted as second_cat_deleted,
+    t_cat.cat_id as third_cat_id,t_cat.cat_name as third_cat_name,
+    t_cat.code as third_cat_code,t_cat.is_deleted as third_cat_deleted,
+    cp.Id as part_id, cp.cate_id as cate_id,
+    cp.part_name, cp.code as part_code,cp.sum_code,
+    cp.aliss_name_text, cp.label_name_text,cp.is_deleted as part_deleted,
+    (case cp.cat_kind when 0 then '易损件' when 1 then '全车件' else '' end) as part_kind
+  </sql>
+  <sql id="selectAllCategorySQL">
+    select
+    <include refid="columnList"/>
+    from
+    (select vehicle_code,cat_id,cat_name,code,is_deleted
+    from db_category
+    where level=1 and vehicle_code is not null) as f_cat
+    left join
+    (select parent_id,cat_id,cat_name,code,is_deleted
+    from db_category
+    where level=2 and vehicle_code is not null) as s_cat
+    on f_cat.cat_id=s_cat.parent_id
+    left join
+    (select parent_id,cat_id,cat_name,code,is_deleted
+    from db_category
+    where level=3 and vehicle_code is not null) as t_cat
+    on s_cat.cat_id=t_cat.parent_id
+    left join db_category_part cp
+    on s_cat.cat_id=cp.cate_id
+    where t_cat.cat_id is null
+    union all
+    select
+    <include refid="columnList"/>
+    from
+    (select vehicle_code,cat_id,cat_name,code,is_deleted
+    from db_category
+    where level=1 and vehicle_code is not null) as f_cat
+    left join
+    (select parent_id,cat_id,cat_name,code,is_deleted
+    from db_category
+    where level=2 and vehicle_code is not null) as s_cat
+    on f_cat.cat_id=s_cat.parent_id
+    left join
+    (select parent_id,cat_id,cat_name,code,is_deleted
+    from db_category
+    where level=3 and vehicle_code is not null) as t_cat
+    on s_cat.cat_id=t_cat.parent_id
+    left join db_category_part cp
+    on t_cat.cat_id=cp.cate_id
+    where t_cat.cat_id is not null
+  </sql>
+
+
+  <select id="getAllCategory" resultMap="BaseResultMap" parameterType="Map">
+    select
+    <include refid="Base_Column_List"/>
+    from all_category_view
+    where 1=1
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by sum_code
+  </select>
+  <select id="getAllCategoryCount" resultType="int" parameterType="Map">
+    select count(1)
+    from all_category_view
+    where 1=1
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+
+  <select id="getAllCategoryByFirstCatId" resultMap="BaseResultMap" parameterType="Map">
+    select
+    <include refid="Base_Column_List"/>
+    from all_category_view
+    where first_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by sum_code
+  </select>
+  <select id="getAllCategoryByFirstCatIdCount" resultType="int" parameterType="Map">
+    select count(1)
+    from all_category_view
+    where first_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+
+  <select id="getAllCategoryBySecondCatId" resultMap="BaseResultMap" parameterType="Map">
+    select
+    <include refid="Base_Column_List"/>
+    from all_category_view
+    where second_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by sum_code
+  </select>
+  <select id="getAllCategoryBySecondCatIdCount" resultType="int" parameterType="Map">
+    select count(1)
+    from all_category_view
+    where second_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+
+  <select id="getAllCategoryByThirdCatId" resultMap="BaseResultMap" parameterType="Map">
+    select
+    <include refid="Base_Column_List"/>
+    from all_category_view
+    where third_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by sum_code
+  </select>
+
+  <select id="getAllCategoryByThirdCatIdCount" resultType="int" parameterType="Map">
+    select count(1)
+    from all_category_view
+    where third_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+
+  <select id="selectAllCategorys" resultMap="BaseResultMap" parameterType="Map">
+    select temp.* from(
+      <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where 1=1
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by temp.sum_code
+  </select>
+  <select id="selectAllCategorysCount" resultType="int" parameterType="Map">
+    select count(1) from(
+    <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where 1=1
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+  <select id="selectAllCategorysByFirstCatId" resultMap="BaseResultMap" parameterType="Map">
+    select temp.* from(
+    <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where temp.first_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by temp.sum_code
+  </select>
+  <select id="selectAllCategorysByFirstCatIdCount" resultType="int" parameterType="Map">
+    select count(1) from(
+    <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where temp.first_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+  <select id="selectAllCategorysBySecondCatId" resultMap="BaseResultMap" parameterType="Map">
+    select temp.* from(
+    <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where temp.second_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by temp.sum_code
+  </select>
+  <select id="selectAllCategorysBySecondCatIdCount" resultType="int" parameterType="Map">
+    select count(1) from(
+    <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where temp.second_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+  <select id="selectAllCategorysByThirdCatId" resultMap="BaseResultMap" parameterType="Map">
+    select temp.* from(
+    <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where temp.third_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+    order by temp.sum_code
+  </select>
+  <select id="selectAllCategorysByThirdCatIdCount" resultType="int" parameterType="Map">
+    select count(1) from(
+    <include refid="selectAllCategorySQL"/>
+    ) as temp
+    where temp.third_cat_id = #{catId}
+    <if test="vehicleCode != null">
+      and temp.vehicle_code = #{vehicleCode}
+    </if>
+    <if test="partName != null">
+      and temp.part_name like CONCAT('%',#{partName},'%')
+    </if>
+  </select>
+
+
+</mapper>

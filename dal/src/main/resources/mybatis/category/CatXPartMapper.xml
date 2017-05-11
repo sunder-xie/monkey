@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.category.CatXPartMapper">
+    <resultMap id="BaseResultMap" type="hashMap">
+        <result column="f_t.cat_name" property="catNameF" jdbcType="VARCHAR"/>
+        <result column="f_t.cat_code" property="catCodeF" jdbcType="VARCHAR"/>
+        <result column="s_t.cat_name" property="catNameS" jdbcType="VARCHAR"/>
+        <result column="s_t.cat_code" property="catCodeS" jdbcType="VARCHAR"/>
+        <result column="t_t.cat_name" property="catNameT" jdbcType="VARCHAR"/>
+        <result column="t_t.cat_code" property="catCodeT" jdbcType="VARCHAR"/>
+        <result column="p_t.id" property="partId" jdbcType="INTEGER"/>
+        <result column="p_t.part_name" property="partName" jdbcType="VARCHAR"/>
+        <result column="p_t.part_code" property="part_code" jdbcType="VARCHAR"/>
+        <result column="p_t.sum_code" property="sumCode" jdbcType="VARCHAR"/>
+        <result column="p_t.vehicle_code" property="vehicleCode" jdbcType="VARCHAR"/>
+        <result column="p_t.label_name_text" property="labelNameText" jdbcType="VARCHAR"/>
+        <result column="p_t.aliss_name_text" property="alissNameText" jdbcType="VARCHAR"/>
+        <result column="p_t.p_t.cat_kind" property="catKind" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        f_t.cat_name, f_t.cat_code, s_t.cat_name, s_t.cat_code, t_t.cat_name, t_t.cat_code,
+        p_t.id, p_t.part_name, p_t.part_code, p_t.sum_code, p_t.vehicle_code, p_t.label_name_text, p_t.aliss_name_text, p_t.cat_kind
+    </sql>
+
+    <select id="selectPageData" resultType="hashMap">
+        select
+        f_t.cat_name as catNameF,
+        f_t.cat_code as catCodeF,
+        s_t.cat_name as catNameS,
+        s_t.cat_code as catCodeS,
+        t_t.cat_name as catNameT,
+        t_t.cat_code as catCodeT,
+        p_t.id as partId,
+        p_t.part_name as partName,
+        p_t.part_code as partCode,
+        p_t.sum_code as sumCode,
+        p_t.vehicle_code as vehicleCode,
+        p_t.label_name_text as labelNameText,
+        p_t.aliss_name_text as alissNameText,
+        p_t.cat_kind as catKind
+        from db_category f_t left join db_category s_t
+        on f_t.cat_id = s_t.parent_id left join db_category t_t
+        on s_t.cat_id = t_t.parent_id left join db_category_part p_t
+        on t_t.cat_id = p_t.third_cat_id
+        where f_t.cat_level = 1 and s_t.cat_level = 2 and t_t.cat_level = 3 and p_t.is_deleted = 'N'
+        <if test="vehicleCode != null and vehicleCode != ''">
+            and p_t.vehicle_code = #{vehicleCode,jdbcType=VARCHAR}
+        </if>
+        <if test="levelF != null and levelF != ''">
+            and f_t.cat_id = #{levelF,jdbcType=INTEGER}
+        </if>
+        <if test="levelS != null and levelS != ''">
+            and s_t.cat_id = #{levelS,jdbcType=INTEGER}
+        </if>
+        <if test="levelT != null and levelT != ''">
+            and t_t.cat_id = #{levelT,jdbcType=VARCHAR}
+        </if>
+        <if test="partName != null and partName != ''">
+            and p_t.part_name like concat('%',#{partName,jdbcType=VARCHAR},'%')
+        </if>
+        order by p_t.sum_code
+        <if test="startNum != null and pageSize != null">
+            limit #{startNum, jdbcType=INTEGER} , #{pageSize, jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectRowCount" resultType="int">
+        select
+        count(1)
+        from db_category f_t left join db_category s_t
+        on f_t.cat_id = s_t.parent_id left join db_category t_t
+        on s_t.cat_id = t_t.parent_id left join db_category_part p_t
+        on t_t.cat_id = p_t.third_cat_id
+        where f_t.cat_level = 1 and s_t.cat_level = 2 and t_t.cat_level = 3 and p_t.is_deleted = 'N'
+        <if test="vehicleCode != null and vehicleCode != ''">
+            and p_t.vehicle_code = #{vehicleCode,jdbcType=VARCHAR}
+        </if>
+        <if test="levelF != null and levelF != ''">
+            and f_t.cat_id = #{levelF,jdbcType=INTEGER}
+        </if>
+        <if test="levelS != null and levelS != ''">
+            and s_t.cat_id = #{levelS,jdbcType=INTEGER}
+        </if>
+        <if test="levelT != null and levelT != ''">
+            and t_t.cat_id = #{levelT,jdbcType=VARCHAR}
+        </if>
+        <if test="partName != null and partName != ''">
+            and p_t.part_name like concat('%',#{partName,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+    <select id="selectVehicleCode" resultType="string">
+        select distinct  vehicle_code from db_category
+        where is_deleted ='N' and vehicle_code is not null
+        order by vehicle_code
+    </select>
+    <select id="selectCategoryAttrToUseInSelect" resultType="hashMap" parameterType="Map">
+        select
+        cat_id as catId,
+        cat_name as catName,
+        vehicle_code as vehicleCode,
+        cat_code as catCode
+        from db_category
+        where is_deleted = 'N'
+        and vehicle_code is not null
+        <if test="vehicleCode != null">
+            and vehicle_code = #{vehicleCode}
+        </if>
+        <if test="level != null">
+            and cat_level = #{level}
+        </if>
+        <if test="parentId != null">
+            and parent_id=#{parentId}
+        </if>
+        order by cat_code /*这个排序在前台是有用的！！！*/
+    </select>
+    <select id="selectPartAttrToUseInTable" resultType="hashMap" parameterType="Map">
+        select
+        id as id,
+        part_name as partName,
+        part_code as partCode
+        from db_category_part
+        where is_deleted = 'N'
+        and vehicle_code is not null
+        <if test="thirdCatId != null">
+            and third_cat_id=#{thirdCatId}
+        </if>
+        order by part_code /*这个排序在前台是有用的！！！*/
+    </select>
+</mapper>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.offerGoods.OfferRecordDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.offerGoods.OfferRecordDO" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="record_name" property="recordName" jdbcType="VARCHAR" />
+    <result column="offer_goods_id" property="offerGoodsId" jdbcType="INTEGER" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+    <result column="linkman_name" property="linkmanName" jdbcType="VARCHAR" />
+    <result column="linkman_phone" property="linkmanPhone" jdbcType="VARCHAR" />
+    <result column="prime_price_tax" property="primePriceTax" jdbcType="DECIMAL" />
+    <result column="prime_price_no_tax" property="primePriceNoTax" jdbcType="DECIMAL" />
+    <result column="prime_price_S" property="primePriceS" jdbcType="DECIMAL" />
+    <result column="advice_sale_price" property="adviceSalePrice" jdbcType="DECIMAL" />
+    <result column="onhand" property="onhand" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    Id, record_name, offer_goods_id, provider_name, linkman_name, linkman_phone, prime_price_tax,
+    prime_price_no_tax, prime_price_S, advice_sale_price, onhand,city, create_id, update_id,
+    status, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_record
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_offer_record
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferRecordDO" >
+    insert into db_monkey_offer_record (Id, record_name, offer_goods_id,
+    provider_name, linkman_name, linkman_phone,
+    prime_price_tax, prime_price_no_tax, prime_price_S,
+    advice_sale_price, onhand,city, create_id,
+    update_id, status, gmt_create,
+    gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{recordName,jdbcType=VARCHAR}, #{offerGoodsId,jdbcType=INTEGER},
+    #{providerName,jdbcType=VARCHAR}, #{linkmanName,jdbcType=VARCHAR}, #{linkmanPhone,jdbcType=VARCHAR},
+    #{primePriceTax,jdbcType=DECIMAL}, #{primePriceNoTax,jdbcType=DECIMAL}, #{primePriceS,jdbcType=DECIMAL},
+    #{adviceSalePrice,jdbcType=DECIMAL}, #{onhand,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER},
+    #{updateId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+    #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferRecordDO" >
+    insert into db_monkey_offer_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="recordName != null" >
+        record_name,
+      </if>
+      <if test="offerGoodsId != null" >
+        offer_goods_id,
+      </if>
+      <if test="providerName != null" >
+        provider_name,
+      </if>
+      <if test="linkmanName != null" >
+        linkman_name,
+      </if>
+      <if test="linkmanPhone != null" >
+        linkman_phone,
+      </if>
+      <if test="primePriceTax != null" >
+        prime_price_tax,
+      </if>
+      <if test="primePriceNoTax != null" >
+        prime_price_no_tax,
+      </if>
+      <if test="primePriceS != null" >
+        prime_price_S,
+      </if>
+      <if test="adviceSalePrice != null" >
+        advice_sale_price,
+      </if>
+      <if test="onhand != null" >
+        onhand,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+
+        gmt_create,
+        gmt_modified,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordName != null" >
+        #{recordName,jdbcType=VARCHAR},
+      </if>
+      <if test="offerGoodsId != null" >
+        #{offerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="providerName != null" >
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null" >
+        #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="primePriceTax != null" >
+        #{primePriceTax,jdbcType=DECIMAL},
+      </if>
+      <if test="primePriceNoTax != null" >
+        #{primePriceNoTax,jdbcType=DECIMAL},
+      </if>
+      <if test="primePriceS != null" >
+        #{primePriceS,jdbcType=DECIMAL},
+      </if>
+      <if test="adviceSalePrice != null" >
+        #{adviceSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="onhand != null" >
+        #{onhand,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      now(),now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferRecordDO" >
+    update db_monkey_offer_record
+    <set >
+      <if test="recordName != null" >
+        record_name = #{recordName,jdbcType=VARCHAR},
+      </if>
+      <if test="offerGoodsId != null" >
+        offer_goods_id = #{offerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="providerName != null" >
+        provider_name = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null" >
+        linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="primePriceTax != null" >
+        prime_price_tax = #{primePriceTax,jdbcType=DECIMAL},
+      </if>
+      <if test="primePriceNoTax != null" >
+        prime_price_no_tax = #{primePriceNoTax,jdbcType=DECIMAL},
+      </if>
+      <if test="primePriceS != null" >
+        prime_price_S = #{primePriceS,jdbcType=DECIMAL},
+      </if>
+      <if test="adviceSalePrice != null" >
+        advice_sale_price = #{adviceSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="onhand != null" >
+        onhand = #{onhand,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+        gmt_modified = now(),
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferRecordDO" >
+    update db_monkey_offer_record
+    set record_name = #{recordName,jdbcType=VARCHAR},
+    offer_goods_id = #{offerGoodsId,jdbcType=INTEGER},
+    provider_name = #{providerName,jdbcType=VARCHAR},
+    linkman_name = #{linkmanName,jdbcType=VARCHAR},
+    linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+    prime_price_tax = #{primePriceTax,jdbcType=DECIMAL},
+    prime_price_no_tax = #{primePriceNoTax,jdbcType=DECIMAL},
+    prime_price_S = #{primePriceS,jdbcType=DECIMAL},
+    advice_sale_price = #{adviceSalePrice,jdbcType=DECIMAL},
+    onhand = #{onhand,jdbcType=VARCHAR},
+    city = #{city,jdbcType=VARCHAR},
+    create_id = #{createId,jdbcType=INTEGER},
+    update_id = #{updateId,jdbcType=INTEGER},
+    status = #{status,jdbcType=INTEGER},
+    gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+    gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--根据条件查询page数据-->
+  <select id="queryPagesByOfferGoodsId" resultMap="BaseResultMap" parameterType="hashmap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_record
+    where 1 = 1
+    <if test="goodsId != null">and offer_goods_id = #{goodsId,jdbcType=INTEGER}  </if>
+    order by ${descString} DESC
+  </select>
+
+  <select id="countPagesByOfferGoodsId" resultType="java.lang.Integer" parameterType="hashmap" >
+    select COUNT(id)
+    from db_monkey_offer_record
+    where 1 = 1
+    <if test="goodsId != null">and offer_goods_id = #{goodsId,jdbcType=INTEGER}  </if>
+  </select>
+
+
+
+  <resultMap id="GoodsCarInfoMap" type="com.tqmall.monkey.domain.entity.car.GoodsCarInfoDO" >
+    <result column="Id" property="id" jdbcType="INTEGER" />
+    <result column="record_name" property="recordName" jdbcType="VARCHAR" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+    <result column="oe_num" property="oeNum" jdbcType="VARCHAR" />
+    <result column="car_id" property="carId" jdbcType="INTEGER" />
+    <result column="goods_quality_type" property="goodsQualityType" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="getGoodsCarInfo" resultMap="GoodsCarInfoMap" parameterType="Map">
+    select r.Id,r.record_name,r.provider_name,gc.car_id,g.goods_quality_type,g.oe_num
+    from db_monkey_offer_record r, db_monkey_offer_goods g, db_pool_goods_car gc
+    where g.id=r.offer_goods_id and gc.goods_oe_num=g.oe_num
+    and g.isdelete=0 and g.oe_iswrong=0
+    and g.goods_quality_type in(0,1) and g.cate_status in(1,3)
+    <if test="status != null">
+      and r.status = #{status}
+    </if>
+    group by gc.car_id,g.oe_num
+  </select>
+
+  <select id="selectByGoodsIdRecordNameProviderNameStatus" resultMap="BaseResultMap" parameterType="hashmap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_record
+    where
+    record_name = #{recordName,jdbcType=VARCHAR}
+    AND offer_goods_id = #{goodsId,jdbcType=INTEGER}
+    AND provider_name = #{providerName,jdbcType=VARCHAR}
+    AND status = #{status,jdbcType=INTEGER}
+  </select>
+
+  <select id="findRecordListByGoodsIdAndStatus" resultMap="BaseResultMap" parameterType="hashmap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_record
+    where 1=1
+    <if test="goodsId != null">
+      AND offer_goods_id = #{goodsId,jdbcType=INTEGER}
+    </if>
+    <if test="status != null">
+      AND status = #{status,jdbcType=INTEGER}
+    </if>
+    <if test="providerName != null">
+      AND provider_name = #{providerName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="findProviderNameByStatus" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select provider_name
+    from db_monkey_offer_record
+    where status = #{status,jdbcType=INTEGER}
+    GROUP BY provider_name
+  </select>
+
+  <select id="getRecordSum" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select count(1)
+    from db_monkey_offer_record
+    where status = #{status,jdbcType=INTEGER}
+  </select>
+</mapper>

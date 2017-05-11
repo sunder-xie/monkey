@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.carMaintain.ModelMaintainMileageDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.carMaintain.ModelMaintainMileageDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="maintain_plan_id" property="maintainPlanId" jdbcType="INTEGER" />
+    <result column="mileage" property="mileage" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="item_flag" property="itemFlag" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, maintain_plan_id, mileage
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_model_maintain_mileage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="checkMileageExsit" resultType="int" parameterType="com.tqmall.monkey.domain.entity.carMaintain.ModelMaintainMileageDO" >
+    select count(id)
+    from db_model_maintain_mileage
+    where mileage = #{mileage}
+    and maintain_plan_id = #{maintainPlanId}
+    <if test="isDeleted != null" >
+      and is_deleted = #{isDeleted}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_model_maintain_mileage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.carMaintain.ModelMaintainMileageDO" >
+    insert IGNORE into db_model_maintain_mileage (id, maintain_plan_id, mileage,
+      is_deleted, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=INTEGER}, #{maintainPlanId,jdbcType=INTEGER}, #{mileage,jdbcType=INTEGER}, 
+      #{isDeleted,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.carMaintain.ModelMaintainMileageDO" >
+    insert IGNORE into db_model_maintain_mileage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="maintainPlanId != null" >
+        maintain_plan_id,
+      </if>
+      <if test="mileage != null" >
+        mileage,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+        gmt_create,
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="maintainPlanId != null" >
+        #{maintainPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="mileage != null" >
+        #{mileage,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+        now(),
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.carMaintain.ModelMaintainMileageDO" >
+    update db_model_maintain_mileage
+    <set >
+      <if test="mileage != null" >
+        mileage = #{mileage,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+        gmt_modified = now(),
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.carMaintain.ModelMaintainMileageDO" >
+    update db_model_maintain_mileage
+    set maintain_plan_id = #{maintainPlanId,jdbcType=INTEGER},
+      mileage = #{mileage,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertMaintainMileageBatch" >
+    insert IGNORE into db_model_maintain_mileage(
+      maintain_plan_id, mileage, gmt_create )
+    values
+    <foreach collection="list" item="item" index="index" open="" separator=","  close="">
+      (#{item.maintainPlanId,jdbcType=INTEGER}, #{item.mileage,jdbcType=INTEGER}, now())
+    </foreach>
+  </insert>
+
+  <select id="getMaintainMileageByPlanId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select t1.*, case when t2.model_mileage_id is null then 0 else 1 end as item_flag
+    from
+    (select id, maintain_plan_id, mileage
+    from db_model_maintain_mileage
+    where is_deleted = 0 and maintain_plan_id = #{maintainPlanId}) t1
+    left join db_model_maintain_detail t2
+    on t1.id=t2.model_mileage_id
+
+  </select>
+
+  <select id="selectByPlanId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_model_maintain_mileage
+    where is_deleted = 0
+    and maintain_plan_id = #{maintainPlanId}
+  </select>
+
+  <select id="selectMileageByPlanId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select mileage
+    from db_model_maintain_mileage
+    where is_deleted = 0
+    and maintain_plan_id = #{maintainPlanId}
+  </select>
+
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration debug="false">
+	<property name="monkey.log.pattern"	value="[%d{'MM-dd HH:mm:ss,SSS',GMT+8:00}] %-5p [%.10t][%X{CU}] -  [%c][%L] - %m%n" />
+	<property name="LOG.CHARSET" value="UTF-8" />
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>${LOG.CHARSET}</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CACHE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/cache.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/cache.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="COMMON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/common.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/common.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="CUS.ASSIGN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/customerAssign.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/customerAssign.log..%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="DB" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/db.log</file>
+		<append>true</append>
+		<param name="datePattern" value=".yyyy-MM-dd" />
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/db.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/error.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/error.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="MONITOR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/monitor.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/monitor.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="REMOTE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/remote.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/remote.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="SCHEDULE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/schedule.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/schedule.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+	<appender name="SPRING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>monkey-logs/spring.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>monkey-logs/spring.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${monkey.log.pattern}</pattern>
+		</encoder>
+	</appender>
+
+
+	<logger name="com.tqmall.monkey">
+		<level value="INFO" />
+		<appender-ref ref="ERROR" />
+	</logger>
+    <logger name="com.tqmall.monkey.dal" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="DB" />
+		<appender-ref ref="ERROR" />
+		<appender-ref ref="CONSOLE" />
+
+	</logger>
+    <logger name="com.ibatis" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="DB" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="java.sql" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="DB" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="java.sql.ResultSet" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="DB" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="org.mybatis.spring" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="SPRING" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="org.springframework" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="SPRING" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<logger name="org.springframework.scheduling" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="SCHEDULE" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="COMMON" />
+		<appender-ref ref="ERROR" />
+	</root>
+
+</configuration>

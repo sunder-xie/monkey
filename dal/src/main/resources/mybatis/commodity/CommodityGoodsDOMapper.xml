@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.commodity.CommodityGoodsDOMapper">
+    <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uuId" property="uuId" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+        <result column="goods_quality_type" property="goodsQualityType" jdbcType="INTEGER"/>
+        <result column="brand_id" property="brandId" jdbcType="INTEGER"/>
+        <result column="brand_name" property="brandName" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_format" property="goodsFormat" jdbcType="VARCHAR"/>
+        <result column="cate_kind" property="cateKind" jdbcType="INTEGER"/>
+        <result column="guarantee_time" property="guaranteeTime" jdbcType="VARCHAR"/>
+        <result column="sale_unit" property="saleUnit" jdbcType="VARCHAR"/>
+        <result column="sale_status" property="saleStatus" jdbcType="INTEGER"/>
+        <result column="part_id" property="partId" jdbcType="INTEGER"/>
+        <result column="part_name" property="partName" jdbcType="VARCHAR"/>
+        <result column="part_sum_code" property="partSumCode" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="modifier" property="modifier" jdbcType="INTEGER"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="isdelete" property="isdelete" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, uuId,goods_code, goods_quality_type, brand_id, brand_name,goods_name, goods_format, cate_kind,
+        guarantee_time, sale_unit, sale_status, part_id, part_name, part_sum_code, remark, creator,
+        modifier, gmt_modified, gmt_create, isdelete
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from db_monkey_commodity_goods
+        where id = #{id}
+        and isdelete = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from db_monkey_commodity_goods
+        where id = #{id}
+    </delete>
+    <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsDO">
+        insert into db_monkey_commodity_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uuId != null">
+                uuId,
+            </if>
+            <if test="goodsCode != null">
+                goods_code,
+            </if>
+            <if test="goodsQualityType != null">
+                goods_quality_type,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="brandName != null">
+                brand_name,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsFormat != null">
+                goods_format,
+            </if>
+            <if test="cateKind != null">
+                cate_kind,
+            </if>
+            <if test="guaranteeTime != null">
+                guarantee_time,
+            </if>
+            <if test="saleUnit != null">
+                sale_unit,
+            </if>
+            <if test="saleStatus != null">
+                sale_status,
+            </if>
+            <if test="partId != null">
+                part_id,
+            </if>
+            <if test="partName != null">
+                part_name,
+            </if>
+            <if test="partSumCode != null">
+                part_sum_code,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            gmt_modified,
+            gmt_create,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="uuId != null">
+                #{uuId},
+            </if>
+            <if test="goodsCode != null">
+                #{goodsCode},
+            </if>
+            <if test="goodsQualityType != null">
+                #{goodsQualityType},
+            </if>
+            <if test="brandId != null">
+                #{brandId},
+            </if>
+            <if test="brandName != null">
+                #{brandName},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName},
+            </if>
+            <if test="goodsFormat != null">
+                #{goodsFormat},
+            </if>
+            <if test="cateKind != null">
+                #{cateKind},
+            </if>
+            <if test="guaranteeTime != null">
+                #{guaranteeTime},
+            </if>
+            <if test="saleUnit != null">
+                #{saleUnit},
+            </if>
+            <if test="saleStatus != null">
+                #{saleStatus},
+            </if>
+            <if test="partId != null">
+                #{partId},
+            </if>
+            <if test="partName != null">
+                #{partName},
+            </if>
+            <if test="partSumCode != null">
+                #{partSumCode},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="modifier != null">
+                #{modifier},
+            </if>
+            now(),
+            now(),
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityGoodsDO">
+        update db_monkey_commodity_goods
+        <set>
+            <if test="uuId != null">
+                uuId = #{uuId},
+            </if>
+            <if test="goodsCode != null">
+                goods_code = #{goodsCode},
+            </if>
+            <if test="goodsQualityType != null">
+                goods_quality_type = #{goodsQualityType},
+            </if>
+            <if test="brandId != null">
+                brand_id = #{brandId},
+            </if>
+            <if test="brandName != null">
+                brand_name = #{brandName},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName},
+            </if>
+            <if test="goodsFormat != null">
+                goods_format = #{goodsFormat},
+            </if>
+            <if test="cateKind != null">
+                cate_kind = #{cateKind},
+            </if>
+            <if test="guaranteeTime != null">
+                guarantee_time = #{guaranteeTime},
+            </if>
+            <if test="saleUnit != null">
+                sale_unit = #{saleUnit},
+            </if>
+            <if test="saleStatus != null">
+                sale_status = #{saleStatus},
+            </if>
+            <if test="partId != null">
+                part_id = #{partId},
+            </if>
+            <if test="partName != null">
+                part_name = #{partName},
+            </if>
+            <if test="partSumCode != null">
+                part_sum_code = #{partSumCode},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            gmt_modified = now(),
+            <if test="isdelete != null">
+                isdelete = #{isdelete},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByGoodsSelective" >
+        update db_monkey_commodity_goods
+        <set>
+            <if test="record.uuId != null">
+                uuId = #{record.uuId},
+            </if>
+            <if test="record.goodsCode != null">
+                goods_code = #{record.goodsCode},
+            </if>
+            <if test="record.goodsQualityType != null">
+                goods_quality_type = #{record.goodsQualityType},
+            </if>
+            <if test="record.brandId != null">
+                brand_id = #{record.brandId},
+            </if>
+            <if test="record.brandName != null">
+                brand_name = #{record.brandName},
+            </if>
+            <if test="record.goodsName != null">
+                goods_name = #{record.goodsName},
+            </if>
+            <if test="record.goodsFormat != null">
+                goods_format = #{record.goodsFormat},
+            </if>
+            <if test="record.cateKind != null">
+                cate_kind = #{record.cateKind},
+            </if>
+            <if test="record.guaranteeTime != null">
+                guarantee_time = #{record.guaranteeTime},
+            </if>
+            <if test="record.saleUnit != null">
+                sale_unit = #{record.saleUnit},
+            </if>
+            <if test="record.saleStatus != null">
+                sale_status = #{record.saleStatus},
+            </if>
+            <if test="record.partId != null">
+                part_id = #{record.partId},
+            </if>
+            <if test="record.partName != null">
+                part_name = #{record.partName},
+            </if>
+            <if test="record.partSumCode != null">
+                part_sum_code = #{record.partSumCode},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark},
+            </if>
+            <if test="record.modifier != null">
+                modifier = #{record.modifier},
+            </if>
+            gmt_modified = now(),
+            <if test="record.isdelete != null">
+                isdelete = #{record.isdelete},
+            </if>
+        </set>
+
+        <where>
+            <if test="exist.id != null">
+                and id = #{exist.id.remark}
+            </if>
+            <if test="exist.uuId != null">
+                and uuId = #{exist.uuId}
+            </if>
+            <if test="exist.goodsCode != null">
+                and goods_code = #{exist.goodsCode}
+            </if>
+            <if test="exist.goodsQualityType != null">
+                and goods_quality_type = #{exist.goodsQualityType}
+            </if>
+            <if test="exist.brandId != null">
+                and brand_id = #{exist.brandId}
+            </if>
+            <if test="exist.brandName != null">
+                and brand_name = #{exist.brandName}
+            </if>
+            <if test="exist.goodsName != null">
+                and goods_name = #{exist.goodsName}
+            </if>
+            <if test="exist.goodsFormat != null">
+                and goods_format = #{exist.goodsFormat}
+            </if>
+            <if test="exist.cateKind != null">
+                and cate_kind = #{exist.cateKind}
+            </if>
+            <if test="exist.guaranteeTime != null">
+                and guarantee_time = #{exist.guaranteeTime}
+            </if>
+            <if test="exist.saleUnit != null">
+                and sale_unit = #{exist.saleUnit}
+            </if>
+            <if test="exist.saleStatus != null">
+                and sale_status = #{exist.saleStatus}
+            </if>
+            <if test="exist.partId != null">
+                and part_id = #{exist.partId}
+            </if>
+            <if test="exist.partName != null">
+                and part_name = #{exist.partName}
+            </if>
+            <if test="exist.partSumCode != null">
+                and part_sum_code = #{exist.partSumCode}
+            </if>
+            <if test="exist.remark != null">
+                and remark = #{exist.remark}
+            </if>
+            <if test="exist.modifier != null">
+                and modifier = #{exist.modifier}
+            </if>
+            <if test="exist.isdelete != null">
+                and isdelete = #{exist.isdelete}
+            </if>
+        </where>
+    </update>
+
+
+    <select id="getCommodityGoodsDOByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from db_monkey_commodity_goods
+        where goods_code = #{goodsCode}
+        and isdelete = 0
+    </select>
+
+    <select id="existCommodityGoods" resultType="boolean" parameterType="java.lang.String">
+        select count(1)
+        from db_monkey_commodity_goods
+        where goods_code = #{goodsCode}
+        and isdelete = 0
+    </select>
+
+
+    <!--批量插入关系-->
+    <insert id="insertBatch">
+
+        insert IGNORE into db_monkey_commodity_goods ( goods_code, goods_quality_type, brand_id, brand_name,goods_name,
+        goods_format, cate_kind,
+        guarantee_time, sale_unit, sale_status, part_id, part_name, part_sum_code, remark, creator,
+        modifier, gmt_modified, gmt_create
+        )
+        values
+        <foreach collection="list" item="item" index="index" open="" separator="," close="">
+            ( #{item.goodsCode}, #{item.goodsQualityType},
+            #{item.brandId}, #{item.brandName}, #{item.goodsName}, #{item.goodsFormat},
+            #{item.cateKind}, #{item.guaranteeTime}, #{item.saleUnit},
+            #{item.saleStatus}, #{item.partId}, #{item.partName},
+            #{item.partSumCode},#{item.remark}, #{item.creator}, #{item.modifier}, now(),now())
+        </foreach>
+    </insert>
+
+
+    <!--批量删除。以商品编码-->
+    <!--<update id="deleteBatchGoodsUuId" parameterType="map" >-->
+    <!--update db_monkey_commodity_goods-->
+    <!--set-->
+    <!--modifier = #{modifier},-->
+    <!--gmt_modified = now(),-->
+    <!--isdelete = 1-->
+    <!--where uuId in-->
+    <!--<foreach collection="list" item="item" index="index" open="(" separator=","  close=")">-->
+    <!--#{item}-->
+    <!--</foreach>-->
+
+    <!--</update>-->
+
+
+    <select id="getBrandPartGroupByThis" resultMap="BaseResultMap">
+        select brand_id,part_id,brand_name,part_name
+        from db_monkey_commodity_goods
+        where isdelete = 0
+        GROUP BY brand_id,part_id,brand_name,part_name
+    </select>
+
+    <select id="selectGoodsByBrandPart" resultMap="BaseResultMap" parameterType="hashmap">
+        select
+        <include refid="Base_Column_List"/>
+        from db_monkey_commodity_goods
+        where isdelete = 0
+        <if test="brandId != null">
+            AND brand_id = #{brandId}
+        </if>
+        <if test="partId != null">
+            AND part_id = #{partId}
+        </if>
+        <if test="goodsFormat != null">
+            AND goods_format like concat('%',#{goodsFormat},'%')
+        </if>
+        ORDER BY part_sum_code
+    </select>
+
+
+    <select id="selectGoodsByBrandPartCount" resultType="java.lang.Integer" parameterType="hashmap">
+        select COUNT(1)
+        from db_monkey_commodity_goods
+        where isdelete = 0
+        <if test="brandId != null">
+            AND brand_id = #{brandId}
+        </if>
+        <if test="partId != null">
+            AND part_id = #{partId}
+        </if>
+        <if test="goodsFormat != null">
+            AND goods_format like concat('%',#{goodsFormat},'%')
+        </if>
+    </select>
+
+
+    <select id="getCommodityGoodsByCodeQuaBrand" resultMap="BaseResultMap" parameterType="hashmap">
+        select
+        <include refid="Base_Column_List"/>
+        from db_monkey_commodity_goods
+        where
+        goods_code = #{goodsCode}
+        and goods_quality_type = #{goodsQualityType}
+        and brand_id = #{brandId}
+        and isdelete = 0
+    </select>
+
+    <select id="getGoodsAndHasNewCar" resultMap="BaseResultMap" parameterType="hashmap">
+        select
+        <include refid="Base_Column_List"/>
+        from db_monkey_commodity_goods
+        where isdelete = 0
+        and EXISTS
+        (
+        select goods_uuId
+        from db_monkey_commodity_goods_car
+        where status = #{goodsCarStatus}
+        and uuId = goods_uuId
+        group by goods_uuId
+        )
+
+    </select>
+
+
+    <!--批量更新。以商品编码-->
+    <update id="updateBatchUuId" parameterType="map">
+        update db_monkey_commodity_goods
+        <set>
+            <if test="saleStatus != null">
+                sale_status = #{saleStatus},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            gmt_modified = now(),
+            <if test="isdelete != null">
+                isdelete = #{isdelete},
+            </if>
+        </set>
+        where uuId in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </update>
+
+</mapper>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.category.CategoryPartDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.category.CategoryPartDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_code" property="partCode" jdbcType="VARCHAR" />
+    <result column="first_cat_id" property="firstCatId" jdbcType="INTEGER" />
+    <result column="first_cat_name" property="firstCatName" jdbcType="VARCHAR" />
+    <result column="second_cat_id" property="secondCatId" jdbcType="INTEGER" />
+    <result column="second_cat_name" property="secondCatName" jdbcType="VARCHAR" />
+    <result column="third_cat_id" property="thirdCatId" jdbcType="INTEGER" />
+    <result column="third_cat_name" property="thirdCatName" jdbcType="VARCHAR" />
+    <result column="sum_code" property="sumCode" jdbcType="VARCHAR" />
+    <result column="aliss_name_text" property="alissNameText" jdbcType="VARCHAR" />
+    <result column="label_name_text" property="labelNameText" jdbcType="VARCHAR" />
+    <result column="cat_kind" property="catKind" jdbcType="INTEGER" />
+    <result column="vehicle_code" property="vehicleCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gmt_create, gmt_modified, is_deleted, part_name, part_code, first_cat_id, first_cat_name, 
+    second_cat_id, second_cat_name, third_cat_id, third_cat_name, sum_code, aliss_name_text, 
+    label_name_text, cat_kind, vehicle_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_category_part
+    where id = #{id}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.category.CategoryPartDO" >
+    insert into db_category_part
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+        gmt_create,
+        gmt_modified,
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="partName != null" >
+        part_name,
+      </if>
+      <if test="partCode != null" >
+        part_code,
+      </if>
+      <if test="firstCatId != null" >
+        first_cat_id,
+      </if>
+      <if test="firstCatName != null" >
+        first_cat_name,
+      </if>
+      <if test="secondCatId != null" >
+        second_cat_id,
+      </if>
+      <if test="secondCatName != null" >
+        second_cat_name,
+      </if>
+      <if test="thirdCatId != null" >
+        third_cat_id,
+      </if>
+      <if test="thirdCatName != null" >
+        third_cat_name,
+      </if>
+      <if test="sumCode != null" >
+        sum_code,
+      </if>
+      <if test="alissNameText != null" >
+        aliss_name_text,
+      </if>
+      <if test="labelNameText != null" >
+        label_name_text,
+      </if>
+      <if test="catKind != null" >
+        cat_kind,
+      </if>
+      <if test="vehicleCode != null" >
+        vehicle_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+     now(),
+     now(),
+      <if test="isDeleted != null" >
+        #{isDeleted},
+      </if>
+      <if test="partName != null" >
+        #{partName},
+      </if>
+      <if test="partCode != null" >
+        #{partCode},
+      </if>
+      <if test="firstCatId != null" >
+        #{firstCatId},
+      </if>
+      <if test="firstCatName != null" >
+        #{firstCatName},
+      </if>
+      <if test="secondCatId != null" >
+        #{secondCatId},
+      </if>
+      <if test="secondCatName != null" >
+        #{secondCatName},
+      </if>
+      <if test="thirdCatId != null" >
+        #{thirdCatId},
+      </if>
+      <if test="thirdCatName != null" >
+        #{thirdCatName},
+      </if>
+      <if test="sumCode != null" >
+        #{sumCode},
+      </if>
+      <if test="alissNameText != null" >
+        #{alissNameText},
+      </if>
+      <if test="labelNameText != null" >
+        #{labelNameText},
+      </if>
+      <if test="catKind != null" >
+        #{catKind},
+      </if>
+      <if test="vehicleCode != null" >
+        #{vehicleCode},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.category.CategoryPartDO" >
+    update db_category_part
+    <set >
+        gmt_modified = now(),
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted},
+      </if>
+      <if test="partName != null" >
+        part_name = #{partName},
+      </if>
+      <if test="partCode != null" >
+        part_code = #{partCode},
+      </if>
+      <if test="firstCatId != null" >
+        first_cat_id = #{firstCatId},
+      </if>
+      <if test="firstCatName != null" >
+        first_cat_name = #{firstCatName},
+      </if>
+      <if test="secondCatId != null" >
+        second_cat_id = #{secondCatId},
+      </if>
+      <if test="secondCatName != null" >
+        second_cat_name = #{secondCatName},
+      </if>
+      <if test="thirdCatId != null" >
+        third_cat_id = #{thirdCatId},
+      </if>
+      <if test="thirdCatName != null" >
+        third_cat_name = #{thirdCatName},
+      </if>
+      <if test="sumCode != null" >
+        sum_code = #{sumCode},
+      </if>
+      <if test="alissNameText != null" >
+        aliss_name_text = #{alissNameText},
+      </if>
+      <if test="labelNameText != null" >
+        label_name_text = #{labelNameText},
+      </if>
+      <if test="catKind != null" >
+        cat_kind = #{catKind},
+      </if>
+      <if test="vehicleCode != null" >
+        vehicle_code = #{vehicleCode},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+
+  <select id="getCategoryPartBySumCode" resultMap="BaseResultMap" parameterType="String">
+    select
+    <include refid="Base_Column_List" />
+    from db_category_part
+    where sum_code = #{sumCode}
+    limit 1
+  </select>
+
+  <select id="getPartListLikeNameCode" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from db_category_part
+    where is_deleted = 'N'
+    <if test="name != null">
+      and part_name like #{name}
+    </if>
+    <if test="code != null">
+      and sum_code like #{code}
+    </if>
+    order by sum_code
+    limit 10
+  </select>
+  <select id="selectVehicleCodeCount" resultType="int" parameterType="int">
+    select count(DISTINCT vehicle_code)
+    from db_category_part
+    where is_deleted='N' and vehicle_code is not null and vehicle_code != 'NaN'
+    <if test="thirdCatId != null">
+      and third_cat_id = #{thirdCatId}
+    </if>
+  </select>
+
+  <select id="selectBrotherCountById" resultType="int" parameterType="int">
+    SELECT count(1)
+    FROM db_category_part
+    WHERE is_deleted='N' and third_cat_id =
+    (SELECT c.third_cat_id FROM db_category_part c WHERE id = #{partId})
+  </select>
+  <update id="updateParentIsLeaf">
+    UPDATE db_category_part
+    SET is_leaf = #{isLeaf}
+    WHERE
+    third_cat_id = (SELECT third_cat_id FROM db_category WHERE id = #{partId})
+  </update>
+
+  <update id="updateParentVehicleCode">
+    UPDATE db_category_part
+    SET
+    <if test="vehicle_code == null">
+      vehicle_code = (SELECT DISTINCT vehicle_code FROM db_category_part WHERE is_deleted = 'N' AND third_cat_id = (SELECT third_cat_id FROM db_category_part WHERE id = #{partId}))
+    </if>
+    <if test="vehicle_code != null">
+      vehicle_code = #{vehicleCode}
+    </if>
+    WHERE
+    parent_id = (SELECT parent_id FROM db_category WHERE cat_id = #{catId})
+  </update>
+  <select id="selectParentVehicleCode" resultType="java.lang.String" parameterType="int">
+    SELECT vehicle_code
+    FROM db_category_part
+    WHERE cat_id = (SELECT parent_id FROM db_category WHERE cat_id = #{catId})
+  </select>
+
+  <select id="getCategoryListByParam" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.model.CategoryPartParams">
+    select
+    <include refid="Base_Column_List" />
+    from db_category_part
+      <where>
+        <if test="sumCode != null" >
+          and sum_code = #{sumCode}
+        </if>
+        <if test="thirdCatId != null" >
+          and third_cat_id = #{thirdCatId}
+        </if>
+        and is_deleted='N'
+      </where>
+  </select>
+
+  <select id="selectCategoryPartByThirdCatId" resultType="int" parameterType="int">
+    SELECT * FROM db_category_part WHERE third_cat_id = #{thirdCatId}
+  </select>
+  <update id="updateIsDeletedByLevelCatId">
+    UPDATE db_category_part
+    SET is_deleted = #{isDeleted}
+    WHERE
+    <if test="level != null and level == 1">
+      first_cat_id = #{catId}
+    </if>
+    <if test="level != null and level == 2">
+      second_cat_id = #{catId}
+    </if>
+    <if test="level != null and level == 3">
+      third_cat_id = #{catId}
+    </if>
+  </update>
+
+  <update id="updateLevelCatIdSumCode">
+    <if test="level != null and (level == 1 or level == 2 or level == 3)">
+      UPDATE db_category_part
+      SET
+      <if test="level == 1">
+        first_cat_id = #{catId},
+        first_cat_name = #{catName},
+        sum_code = CONCAT(#{catCode},RIGHT (sum_code,7))
+      </if>
+      <if test="level == 2">
+        second_cat_id = #{catId},
+        second_cat_name = #{catName},
+        first_cat_id = #{parentId},
+        first_cat_name = #{parentName},
+        sum_code = CONCAT(#{parentCode},#{catCode},RIGHT (sum_code,5))
+      </if>
+      <if test="level == 3">
+        third_cat_id = #{catId},
+        third_cat_name = #{catName},
+        second_cat_id = #{parentId},
+        second_cat_name = #{parentName},
+        sum_code = CONCAT(LEFT (sum_code,2),#{parentCode}, RIGHT (sum_code,2))
+      </if>
+      WHERE
+        <if test="level == 1">
+          first_cat_id = #{catId}
+        </if>
+        <if test="level == 2">
+        second_cat_id = #{catId}
+        </if>
+        <if test="level == 3">
+        third_cat_id  = #{catId}
+        </if>
+    </if>
+  </update>
+
+  <select id="selectPartByLevelCatId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_category_part
+    where vehicle_code != 'NaN'
+    <if test="level == 1">
+      and first_cat_id = #{catId}
+    </if>
+    <if test="level == 2">
+      and second_cat_id = #{catId}
+    </if>
+    <if test="level == 3">
+      and third_cat_id  = #{catId}
+    </if>
+  </select>
+
+  <select id="selectStoppedCategoryPart" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM db_category_part
+    WHERE is_deleted != 'N'
+    AND vehicle_code is not null
+    <if test="firstCatId != null">
+      AND first_cat_id = #{firstCatId}
+    </if>
+    <if test="secondCatId != null">
+      AND second_cat_id = #{secondCatId}
+    </if>
+    <if test="thirdCatId != null">
+      AND third_cat_id = #{thirdCatId}
+    </if>
+    <if test="partName != null">
+      AND part_name LIKE CONCAT('%',#{partName},'%')
+    </if>
+    order by part_code
+  </select>
+</mapper>

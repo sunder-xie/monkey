@@ -1,0 +1,96 @@
+<%
+for (var i in orderGoods) {
+    if (orderGoods[i]['activityId'] == null) {
+        var activityName = '普通商品';
+    } else {
+        var activityName = orderGoods[i]['activityName'];
+    }
+    var group = orderGoods[i]['groupList'];
+    for (var j in group) {
+        var groupInfo = {};
+        groupInfo['groupId'] = group[j]['groupId'];
+        groupInfo['groupName'] = group[j]['groupName'];
+        groupInfo['groupPrice'] = group[j]['groupPrice'];
+        groupInfo['groupNum'] = group[j]['groupNum'];
+        groupInfo['allGroupPrice'] = group[j]['allGroupPrice'];
+        var groupGoods = group[j]['orderGoodsList'];
+        var groupGoodsLength = groupGoods.length;
+        var recIdArr = [];
+        for (var m = 0; m < groupGoodsLength; m++) {
+            recIdArr.push(groupGoods[m]['rec_id']);
+        }
+        var recIdStr = recIdArr.join(',');
+        for (var k = 0; k < groupGoodsLength; k++) {
+            var groupGoodsDetail = groupGoods[k]; %>
+<tr group_id="<%= groupInfo['groupId'] == null ? 0 : groupInfo['groupId'] %>">
+	<td class="hidden-phone" style="vertical-align:middle;">
+        <input type="hidden" class="rec_id" value="<%= groupGoodsDetail.id %>">
+        <a href="http://www.tqmall.com/Goods/detail.html?id=<%= groupGoodsDetail.goodsId %>" target="blank"><%= groupGoodsDetail.goodsName %></a></td>
+	<td style="vertical-align:middle;"><%= groupGoodsDetail.goodsFormat %></td>
+	<%
+	if (orderGoods[i]['activityId'] == null) {
+    %>
+	<td style="vertical-align:middle;" class="goods_price"><%= groupGoodsDetail.goodsPrice %></td>
+	<td style="vertical-align:middle;">
+	<%
+		var max = Math.min(
+			groupGoodsDetail.goodsNumber,
+			Math.max(
+				Math.floor(groupGoodsDetail.amount / groupGoodsDetail.conversionValue),
+				Math.floor(groupGoodsDetail.parentAmount / groupGoodsDetail.conversionValue)
+			)
+		);
+		var currentValue = Math.min(
+			groupGoodsDetail.goodsNumber,
+			Math.max(
+				Math.floor(groupGoodsDetail.amount / groupGoodsDetail.conversionValue),
+				Math.floor(groupGoodsDetail.parentAmount / groupGoodsDetail.conversionValue)
+			)
+		);
+	%>
+        <!--max currentValue-->
+	<input style="width:100px" type="number" class="span1 goods_number all_number form-control" max="<%= groupGoodsDetail.goodsNumber %>" min="1" step="1" value="<%= groupGoodsDetail.goodsNumber %>">
+	</td>
+    <td style="vertical-align:middle;" class="pop_goods_amount"><%= Math.round(groupGoodsDetail.goodsPrice * groupGoodsDetail.goodsNumber * 100) / 100 %></td>
+	<%
+	} else {
+	if (k == 0) { %>
+	<td rowspan="<%= groupGoodsLength %>" style="vertical-align:middle;" class="goods_price"><%= groupInfo.groupPrice %></td>
+	<td rowspan="<%= groupGoodsLength %>" style="vertical-align:middle;">
+	<input style="width:100px" type="number" readonly class="span1 all_number goods_number form-control" value="<%= groupInfo.groupNum %>">
+	</td>
+	<td rowspan="<%= groupGoodsLength %>" style="vertical-align:middle;" class="pop_goods_amount"><%= Math.round(groupInfo.allGroupPrice * 100) / 100 %></td>
+	<%
+	} else {
+    %>
+    <input type="hidden" class="all_number" value="<%= groupInfo.groupNum %>">
+    <%
+    }
+    }
+    %>
+	<td style="vertical-align:middle;">
+		<p>
+			数量：<%= groupGoodsDetail.goodsNumber %><%= groupGoodsDetail.measureUnit %>
+		</p>
+		<%
+		var order_goods_number = groupGoodsDetail.goodsNumber;
+		var child_warehouse_goods_number = Math.floor(groupGoodsDetail.amount / groupGoodsDetail.conversionValue);
+		var parent_warehouse_goods_number = Math.floor(groupGoodsDetail.parentAmount / groupGoodsDetail.conversionValue);
+		var childColor = order_goods_number > child_warehouse_goods_number ? 'red' : 'green';
+		var parentColor = order_goods_number > parent_warehouse_goods_number ? 'red' : 'green'; %>
+		<p style="color:<%= childColor %>">
+			<%= groupGoodsDetail.warehouseName %>
+			<%= groupGoodsDetail.goodsNumber %>/<%= child_warehouse_goods_number %>
+		</p>
+		<p style="color:<%= parentColor %>">
+            <% if(groupGoodsDetail.parentWarehouseName != null) { %>
+			<%= groupGoodsDetail.parentWarehouseName %>
+			<%= parent_warehouse_goods_number %>
+            <% } %>
+		</p>
+	</td>
+</tr>
+<%
+}
+}
+} %>

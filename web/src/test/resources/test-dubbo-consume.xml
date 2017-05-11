@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="local_zxg"/>
+    <!--&lt;!&ndash; 使用zookeeper注册中心暴露服务地址 &ndash;&gt;-->
+    <!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+    <dubbo:registry protocol="zookeeper" address="115.29.220.170:2182"/>
+
+    <!--&lt;!&ndash; 生成远程服务代理，可以像使用本地bean一样使用demoService &ndash;&gt;-->
+    <!--<dubbo:reference interface="com.tqmall.athena.client.car.CarCategoryService" id="carCategoryService" version="1.0.0.daily"/>-->
+    <dubbo:reference interface="com.tqmall.athena.client.car.CarCategoryService" id="carCategoryService" version="1.0.0.local.zxg"/>
+    <dubbo:reference interface="com.tqmall.data.epc.client.server.order.OrderService" id="orderService" version="1.0.0.local.zxg"/>
+    <dubbo:reference interface="com.tqmall.search.dubbo.client.cloudepc.service.CloudEpcService"
+                     id="cloudEpcService" version="1.0.0.dev" check="false"/>
+    <!--<dubbo:reference interface="com.tqmall.data.monk.client.service.MonkSendMessageService" id="monkSendMessageService" version="1.0.0.local.zxg"/>-->
+    <!--<dubbo:reference interface="com.tqmall.data.monk.client.service.MonkService" id="monkService" version="1.0.0.local.zxg"/>-->
+    <!--<dubbo:reference interface="com.tqmall.holy.provider.service.RpcVerifyInfoService" id="rpcVerifyInfoService" version="1.0.0.daily"/>-->
+    <!--<dubbo:reference interface="com.tqmall.athena.client.car.CarCategoryService" id="carCategoryService"-->
+                     <!--version="1.0.0.zxg.test">-->
+        <!--<dubbo:method name="getAllCarCategory" async="true" sent="true" />-->
+        <!--<dubbo:method name="getCarCategoryByPid" async="true" sent="true" />-->
+    <!--</dubbo:reference>-->
+
+
+    <dubbo:reference interface="com.tqmall.mana.client.service.InsuranceCompareService"
+                     id="insuranceCompareService" version="1.0.0.local.zxg" check="false" timeout="60000"/>
+
+
+
+</beans>

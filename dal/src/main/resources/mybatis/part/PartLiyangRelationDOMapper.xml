@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.part.PartLiyangRelationDOMapper">
+    <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.part.PartLiyangRelationDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="pic_id" property="picId" jdbcType="VARCHAR"/>
+        <result column="liyang_id" property="liyangId" jdbcType="VARCHAR"/>
+        <result column="part_liyang_id" property="partLiyangId" jdbcType="VARCHAR"/>
+        <result column="subjoin_id" property="subjoinId" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="modifier" property="modifier" jdbcType="INTEGER"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, goods_id, pic_id, liyang_id,part_liyang_id, subjoin_id,
+        creator, modifier, gmt_modified, gmt_create
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from db_monkey_part_liyang_relation
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from db_monkey_part_liyang_relation
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.part.PartLiyangRelationDO">
+        insert into db_monkey_part_liyang_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="picId != null">
+                pic_id,
+            </if>
+            <if test="liyangId != null">
+                liyang_id,
+            </if>
+            <if test="liyangBrand != null">
+                liyang_brand,
+            </if>
+            <if test="liyangFactory != null">
+                liyang_factory,
+            </if>
+            <if test="liyangSeries != null">
+                liyang_series,
+            </if>
+            <if test="liyangModel != null">
+                liyang_model,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId},
+            </if>
+            <if test="picId != null">
+                #{picId},
+            </if>
+            <if test="liyangId != null">
+                #{liyangId},
+            </if>
+            <if test="liyangBrand != null">
+                #{liyangBrand},
+            </if>
+            <if test="liyangFactory != null">
+                #{liyangFactory},
+            </if>
+            <if test="liyangSeries != null">
+                #{liyangSeries},
+            </if>
+            <if test="liyangModel != null">
+                #{liyangModel},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.part.PartLiyangRelationDO">
+        update db_monkey_part_liyang_relation
+        <set>
+            <if test="goodsId != null">
+                goods_id = #{goodsId},
+            </if>
+            <if test="picId != null">
+                pic_id = #{picId},
+            </if>
+            <if test="liyangId != null">
+                liyang_id = #{liyangId},
+            </if>
+            <if test="liyangBrand != null">
+                liyang_brand = #{liyangBrand},
+            </if>
+            <if test="liyangFactory != null">
+                liyang_factory = #{liyangFactory},
+            </if>
+            <if test="liyangSeries != null">
+                liyang_series = #{liyangSeries},
+            </if>
+            <if test="liyangModel != null">
+                liyang_model = #{liyangModel},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+
+    <select id="selectByPartLId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ${liyangTable}
+        where part_liyang_id = #{partLId}
+    </select>
+
+
+    <select id="exitPartRelation" resultType="boolean"
+            parameterType="com.tqmall.monkey.domain.entity.part.PartLiyangRelationDO">
+        select count(1)
+        from db_monkey_part_liyang_relation
+        where
+        <if test="goodsId != null">
+            goods_id = #{goodsId} AND
+        </if>
+        <if test="picId != null">
+            pic_id = #{picId} AND
+        </if>
+        <if test="liyangId != null">
+            liyang_id = #{liyangId} AND
+        </if>
+        <if test="creator != null">
+            creator = #{creator,jdbcType=INTEGER} AND
+        </if>
+        <if test="modifier != null">
+            modifier = #{modifier,jdbcType=INTEGER} AND
+        </if>
+        1 = 1
+    </select>
+
+
+    <!--获得力洋ID-->
+    <select id="selectLiyangIdListByGoodsIdPicId" resultType="java.lang.String" parameterType="hashmap">
+        select liyang_id
+        from ${liyangTable}
+        where
+            part_liyang_id = #{partLId} AND
+            goods_id = #{goodsId} AND
+            pic_id = #{picId}
+    </select>
+
+    <select id="selectLiyangIdListByGoodsIdPicIdCount" resultType="java.lang.Integer" parameterType="hashmap">
+        select COUNT(1) from(
+        select liyang_id
+        from ${liyangTable}
+        where
+            part_liyang_id = #{partLId} AND
+            goods_id = #{goodsId} AND
+            pic_id = #{picId}
+        ) q
+    </select>
+
+    <delete id="deleteByPartLid" parameterType="java.lang.Integer">
+        delete from ${liyangTable}
+        where part_liyang_id = #{partLId}
+    </delete>
+</mapper>

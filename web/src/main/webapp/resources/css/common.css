@@ -1,0 +1,10 @@
+.common_modal_table th,.common_modal_table td{
+  padding: 0.5em 0.5em;
+  border: solid 1px #dcdcdc;
+}
+.common_modal_table th{
+  text-align: right;
+  font-weight: bold;
+  vertical-align: middle;
+}
+

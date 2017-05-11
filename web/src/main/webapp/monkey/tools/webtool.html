@@ -1,0 +1,164 @@
+<html>
+<head lang="zh">
+  <meta charset="UTF-8">
+  <title></title>
+
+  <script type="text/javascript">
+    function check1()
+    {
+      document.getElementById("toUpperCase").checked=true
+    }
+
+    function check2()
+    {
+      document.getElementById("symbolDelete").checked=true
+    }
+
+    function check3()
+    {
+      document.getElementById("formatOutput").checked=true
+    }
+
+    function check4()
+    {
+      document.getElementById("outputSorting").checked=true
+    }
+
+
+
+  </script>
+  <!-- END THEME STYLES -->
+
+
+
+  <style type="text/css">
+    body {background-color: Beige}
+    p {margin-left: 20px}
+  </style>
+
+
+</head>
+<body class="page-header-fixed" style="overflow-x: hidden;">
+<div style="margin-left: 150px;float: left;">
+
+  <textarea style="border:solid 4px #FF7F50;" name="textarea" id="textarea1" rows="30" cols="30" ></textarea>
+</div>
+<div style="width: 300px;height: 500px;float: left;margin-left: 20px;">
+
+  <form>  
+    <div style="margin-top: 60px;margin-left: 60px">
+      <input type="checkbox" id="toUpperCase" />
+      <input type="button" onclick="check1()" value="大小写转换" />
+    </div>
+    <div style="margin-left: 60px;margin-top:30px">
+      <input type="checkbox" id="outputSorting" />
+      <input type="button" onclick="check4()" value="输出栏排序"/>
+    </div>
+    <div style="margin-left: 60px;margin-top:30px">
+      <input type="checkbox" id="formatOutput" />
+      <input type="button" onclick="check3()" value="格式化输出"/>
+    </div>
+    <div style="margin-left: 60px;margin-top:30px">
+      <input type="checkbox" id="symbolDelete" />
+      <input type="button" onclick="check2()" value="去特殊符号" />
+      <div style="margin-top: 10px " >
+        <input style="width: 120px" type="text" id="extraSymbol" />
+      </div>
+    </div>
+    <div style="margin-top: 100px;margin-left: 120px">
+      <input style="background-color: #3bb3e0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 8px;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    padding: 8px 16px;
+    border-left: solid 0px #2ab7ec;
+    margin-left: 4px;" type="button" name="button2" id="del" value="点我转换" onclick="readfile()"/>
+    </div>
+  </form>
+</div>
+<div style="float: left;margin-left: 20px;">
+
+  <textarea style="border:solid 4px #FF7F50;" name="textarea" id="textarea2" rows="30" cols="30" ></textarea>
+</div>
+
+
+
+
+
+
+
+<script language="javascript">
+
+  function readfile(){
+    var textarea = document.getElementById("textarea1").value;
+    //alert(textarea)
+    var list = [];
+    var lines = textarea.split("\n");
+    var re1 = document.getElementById("extraSymbol").value.replace(/\s+/g,"");
+    //alert(lines.length+"<<<<<");
+    var totalStrList=[];
+    for(var i=0;i<lines.length;i++){
+      var line =  lines[i];
+      if( document.getElementById("toUpperCase").checked==true){
+        //alert(line);
+        line=line.toUpperCase();
+        //alert(line)
+      }
+      if( document.getElementById("symbolDelete").checked==true){
+        //line=line.replace(/[&\|!\\\*^%\$#@\/\\*\$]/g,"");
+        var extras = re1;
+        line=line.replace(/[\$\(\)\*\+\.\[\]\?\\\^\|\{\}\/!@#%&`~_=;:',<>"-]/g,"");
+        line=line.replace(/[ ]/g, "");
+        for(var n = 0;n< extras.length;n++){
+          line=line.replace(new RegExp(extras[n],'g'),"");
+        }
+      }
+      if( document.getElementById("outputSorting").checked==true){
+        list=[];
+        for(var j=1;j<=line.length;j++){
+
+          if( j % 2 != 0){
+
+            var newStr = line.slice(j-1,j+1);
+            if(list.indexOf(newStr)<0){
+              list[j-1] = newStr ;
+            }
+
+          }
+        }
+
+        list.sort();
+        line = list.join("");
+      }
+      if( document.getElementById("formatOutput").checked==true){
+        var list2 = new Array;
+        //alert(line.length)
+        for(var j=0;j<line.length;j++){
+          if((j+1)%5==0){
+            list2[j]=line[j]+" ";
+          }
+          else{
+            list2[j]=line[j];
+          }
+        }
+        line = list2.join("");
+      }
+
+      var str = [];
+      str = line;
+      totalStrList[i] = str;
+    }
+    // alert(totalStrList.join("\r\n")+"99999999");
+    document.getElementById("textarea2").innerHTML = totalStrList.join("\r\n");
+
+
+  }
+
+
+</script>
+
+
+</body>
+</html>

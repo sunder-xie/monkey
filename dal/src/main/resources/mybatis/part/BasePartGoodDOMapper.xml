@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.part.BasePartGoodDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.part.BasePartGoodDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuId" jdbcType="VARCHAR" />
+    <result column="oe_number" property="oeNumber" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_code" property="partCode" jdbcType="VARCHAR" />
+    <result column="first_cate_id" property="firstCateId" jdbcType="INTEGER" />
+    <result column="first_cate_code" property="firstCateCode" jdbcType="VARCHAR" />
+    <result column="second_cate_id" property="secondCateId" jdbcType="INTEGER" />
+    <result column="second_cate_code" property="secondCateCode" jdbcType="VARCHAR" />
+    <result column="third_cate_id" property="thirdCateId" jdbcType="INTEGER" />
+    <result column="third_cate_code" property="thirdCateCode" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uuid,oe_number, part_name, part_code, first_cate_id, first_cate_code, second_cate_id,
+    second_cate_code, third_cate_id, third_cate_code, creator, modifier, 
+    gmt_modified, gmt_create
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_part_goods_base
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_part_goods_base
+    where id = #{id}
+  </delete>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
+          parameterType="com.tqmall.monkey.domain.entity.part.BasePartGoodDO" >
+    insert into db_monkey_part_goods_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="uuId != null" >
+        uuid,
+      </if>
+      <if test="oeNumber != null" >
+        oe_number,
+      </if>
+      <if test="partName != null" >
+        part_name,
+      </if>
+      <if test="partCode != null" >
+        part_code,
+      </if>
+      <if test="firstCateId != null" >
+        first_cate_id,
+      </if>
+      <if test="firstCateCode != null" >
+        first_cate_code,
+      </if>
+      <if test="secondCateId != null" >
+        second_cate_id,
+      </if>
+      <if test="secondCateCode != null" >
+        second_cate_code,
+      </if>
+      <if test="thirdCateId != null" >
+        third_cate_id,
+      </if>
+      <if test="thirdCateCode != null" >
+        third_cate_code,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+
+        gmt_modified,
+        gmt_create,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuId != null" >
+        #{uuid},
+      </if>
+      <if test="oeNumber != null" >
+        #{oeNumber},
+      </if>
+      <if test="partName != null" >
+        #{partName},
+      </if>
+      <if test="partCode != null" >
+        #{partCode},
+      </if>
+      <if test="firstCateId != null" >
+        #{firstCateId},
+      </if>
+      <if test="firstCateCode != null" >
+        #{firstCateCode},
+      </if>
+      <if test="secondCateId != null" >
+        #{secondCateId},
+      </if>
+      <if test="secondCateCode != null" >
+        #{secondCateCode},
+      </if>
+      <if test="thirdCateId != null" >
+        #{thirdCateId},
+      </if>
+      <if test="thirdCateCode != null" >
+        #{thirdCateCode},
+      </if>
+      <if test="creator != null" >
+        #{creator},
+      </if>
+      <if test="modifier != null" >
+        #{modifier},
+      </if>
+      now(),now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.part.BasePartGoodDO" >
+    update db_monkey_part_goods_base
+    <set >
+      <if test="uuId != null" >
+        uuid = #{uuId},
+      </if>
+      <if test="oeNumber != null" >
+        oe_number = #{oeNumber},
+      </if>
+      <if test="partName != null" >
+        part_name = #{partName},
+      </if>
+      <if test="partCode != null" >
+        part_code = #{partCode},
+      </if>
+      <if test="firstCateId != null" >
+        first_cate_id = #{firstCateId},
+      </if>
+      <if test="firstCateCode != null" >
+        first_cate_code = #{firstCateCode},
+      </if>
+      <if test="secondCateId != null" >
+        second_cate_id = #{secondCateId},
+      </if>
+      <if test="secondCateCode != null" >
+        second_cate_code = #{secondCateCode},
+      </if>
+      <if test="thirdCateId != null" >
+        third_cate_id = #{thirdCateId},
+      </if>
+      <if test="thirdCateCode != null" >
+        third_cate_code = #{thirdCateCode},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+
+  <update id="updateByOeNumber" parameterType="com.tqmall.monkey.domain.entity.part.BasePartGoodDO" >
+    update db_monkey_part_goods_base
+    <set >
+      <if test="partName != null" >
+        part_name = #{partName},
+      </if>
+      <if test="partCode != null" >
+        part_code = #{partCode},
+      </if>
+      <if test="firstCateId != null" >
+        first_cate_id = #{firstCateId},
+      </if>
+      <if test="firstCateCode != null" >
+        first_cate_code = #{firstCateCode},
+      </if>
+      <if test="secondCateId != null" >
+        second_cate_id = #{secondCateId},
+      </if>
+      <if test="secondCateCode != null" >
+        second_cate_code = #{secondCateCode},
+      </if>
+      <if test="thirdCateId != null" >
+        third_cate_id = #{thirdCateId},
+      </if>
+      <if test="thirdCateCode != null" >
+        third_cate_code = #{thirdCateCode},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier},
+      </if>
+        gmt_modified = now(),
+    </set>
+    <where>
+
+      1=1
+      <if test="oeNumber != null" >
+        and oe_number = #{oeNumber}
+      </if>
+
+    </where>
+  </update>
+
+
+  <update id="updateByPartSelective"  >
+    update db_monkey_part_goods_base
+    <set >
+      <if test="record.uuId != null" >
+        uuid = #{record.uuId},
+      </if>
+      <if test="record.oeNumber != null" >
+        oe_number = #{record.oeNumber},
+      </if>
+      <if test="record.partName != null" >
+        part_name = #{record.partName},
+      </if>
+      <if test="record.partCode != null" >
+        part_code = #{record.partCode},
+      </if>
+      <if test="record.firstCateId != null" >
+        first_cate_id = #{record.firstCateId},
+      </if>
+      <if test="record.firstCateCode != null" >
+        first_cate_code = #{record.firstCateCode},
+      </if>
+      <if test="record.secondCateId != null" >
+        second_cate_id = #{record.secondCateId},
+      </if>
+      <if test="record.secondCateCode != null" >
+        second_cate_code = #{record.secondCateCode},
+      </if>
+      <if test="record.thirdCateId != null" >
+        third_cate_id = #{record.thirdCateId},
+      </if>
+      <if test="record.thirdCateCode != null" >
+        third_cate_code = #{record.thirdCateCode},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator},
+      </if>
+      <if test="record.modifier != null" >
+        modifier = #{record.modifier},
+      </if>
+        gmt_modified = now(),
+    </set>
+    where part_code = #{oldPartCode}
+  </update>
+
+  <select id="existBaseGoods" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.model.BasePartGoodsParams" >
+    select <include refid="Base_Column_List" />
+    from db_monkey_part_goods_base
+    where
+    <if test="oeNumber != null and oeNumber != ''" >
+      oe_number = #{oeNumber} AND
+    </if>
+
+    <if test="partName != null and partName != ''" >
+      part_name = #{partName} AND
+    </if>
+    <if test="partCode != null and partCode != ''" >
+      part_code = #{partCode} AND
+    </if>
+    1=1
+  </select>
+
+
+  <select id="selectByUuid" resultMap="BaseResultMap"  >
+    select <include refid="Base_Column_List" />
+    from db_monkey_part_goods_base
+    where
+    uuid = #{uuid}
+  </select>
+
+
+
+   <!--批量删除-->
+  <delete id="deleteBatchGoodsByUuId" parameterType="map" >
+    delete from db_monkey_part_goods_base
+    where uuid in
+    <foreach collection="list" item="item" index="index" open="(" separator=","  close=") ">
+      #{item}
+    </foreach>
+  </delete>
+
+  <select id="selectOeNum" resultType="int" >
+    select count(1)
+    from db_monkey_part_goods_base
+    <!--where oe_number not like "%-%"-->
+  </select>
+</mapper>

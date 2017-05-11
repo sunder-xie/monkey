@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="facadeMonitoringAdvisor" class="net.bull.javamelody.MonitoringSpringAdvisor">
+        <property name="pointcut">
+            <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+                <property name="pattern" value="com.tqmall.monkey.client.*.*.*" />
+            </bean>
+        </property>
+    </bean>
+
+    <!--监控数据源-->
+    <bean id="springDataSourceBeanPostProcessor" class="net.bull.javamelody.SpringDataSourceBeanPostProcessor">
+    </bean>
+    <bean id="wrappedDataSource" class="net.bull.javamelody.SpringDataSourceFactoryBean">
+        <property name="targetName" value="dataSource" />
+    </bean>
+</beans>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.common.GoodsAttrKeyDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.common.GoodsAttrKeyDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, attr_name, creator, modifier, gmt_modified, gmt_create, isdelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_goods_attr_key
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_goods_attr_key
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.common.GoodsAttrKeyDO" >
+    insert into db_monkey_goods_attr_key (id, attr_name, creator, 
+      modifier, gmt_modified, gmt_create, 
+      isdelete)
+    values (#{id,jdbcType=INTEGER}, #{attrName,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
+      #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{isdelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
+          parameterType="com.tqmall.monkey.domain.entity.common.GoodsAttrKeyDO" >
+    insert into db_monkey_goods_attr_key
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="attrName != null" >
+        attr_name,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+        gmt_modified,
+        gmt_create
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="attrName != null" >
+        #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.common.GoodsAttrKeyDO" >
+    update db_monkey_goods_attr_key
+    <set >
+      <if test="attrName != null" >
+        attr_name = #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+        gmt_modified = now(),
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.common.GoodsAttrKeyDO" >
+    update db_monkey_goods_attr_key
+    set attr_name = #{attrName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      modifier = #{modifier,jdbcType=INTEGER},
+      gmt_modified = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="selectByAttrName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_goods_attr_key
+    where attr_name = #{attrName,jdbcType=VARCHAR} and isdelete = 0
+  </select>
+</mapper>

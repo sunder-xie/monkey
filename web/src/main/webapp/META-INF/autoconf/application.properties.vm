@@ -1,0 +1,22 @@
+jdbc.driverClassName=${monkey_jdbc_driverClassName}
+jdbc.url=${monkey_jdbc_url}
+jdbc.username=${monkey_jdbc_username}
+jdbc.password=${monkey_jdbc_password}
+
+goods.search.url =${goods.search.url}
+
+redis.host = ${redis.host}
+
+#上传和下载的文件保存的位置
+file.address = ${file.address}
+
+#dubbo
+dubbo.application.name = ${dubbo.application.name}
+zookeeper.address = ${zookeeper.address}
+dubbo.consume.athena.version = ${dubbo.consume.athena.version}
+dubbo.consume.stall.version= ${dubbo.consume.stall.version}
+dubbo.consume.epc.version=${dubbo.consume.epc.version}
+dubbo.consume.search.version=${dubbo.consume.search.version}
+
+#im
+monk.host = ${monk.host}

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.category.CategoryDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.category.CategoryDO" >
+    <id column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="cat_name" property="catName" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="is_leaf" property="isLeaf" jdbcType="INTEGER" />
+    <result column="cat_level" property="catLevel" jdbcType="INTEGER" />
+    <result column="cat_code" property="catCode" jdbcType="VARCHAR" />
+    <result column="vehicle_code" property="vehicleCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cat_id, cat_name, parent_id,sort_order,gmt_create,gmt_modified,creator,modifier,is_deleted,
+    is_leaf,cat_level,cat_code,vehicle_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_category
+    where cat_id = #{catId}
+    and is_deleted='N'
+  </select>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="catId"
+          parameterType="com.tqmall.monkey.domain.entity.category.CategoryDO" >
+    insert into db_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="catId != null" >
+        cat_id,
+      </if>
+      <if test="catName != null" >
+        cat_name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+     
+      gmt_create,
+      gmt_modified,
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      
+      <if test="isLeaf != null" >
+        is_leaf,
+      </if>
+      <if test="catLevel != null" >
+        cat_level,
+      </if>
+      <if test="catCode != null" >
+        cat_code,
+      </if>
+      <if test="vehicleCode != null" >
+        vehicle_code,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="catId != null" >
+        #{catId},
+      </if>
+     
+      <if test="catName != null" >
+        #{catName},
+      </if>
+      
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      
+      now(),now(),
+      <if test="creator != null" >
+        #{creator},
+      </if>
+      <if test="modifier != null" >
+        #{modifier},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted},
+      </if>
+      
+      <if test="isLeaf != null" >
+        #{isLeaf},
+      </if>
+      <if test="catLevel != null" >
+        #{catLevel},
+      </if>
+      <if test="catCode != null" >
+        #{catCode},
+      </if>
+      <if test="vehicleCode != null" >
+        #{vehicleCode},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.category.CategoryDO" >
+    update db_category
+    <set >
+      
+      <if test="catName != null" >
+        cat_name = #{catName},
+      </if>
+      
+      <if test="parentId != null" >
+        parent_id = #{parentId},
+      </if>
+        gmt_modified = now(),
+      <if test="creator != null" >
+        creator = #{creator},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted},
+      </if>
+      
+      <if test="isLeaf != null" >
+        is_leaf = #{isLeaf},
+      </if>
+      <if test="catLevel != null" >
+        cat_level = #{catLevel},
+      </if>
+      <if test="catCode != null" >
+        cat_code = #{catCode},
+      </if>
+      <if test="vehicleCode != null" >
+        vehicle_code = #{vehicleCode},
+      </if>
+      
+    </set>
+    where cat_id = #{catId}
+  </update>
+
+
+  <select id="getCategoryListByPid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from db_category
+    where is_deleted='N'
+    and vehicle_code is not null
+    and parent_id = #{pid}
+    order by cat_cade
+  </select>
+
+  <select id="getCategoryForCheck" resultMap="BaseResultMap" parameterType="Map">
+    select
+    <include refid="Base_Column_List"/>
+    from db_category
+    <where>
+      <if test="catLevel != null">
+        and cat_level = #{catLevel}
+      </if>
+      <if test="catCode != null">
+        and cat_code = #{catCode}
+      </if>
+      <if test="parentId != null">
+        and parent_id = #{parentId}
+      </if>
+      <if test="vehicleCode != null">
+        and vehicle_code = #{vehicleCode}
+      </if>
+    </where>
+  </select>
+
+  <select id="getDeletedCategory" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from db_category
+    where is_deleted != 'N'
+    and vehicle_code is not null
+    order by cat_level,cat_code
+  </select>
+
+  <select id="selectVehicleCodeCount" resultType="int" parameterType="int">
+    select count(DISTINCT vehicle_code)
+    from db_category
+    where is_deleted='N' and vehicle_code is not null and vehicle_code!= 'NaN'
+    <if test="catId != null">
+      and parent_id = #{catId}
+    </if>
+  </select>
+
+  <update id="setYesDeleteFlagInCascade">
+    <if test="catLevel != null and (catLevel == 1 or catLevel == 2 or catLevel == 3)">
+      UPDATE
+      db_category
+      SET
+      is_deleted = 'Y'
+      where
+      <if test="catLevel == 1">
+        cat_id = #{catId}
+        or parent_id = #{catId}
+        or parent_id in(
+          SELECT temtable.cat_id FROM (
+          select cat_id
+          from db_category
+          where parent_id = #{catId}) temtable
+        )
+      </if>
+      <if test="catLevel == 2">
+        cat_id = #{catId}
+        or parent_id = #{catId}
+      </if>
+      <if test="catLevel == 3">
+        cat_id = #{catId}
+      </if>
+    </if>
+  </update>
+
+  <update id="updateIsLeaf">
+    UPDATE db_category
+    SET is_leaf = #{isLeaf}
+    WHERE
+    cat_id =#{catId}
+  </update>
+
+  <select id="selectVehicleCode" resultType="string" parameterType="int">
+    SELECT vehicle_code
+    FROM db_category
+    WHERE cat_id =  #{catId}
+  </select>
+
+  <update id="updateVehicleCode">
+    UPDATE db_category
+    SET
+    <if test="vehicleCode == null">
+      vehicle_code = (SELECT DISTINCT vehicle_code FROM db_category_part WHERE is_deleted = 'N' AND third_cat_id =  #{catId})
+    </if>
+    <if test="vehicleCode != null">
+      vehicle_code = #{vehicleCode}
+    </if>
+    WHERE
+    cat_id = #{catId}
+  </update>
+
+
+  <select id="selectParentById" resultMap="BaseResultMap" parameterType="int" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM db_category
+    WHERE cat_id = (SELECT parent_id FROM db_category WHERE cat_id = #{catId})
+    AND is_deleted='N'
+  </select>
+
+  <select id="selectChildren" resultMap="BaseResultMap" parameterType="int" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM db_category
+    WHERE parent_id = #{catId}
+    AND is_deleted='N'
+  </select>
+
+  <select id="selectStoppedCategory" resultMap="BaseResultMap" parameterType="int" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM db_category
+    WHERE is_deleted != 'N'
+    AND vehicle_code is not null
+    <if test="level != null">
+      AND cat_level = #{level}
+    </if>
+    <if test="parentId != null">
+      AND parent_id = #{parentId}
+    </if>
+    order by cat_code
+  </select>
+
+  <select id="selectDeletedByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_category
+    where cat_id = #{catId}
+    and is_deleted != 'N'
+  </select>
+
+</mapper>

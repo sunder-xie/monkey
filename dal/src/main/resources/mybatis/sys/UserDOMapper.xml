@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.sys.UserDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.UserDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
+    <result column="cn_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,userName,passWord
+  </sql>
+    <select id="checkLoginUser" resultType="boolean" parameterType="com.tqmall.monkey.domain.entity.UserDO" >
+        select
+        count(1)
+        from db_monkey_users
+        where user_name = #{userName,jdbcType=VARCHAR} and pass_word = #{passWord,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectLoginUserIdByUserName" resultType="int" parameterType="String" >
+        select
+        id
+        from db_monkey_users
+        where user_name = #{userName,jdbcType=VARCHAR}
+        and (is_deleted != 1 or is_deleted is null)
+    </select>
+
+    <select id="selectUserDO" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.entity.UserDO" >
+        select
+        id,user_name,cn_name,dept,company
+        from db_monkey_users
+        where user_name = #{userName,jdbcType=VARCHAR}
+        and (is_deleted != 1 or is_deleted is null)
+    </select>
+
+    <select id="selectUserById" resultMap="BaseResultMap" parameterType="int" >
+        select
+        id,user_name,cn_name,pass_word,dept,company
+        from db_monkey_users
+        where id = #{userId,jdbcType=INTEGER}
+    </select>
+
+
+    <insert id="insertLoginUser" parameterType="com.tqmall.monkey.domain.entity.UserDO">
+        insert into db_monkey_users (user_name,
+        pass_word,cn_name,dept,company)
+        values ( #{userName,jdbcType=VARCHAR},
+        #{passWord,jdbcType=VARCHAR},#{nickName,jdbcType=VARCHAR},#{dept,jdbcType=VARCHAR},#{company,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getAllUsers" resultMap="BaseResultMap" >
+        select id, user_name, cn_name, dept, company
+        from db_monkey_users
+        where (is_deleted != 1 or is_deleted is null)
+        order by id
+    </select>
+
+    <select id="getUsersPage" resultMap="BaseResultMap" parameterType="hashmap" >
+        select id, user_name, cn_name, dept, company
+        from db_monkey_users
+        where (is_deleted != 1 or is_deleted is null)
+        <if test="user_name != null">and user_name  LIKE CONCAT(CONCAT('%', #{user_name}), '%') </if>
+        <if test="cn_name != null" >and cn_name  LIKE CONCAT(CONCAT('%', #{cn_name}), '%') </if>
+        order by id ASC
+    </select>
+    <select id="getTotalCount" resultType="int" parameterType="hashmap" >
+        select count(id)
+        from db_monkey_users
+        where (is_deleted != 1 or is_deleted is null)
+        <if test="user_name != null">and user_name  LIKE CONCAT(CONCAT('%', #{user_name}), '%') </if>
+        <if test="cn_name != null" >and cn_name  LIKE CONCAT(CONCAT('%', #{cn_name}), '%') </if>
+    </select>
+
+    <update id="deleteUserById" parameterType="int">
+        update db_monkey_users
+        set is_deleted = 1
+        where id = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateUser" parameterType="com.tqmall.monkey.domain.entity.UserDO">
+        update db_monkey_users
+        set
+        <if test="nickName != null" >
+         cn_name = #{nickName},
+        </if>
+        pass_word = #{passWord}
+        where id = #{id}
+    </update>
+
+    <insert id="insertUserRoleBatch" >
+        insert into db_monkey_sys_user_role(
+          user_id, role_id)
+        values
+        <foreach collection="list" item="item" index="index" open="" separator=","  close="">
+            (#{item.userId}, #{item.roleId})
+        </foreach>
+    </insert>
+    <delete id="deleteUserRole" parameterType="com.tqmall.monkey.domain.entity.sys.UserRole">
+        delete from db_monkey_sys_user_role
+        where role_id = #{roleId}
+        and user_id = #{userId}
+    </delete>
+
+</mapper>

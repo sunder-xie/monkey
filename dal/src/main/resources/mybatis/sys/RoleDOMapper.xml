@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.sys.RoleDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.sys.RoleDO" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="available" property="available" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="check_flag" property="checkFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, role_name, description, available, create_id, update_id, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_sys_role
+    where available = 0 AND Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_sys_role
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.sys.RoleDO" >
+    insert into db_monkey_sys_role (Id, role_name, description, 
+      available, create_id, update_id, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{available,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{updateId,jdbcType=INTEGER}, 
+      now(),now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.sys.RoleDO" >
+    insert into db_monkey_sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="available != null" >
+        available,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      gmt_create,gmt_modified,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      now(),now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.sys.RoleDO" >
+    update db_monkey_sys_role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        available = #{available,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      gmt_modified =  now(),
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.sys.RoleDO" >
+    update db_monkey_sys_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      available = #{available,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=INTEGER},
+      gmt_modified = now()
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--根据用户ID查角色列表-->
+  <select id="selectRoleListByUserId" resultType="com.tqmall.monkey.domain.entity.sys.RoleDO" parameterType="java.lang.Integer" >
+    select dmsr.Id as id,dmsr.role_name as roleName,dmsr.description as description,
+    dmsr.available as available,dmsr.create_id as createId,
+    dmsr.update_id as updateId,dmsr.gmt_create as gmtCreate,dmsr.gmt_modified as gmtModified
+    from db_monkey_sys_role dmsr
+    RIGHT JOIN db_monkey_sys_user_role dmsur on dmsur.role_id = dmsr.Id
+    where available = 0 AND dmsur.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllRoles" resultMap="BaseResultMap" >
+    select Id, role_name, description
+    from db_monkey_sys_role
+    where (available != 1 or available is null)
+    order by role_name
+  </select>
+
+  <select id="getRolesPage" resultMap="BaseResultMap" parameterType="hashmap" >
+    select Id, role_name, description
+    from db_monkey_sys_role
+    where (available != 1 or available is null)
+    <if test="roleName != null">and role_name LIKE CONCAT(CONCAT('%', #{roleName}), '%') </if>
+    order by role_name ASC
+  </select>
+  <select id="getTotalCount" resultType="int" parameterType="hashmap" >
+    select count(Id)
+    from db_monkey_sys_role
+    where (available != 1 or available is null)
+    <if test="roleName != null">and role_name LIKE CONCAT(CONCAT('%', #{roleName}), '%') </if>
+  </select>
+
+  <select id="getRoleById" resultMap="BaseResultMap" parameterType="int">
+    select Id, role_name, description
+    from db_monkey_sys_role
+    where (available != 1 or available is null)
+    and Id = #{roleId}
+  </select>
+
+  <select id="getRoleByName" resultMap="BaseResultMap" parameterType="String">
+    select Id, role_name, description
+    from db_monkey_sys_role
+    where (available != 1 or available is null)
+    and role_name = #{roleName}
+  </select>
+
+  <insert id="insertRoleResourceBatch" >
+    insert into db_monkey_sys_role_resource(
+      role_id, resource_id)
+    values
+    <foreach collection="list" item="item" index="index" open="" separator=","  close="">
+      (#{item.roleId}, #{item.resourceId})
+    </foreach>
+  </insert>
+  <delete id="deleteRoleResource" parameterType="com.tqmall.monkey.domain.entity.sys.RoleResource">
+    delete from db_monkey_sys_role_resource
+    where role_id = #{roleId}
+    and resource_id = #{resourceId}
+  </delete>
+
+  <select id="selectRoleForUser" resultMap="BaseResultMap" parameterType="int">
+    select r.Id, r.role_name, r.description,
+    (case ur.user_id when #{userId,jdbcType=INTEGER} then 1 else 0 end) as check_flag
+    from db_monkey_sys_role r left join
+      db_monkey_sys_user_role ur
+    on r.Id=ur.role_id and ur.user_id = #{userId,jdbcType=INTEGER}
+    where r.available = 0
+
+  </select>
+
+
+</mapper>

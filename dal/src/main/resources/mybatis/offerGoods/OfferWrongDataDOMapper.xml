@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.offerGoods.OfferWrongDataDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.offerGoods.OfferWrongDataDO" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="indexs" property="indexs" jdbcType="VARCHAR" />
+    <result column="record_name" property="recordName" jdbcType="VARCHAR" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_attribute" property="goodsAttribute" jdbcType="VARCHAR" />
+    <result column="oe_number" property="oeNumber" jdbcType="VARCHAR" />
+    <result column="primary_price" property="primaryPrice" jdbcType="VARCHAR" />
+    <result column="advice_price" property="advicePrice" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_code" property="partCode" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="series" property="series" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="displacement" property="displacement" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="measure_unit" property="measureUnit" jdbcType="VARCHAR" />
+    <result column="package_format" property="packageFormat" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="goods_format" property="goodsFormat" jdbcType="VARCHAR" />
+    <result column="quick_wear_label" property="quickWearLabel" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="fail_reason" property="failReason" jdbcType="VARCHAR" />
+    <result column="create_account" property="createAccount" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, indexs,record_name, provider_name, goods_name, goods_attribute, oe_number, primary_price,
+    advice_price, part_name, part_code, brand, company, series, model, displacement, 
+    year, measure_unit, package_format, remark,city, goods_format, quick_wear_label, status,fail_reason,create_account
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_data_input
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_offer_data_input
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferWrongDataDO" >
+    insert into db_monkey_offer_data_input (Id, indexs, record_name,provider_name,
+      goods_name, goods_attribute, oe_number, 
+      primary_price, advice_price, part_name, 
+      part_code, brand, company, 
+      series, model, displacement, 
+      year, measure_unit, package_format, 
+      remark,city, goods_format, quick_wear_label,
+      status,fail_reason,create_account)
+    values (#{id,jdbcType=INTEGER}, #{indexs,jdbcType=VARCHAR}, #{recordName,jdbcType=VARCHAR},#{providerName,jdbcType=VARCHAR},
+      #{goodsName,jdbcType=VARCHAR}, #{goodsAttribute,jdbcType=VARCHAR}, #{oeNumber,jdbcType=VARCHAR}, 
+      #{primaryPrice,jdbcType=VARCHAR}, #{advicePrice,jdbcType=VARCHAR}, #{partName,jdbcType=VARCHAR}, 
+      #{partCode,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{series,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{displacement,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{measureUnit,jdbcType=VARCHAR}, #{packageFormat,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR}, #{goodsFormat,jdbcType=VARCHAR}, #{quickWearLabel,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER},
+      #{failReason,jdbcType=VARCHAR},
+      #{createAccount,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferWrongDataDO" >
+    insert into db_monkey_offer_data_input
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="indexs != null" >
+        indexs,
+      </if>
+      <if test="recordName != null" >
+        record_name,
+      </if>
+      <if test="providerName != null" >
+        provider_name,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsAttribute != null" >
+        goods_attribute,
+      </if>
+      <if test="oeNumber != null" >
+        oe_number,
+      </if>
+      <if test="primaryPrice != null" >
+        primary_price,
+      </if>
+      <if test="advicePrice != null" >
+        advice_price,
+      </if>
+      <if test="partName != null" >
+        part_name,
+      </if>
+      <if test="partCode != null" >
+        part_code,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="series != null" >
+        series,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="displacement != null" >
+        displacement,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="measureUnit != null" >
+        measure_unit,
+      </if>
+      <if test="packageFormat != null" >
+        package_format,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="goodsFormat != null" >
+        goods_format,
+      </if>
+      <if test="quickWearLabel != null" >
+        quick_wear_label,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="failReason != null" >
+        fail_reason,
+      </if>
+      <if test="createAccount != null" >
+        create_account,
+      </if>
+      gmt_create,
+      gmt_modified,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="indexs != null" >
+        #{indexs,jdbcType=VARCHAR},
+      </if>
+      <if test="recordName != null" >
+        #{recordName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null" >
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttribute != null" >
+        #{goodsAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="oeNumber != null" >
+        #{oeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="primaryPrice != null" >
+        #{primaryPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="advicePrice != null" >
+        #{advicePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null" >
+        #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="partCode != null" >
+        #{partCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="series != null" >
+        #{series,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null" >
+        #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="measureUnit != null" >
+        #{measureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="packageFormat != null" >
+        #{packageFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsFormat != null" >
+        #{goodsFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="quickWearLabel != null" >
+        #{quickWearLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="failReason != null" >
+        #{failReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createAccount != null" >
+        #{createAccount,jdbcType=VARCHAR},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferWrongDataDO" >
+    update db_monkey_offer_data_input
+    <set >
+      <if test="indexs != null" >
+        indexs = #{indexs,jdbcType=VARCHAR},
+      </if>
+      <if test="recordName != null" >
+        record_name = #{recordName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null" >
+        provider_name = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttribute != null" >
+        goods_attribute = #{goodsAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="oeNumber != null" >
+        oe_number = #{oeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="primaryPrice != null" >
+        primary_price = #{primaryPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="advicePrice != null" >
+        advice_price = #{advicePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null" >
+        part_name = #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="partCode != null" >
+        part_code = #{partCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="series != null" >
+        series = #{series,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null" >
+        displacement = #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="measureUnit != null" >
+        measure_unit = #{measureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="packageFormat != null" >
+        package_format = #{packageFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsFormat != null" >
+        goods_format = #{goodsFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="quickWearLabel != null" >
+        quick_wear_label = #{quickWearLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="failReason != null" >
+        fail_reason = #{failReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createAccount != null" >
+        create_account = #{createAccount,jdbcType=VARCHAR},
+      </if>
+      gmt_modified = now(),
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferWrongDataDO" >
+    update db_monkey_offer_data_input
+    set indexs = #{indexs,jdbcType=VARCHAR},
+      record_name = #{recordName,jdbcType=VARCHAR},
+      provider_name = #{providerName,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_attribute = #{goodsAttribute,jdbcType=VARCHAR},
+      oe_number = #{oeNumber,jdbcType=VARCHAR},
+      primary_price = #{primaryPrice,jdbcType=VARCHAR},
+      advice_price = #{advicePrice,jdbcType=VARCHAR},
+      part_name = #{partName,jdbcType=VARCHAR},
+      part_code = #{partCode,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      series = #{series,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      displacement = #{displacement,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      measure_unit = #{measureUnit,jdbcType=VARCHAR},
+      package_format = #{packageFormat,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      goods_format = #{goodsFormat,jdbcType=VARCHAR},
+      quick_wear_label = #{quickWearLabel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      fail_reason = #{failReason,jdbcType=VARCHAR},
+      create_account = #{createAccount,jdbcType=VARCHAR},
+      gmt_modified = now()
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByStatusAndAccount" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_data_input
+    where status = #{status,jdbcType=INTEGER}
+    <if test="createAccount != null">AND create_account = #{createAccount,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="selectByStatusAndAccountCount" resultType="java.lang.Integer" parameterType="Map" >
+    select COUNT(1)
+    from db_monkey_offer_data_input
+    where status = #{status,jdbcType=INTEGER}
+    <if test="createAccount != null">AND create_account = #{createAccount,jdbcType=VARCHAR} </if>
+  </select>
+
+  <!--查看数据库是否存在已有数据-->
+  <select id="selectByOfferWrongDataDO" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferWrongDataDO" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_data_input
+    where
+    <if test="indexs != null" >
+      indexs = #{indexs,jdbcType=VARCHAR} AND
+    </if>
+    <if test="providerName != null" >
+      provider_name = #{providerName,jdbcType=VARCHAR} AND
+    </if>
+    <if test="recordName != null" >
+      record_name = #{recordName,jdbcType=VARCHAR} AND
+    </if>
+    <if test="goodsName != null" >
+      goods_name = #{goodsName,jdbcType=VARCHAR} AND
+    </if>
+    <if test="goodsAttribute != null" >
+      goods_attribute = #{goodsAttribute,jdbcType=VARCHAR} AND
+    </if>
+    <if test="oeNumber != null" >
+      oe_number = #{oeNumber,jdbcType=VARCHAR} AND
+    </if>
+    <if test="primaryPrice != null" >
+      primary_price = #{primaryPrice,jdbcType=VARCHAR} AND
+    </if>
+    <if test="advicePrice != null" >
+      advice_price = #{advicePrice,jdbcType=VARCHAR} AND
+    </if>
+    <if test="partName != null" >
+      part_name = #{partName,jdbcType=VARCHAR} AND
+    </if>
+    <if test="partCode != null" >
+      part_code = #{partCode,jdbcType=VARCHAR} AND
+    </if>
+    <if test="brand != null" >
+      brand = #{brand,jdbcType=VARCHAR} AND
+    </if>
+    <if test="company != null" >
+      company = #{company,jdbcType=VARCHAR} AND
+    </if>
+    <if test="series != null" >
+      series = #{series,jdbcType=VARCHAR} AND
+    </if>
+    <if test="model != null" >
+      model = #{model,jdbcType=VARCHAR} AND
+    </if>
+    <if test="displacement != null" >
+      displacement = #{displacement,jdbcType=VARCHAR} AND
+    </if>
+    <if test="year != null" >
+      year = #{year,jdbcType=VARCHAR} AND
+    </if>
+    <if test="measureUnit != null" >
+      measure_unit = #{measureUnit,jdbcType=VARCHAR} AND
+    </if>
+    <if test="packageFormat != null" >
+      package_format = #{packageFormat,jdbcType=VARCHAR} AND
+    </if>
+    <if test="remark != null" >
+      remark = #{remark,jdbcType=VARCHAR} AND
+    </if>
+    <if test="city != null" >
+      city = #{city,jdbcType=VARCHAR} AND
+    </if>
+    <if test="goodsFormat != null" >
+      goods_format = #{goodsFormat,jdbcType=VARCHAR} AND
+    </if>
+    <if test="quickWearLabel != null" >
+      quick_wear_label = #{quickWearLabel,jdbcType=VARCHAR} AND
+    </if>
+    <if test="status != null" >
+      status = #{status,jdbcType=INTEGER} AND
+    </if>
+    <if test="failReason != null" >
+      fail_reason = #{failReason,jdbcType=VARCHAR} AND
+    </if>
+    <if test="createAccount != null" >
+      create_account = #{createAccount,jdbcType=VARCHAR} AND
+    </if>
+    1=1
+  </select>
+
+</mapper>

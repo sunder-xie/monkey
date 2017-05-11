@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.offerGoods.OfferGoodsDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.offerGoods.OfferGoodsDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="oe_num" property="oeNum" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_format" property="goodsFormat" jdbcType="VARCHAR" />
+    <result column="brand_partcode" property="brandPartcode" jdbcType="VARCHAR" />
+    <result column="measure_unit" property="measureUnit" jdbcType="VARCHAR" />
+    <result column="conversion_value" property="conversionValue" jdbcType="INTEGER" />
+    <result column="min_measure_unit" property="minMeasureUnit" jdbcType="VARCHAR" />
+    <result column="package_format" property="packageFormat" jdbcType="VARCHAR" />
+    <result column="car_parts_type" property="carPartsType" jdbcType="TINYINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="part_id" property="partId" jdbcType="INTEGER" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_sum_code" property="partSumCode" jdbcType="VARCHAR" />
+    <result column="cate_status" property="cateStatus" jdbcType="INTEGER" />
+    <result column="brand_status" property="brandStatus" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="goods_quality_type" property="goodsQualityType" jdbcType="INTEGER" />
+    <result column="third_cate_id" property="thirdCateId" jdbcType="INTEGER" />
+    <result column="third_cate_name" property="thirdCateName" jdbcType="VARCHAR" />
+    <result column="second_cate_id" property="secondCateId" jdbcType="INTEGER" />
+    <result column="second_cate_name" property="secondCateName" jdbcType="VARCHAR" />
+    <result column="first_cate_id" property="firstCateId" jdbcType="INTEGER" />
+    <result column="first_cate_name" property="firstCateName" jdbcType="VARCHAR" />
+    <result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="oe_iswrong" property="oeIswrong" jdbcType="INTEGER" />
+    <result column="cate_kind" property="cateKind" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, oe_num, goods_name, brand_id, brand_name, goods_format, brand_partcode, measure_unit,
+    conversion_value, min_measure_unit, package_format, car_parts_type, gmt_create, gmt_modified,
+    part_id, part_name, part_sum_code, cate_status, brand_status, update_id, create_id,
+    remark, goods_quality_type, third_cate_id, third_cate_name, second_cate_id, second_cate_name,
+    first_cate_id, first_cate_name, isdelete, oe_iswrong, cate_kind
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_goods
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_offer_goods
+    where id = #{id}
+  </delete>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferGoodsDO" >
+    insert into db_monkey_offer_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="oeNum != null" >
+        oe_num,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="goodsFormat != null" >
+        goods_format,
+      </if>
+      <if test="brandPartcode != null" >
+        brand_partcode,
+      </if>
+      <if test="measureUnit != null" >
+        measure_unit,
+      </if>
+      <if test="conversionValue != null" >
+        conversion_value,
+      </if>
+      <if test="minMeasureUnit != null" >
+        min_measure_unit,
+      </if>
+      <if test="packageFormat != null" >
+        package_format,
+      </if>
+      <if test="carPartsType != null" >
+        car_parts_type,
+      </if>
+      gmt_create,
+      gmt_modified,
+      <if test="partId != null" >
+        part_id,
+      </if>
+      <if test="partName != null" >
+        part_name,
+      </if>
+      <if test="partSumCode != null" >
+        part_sum_code,
+      </if>
+      <if test="cateStatus != null" >
+        cate_status,
+      </if>
+      <if test="brandStatus != null" >
+        brand_status,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="goodsQualityType != null" >
+        goods_quality_type,
+      </if>
+      <if test="thirdCateId != null" >
+        third_cate_id,
+      </if>
+      <if test="thirdCateName != null" >
+        third_cate_name,
+      </if>
+      <if test="secondCateId != null" >
+        second_cate_id,
+      </if>
+      <if test="secondCateName != null" >
+        second_cate_name,
+      </if>
+      <if test="firstCateId != null" >
+        first_cate_id,
+      </if>
+      <if test="firstCateName != null" >
+        first_cate_name,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
+      </if>
+      <if test="oeIswrong != null" >
+        oe_iswrong,
+      </if>
+      <if test="cateKind != null">
+        cate_kind,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="oeNum != null" >
+        #{oeNum},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName},
+      </if>
+      <if test="brandId != null" >
+        #{brandId},
+      </if>
+      <if test="brandName != null" >
+        #{brandName},
+      </if>
+      <if test="goodsFormat != null" >
+        #{goodsFormat},
+      </if>
+      <if test="brandPartcode != null" >
+        #{brandPartcode},
+      </if>
+      <if test="measureUnit != null" >
+        #{measureUnit},
+      </if>
+      <if test="conversionValue != null" >
+        #{conversionValue},
+      </if>
+      <if test="minMeasureUnit != null" >
+        #{minMeasureUnit},
+      </if>
+      <if test="packageFormat != null" >
+        #{packageFormat},
+      </if>
+      <if test="carPartsType != null" >
+        #{carPartsType,jdbcType=TINYINT},
+      </if>
+      now(),
+      now(),
+      <if test="partId != null" >
+        #{partId},
+      </if>
+      <if test="partName != null" >
+        #{partName},
+      </if>
+      <if test="partSumCode != null" >
+        #{partSumCode},
+      </if>
+      <if test="cateStatus != null" >
+        #{cateStatus},
+      </if>
+      <if test="brandStatus != null" >
+        #{brandStatus},
+      </if>
+      <if test="updateId != null" >
+        #{updateId},
+      </if>
+      <if test="createId != null" >
+        #{createId},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="goodsQualityType != null" >
+        #{goodsQualityType},
+      </if>
+      <if test="thirdCateId != null" >
+        #{thirdCateId},
+      </if>
+      <if test="thirdCateName != null" >
+        #{thirdCateName},
+      </if>
+      <if test="secondCateId != null" >
+        #{secondCateId},
+      </if>
+      <if test="secondCateName != null" >
+        #{secondCateName},
+      </if>
+      <if test="firstCateId != null" >
+        #{firstCateId},
+      </if>
+      <if test="firstCateName != null" >
+        #{firstCateName},
+      </if>
+      <if test="cateKind != null">
+        #{cateKind},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.offerGoods.OfferGoodsDO" >
+    update db_monkey_offer_goods
+    <set >
+      <if test="oeNum != null" >
+        oe_num = #{oeNum},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName},
+      </if>
+      <if test="goodsFormat != null" >
+        goods_format = #{goodsFormat},
+      </if>
+      <if test="brandPartcode != null" >
+        brand_partcode = #{brandPartcode},
+      </if>
+      <if test="measureUnit != null" >
+        measure_unit = #{measureUnit},
+      </if>
+      <if test="conversionValue != null" >
+        conversion_value = #{conversionValue},
+      </if>
+      <if test="minMeasureUnit != null" >
+        min_measure_unit = #{minMeasureUnit},
+      </if>
+      <if test="packageFormat != null" >
+        package_format = #{packageFormat},
+      </if>
+      <if test="carPartsType != null" >
+        car_parts_type = #{carPartsType,jdbcType=TINYINT},
+      </if>
+      gmt_modified = now(),
+      <if test="partId != null" >
+        part_id = #{partId},
+      </if>
+      <if test="partName != null" >
+        part_name = #{partName},
+      </if>
+      <if test="partSumCode != null" >
+        part_sum_code = #{partSumCode},
+      </if>
+      <if test="cateStatus != null" >
+        cate_status = #{cateStatus},
+      </if>
+      <if test="brandStatus != null" >
+        brand_status = #{brandStatus},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="goodsQualityType != null" >
+        goods_quality_type = #{goodsQualityType},
+      </if>
+      <if test="thirdCateId != null" >
+        third_cate_id = #{thirdCateId},
+      </if>
+      <if test="thirdCateName != null" >
+        third_cate_name = #{thirdCateName},
+      </if>
+      <if test="secondCateId != null" >
+        second_cate_id = #{secondCateId},
+      </if>
+      <if test="secondCateName != null" >
+        second_cate_name = #{secondCateName},
+      </if>
+      <if test="firstCateId != null" >
+        first_cate_id = #{firstCateId},
+      </if>
+      <if test="firstCateName != null" >
+        first_cate_name = #{firstCateName},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete},
+      </if>
+      <if test="oeIswrong != null" >
+        oe_iswrong = #{oeIswrong},
+      </if>
+      <if test="cateKind != null" >
+        cate_kind = #{cateKind},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPartSelective">
+    update db_monkey_offer_goods
+    <set >
+      <if test="record.oeNum != null" >
+        oe_num = #{record.oeNum},
+      </if>
+      <if test="record.goodsName != null" >
+        goods_name = #{record.goodsName},
+      </if>
+      <if test="record.brandId != null" >
+        brand_id = #{record.brandId},
+      </if>
+      <if test="record.brandName != null" >
+        brand_name = #{record.brandName},
+      </if>
+      <if test="record.goodsFormat != null" >
+        goods_format = #{record.goodsFormat},
+      </if>
+      <if test="record.brandPartcode != null" >
+        brand_partcode = #{record.brandPartcode},
+      </if>
+      <if test="record.measureUnit != null" >
+        measure_unit = #{record.measureUnit},
+      </if>
+      <if test="record.conversionValue != null" >
+        conversion_value = #{record.conversionValue},
+      </if>
+      <if test="record.minMeasureUnit != null" >
+        min_measure_unit = #{record.minMeasureUnit},
+      </if>
+      <if test="record.packageFormat != null" >
+        package_format = #{record.packageFormat},
+      </if>
+      <if test="record.carPartsType != null" >
+        car_parts_type = #{record.carPartsType,jdbcType=TINYINT},
+      </if>
+      gmt_modified = now(),
+      <if test="record.partId != null" >
+        part_id = #{record.partId},
+      </if>
+      <if test="record.partName != null" >
+        part_name = #{record.partName},
+      </if>
+      <if test="record.partSumCode != null" >
+        part_sum_code = #{record.partSumCode},
+      </if>
+      <if test="record.cateStatus != null" >
+        cate_status = #{record.cateStatus},
+      </if>
+      <if test="record.brandStatus != null" >
+        brand_status = #{record.brandStatus},
+      </if>
+      <if test="record.updateId != null" >
+        update_id = #{record.updateId},
+      </if>
+      <if test="record.createId != null" >
+        create_id = #{record.createId},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark},
+      </if>
+      <if test="record.goodsQualityType != null" >
+        goods_quality_type = #{record.goodsQualityType},
+      </if>
+      <if test="record.thirdCateId != null" >
+        third_cate_id = #{record.thirdCateId},
+      </if>
+      <if test="record.thirdCateName != null" >
+        third_cate_name = #{record.thirdCateName},
+      </if>
+      <if test="record.secondCateId != null" >
+        second_cate_id = #{record.secondCateId},
+      </if>
+      <if test="record.secondCateName != null" >
+        second_cate_name = #{record.secondCateName},
+      </if>
+      <if test="record.firstCateId != null" >
+        first_cate_id = #{record.firstCateId},
+      </if>
+      <if test="record.firstCateName != null" >
+        first_cate_name = #{record.firstCateName},
+      </if>
+      <if test="record.isdelete != null" >
+        isdelete = #{record.isdelete},
+      </if>
+      <if test="record.oeIswrong != null" >
+        oe_iswrong = #{record.oeIswrong},
+      </if>
+      <if test="record.cateKind != null" >
+        cate_kind = #{record.cateKind},
+      </if>
+    </set>
+    where part_id = #{oldPartId}
+  </update>
+
+  <select id="getGoodsPage" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_goods
+    WHERE isdelete = 0 and oe_iswrong = 0
+    <if test="cateStatus != null" >
+      and cate_status = #{cateStatus}
+    </if>
+  </select>
+
+  <resultMap id="goodsMap" type="com.tqmall.monkey.domain.entity.offerGoods.OfferGoodsDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="oe_num" property="oeNum" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_quality_type" property="goodsQualityType" jdbcType="INTEGER" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getGoodsByCarId" resultMap="goodsMap" parameterType="int">
+    SELECT goods.id, goods.oe_num, goods.goods_name, goods.brand_name,
+    goods.goods_quality_type, record.provider_name
+    FROM db_monkey_offer_goods AS goods,db_monkey_offer_goods_car_relation AS relation
+    ,db_monkey_offer_record record
+    WHERE goods.id = relation.offer_goods_id AND record.offer_goods_id = goods.id
+    AND goods.isdelete = 0 AND goods.oe_iswrong = 0
+    AND relation.car_id = #{carId}
+  </select>
+
+  <!--根据分类状态获得所有商品-->
+  <select id="getAllGoodsByCateStatus" resultMap="BaseResultMap" parameterType="Map">
+    SELECT id,oe_num,goods_name,brand_name,part_name,part_sum_code
+    FROM db_monkey_offer_goods
+    WHERE isdelete = 0 and oe_iswrong = 0
+    <if test="cateStatus != null" >
+      AND cate_status = #{cateStatus}
+    </if>
+  </select>
+
+  <select id="getGoodsSumByCateStatus" resultType="java.lang.Integer" parameterType="int">
+    SELECT COUNT(1)
+    FROM db_monkey_offer_goods
+    WHERE isdelete = 0 and oe_iswrong = 0
+    <if test="_parameter != null" >
+      AND cate_status = #{_parameter}
+    </if>
+  </select>
+
+
+  <!--根据OE码查询所有数据-->
+  <select id="selectByOeNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_goods
+    where oe_num = #{OENumber}
+  </select>
+
+  <!--根据条件查询前limit条数据-->
+  <select id="queryOfferGoodsPage" resultType="com.tqmall.monkey.domain.entity.offerGoods.OfferGoodsDO" parameterType="hashmap" >
+    select dmog.id as id, dmog.goods_name as goodsName,dmog.brand_name as brandName,dmog.brand_partcode as brandPartcode,dmog.oe_num as oeNum,dmog.cat_id as catId
+    from db_monkey_offer_goods dmog
+    <if test="offer_car_name != null">
+    JOIN db_monkey_offer_goods_car dmogc on dmog.id = dmogc.offer_goods_id
+    </if>
+    where 1 = 1
+    <if test="offer_car_name != null">and dmogc.offer_car_name  LIKE CONCAT(CONCAT('%', #{offer_car_name}), '%') </if>
+    <if test="brand_name != null" >and dmog.brand_name  LIKE CONCAT(CONCAT('%', #{brand_name}), '%') </if>
+    <if test="goods_name != null" >and dmog.goods_name  LIKE CONCAT(CONCAT('%', #{goods_name}), '%') </if>
+    <if test="brand_partcode != null" >and dmog.brand_partcode  LIKE CONCAT(CONCAT('%', #{brand_partcode}), '%') </if>
+    <if test="oe_num != null" >and dmog.oe_num  LIKE CONCAT(CONCAT('%', #{oe_num}), '%') </if>
+    group by dmog.id
+    order by dmog.gmt_modified DESC
+  </select>
+
+  <!--根据OE码查询所有数据-->
+  <select id="selectByOeBrandQuality" resultMap="BaseResultMap" parameterType="hashmap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_goods
+    where oe_num = #{oe}
+    <if test="brandName != null">and  brand_name = #{brandName} </if>
+    <if test="quality != null">and  goods_quality_type = #{quality} </if>
+  </select>
+
+
+
+  <select id="getGoodsByPartId" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_offer_goods
+    where part_id = #{partId}
+  </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config description="">
+    <group name="default">
+        <property name="monkey.log.root" defaultValue="monkey-logs"
+                  description="log文件目录"/>
+        <property name="monkey.log.level" defaultValue="INFO"
+                  description="log级别"/>
+        <property name="monkey.log.pattern"
+                  defaultValue="[%d{'MM-dd HH:mm:ss,SSS',GMT+8:00}] %-5p [%.10t][%X{CU}]  -  [%c][%L] - %m%n"
+                  description="log格式"/>
+        <property name="monkey.log.charset" defaultValue="UTF-8"
+                  description="log文件编码类型"/>
+        <!-- monkey 数据库-->
+        <property name="monkey.jdbc.driverClassName"
+                  defaultValue="com.mysql.jdbc.Driver"
+                  description="JDBC driver class name"/>
+        <property name="monkey.jdbc.url"
+                  defaultValue="jdbc:mysql://127.0.0.1:3306/modeldatas?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"
+                  description="JDBC URL"/>
+        <property name="monkey.jdbc.username" defaultValue=""
+                  description="JDBC user name"/>
+        <property name="monkey.jdbc.password" defaultValue=""
+                  description="JDBC password"/>
+
+        <property name="goods.search.url" defaultValue="http://"
+                  description="rich的搜索接口"/>
+        <property name="redis.host" defaultValue="redis://Monkey_test_Server:root@127.0.0.1:6379/31"/>
+
+        <property name="file.address" defaultValue="/data/chejian_server/monkey/tomcat/file"/>
+        <property name="dubbo.application.name" defaultValue="Monkey_test"/>
+        <property name="zookeeper.address" defaultValue="127.0.0.1:2182"/>
+        <property name="dubbo.consume.athena.version" defaultValue="1.0.0.daily"/>
+        <property name="dubbo.consume.stall.version" defaultValue="1.0.0.daily"/>
+        <property name="dubbo.consume.epc.version" defaultValue="1.0.0.daily"/>
+        <property name="dubbo.consume.search.version" defaultValue="1.0.0.daily"/>
+
+        <property name="monk.host" defaultValue="https://"/>
+
+    </group>
+    <script>
+        <generate template="application.properties.vm"
+                  destfile="WEB-INF/classes/application.properties"
+                  charset="UTF-8"/>
+        <!--<generate template="logback.xml.vm" destfile="WEB-INF/classes/logback.xml"-->
+                  <!--charset="UTF-8"/>-->
+    </script>
+</config>

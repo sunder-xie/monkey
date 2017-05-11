@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.commodity.CommodityBrandDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.commodity.CommodityBrandDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="first_letter" property="firstLetter" jdbcType="VARCHAR" />
+    <result column="name_ch" property="nameCh" jdbcType="VARCHAR" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="online_website" property="onlineWebsite" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="profile" property="profile" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="modifier" property="modifier" jdbcType="INTEGER" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, first_letter, name_ch, name_en, online_website, code, profile, country, creator, modifier,
+    gmt_modified, gmt_create, isdelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_monkey_commodity_brand
+    where id = #{id,jdbcType=INTEGER}
+    and isdelete = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_monkey_commodity_brand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityBrandDO" >
+    insert into db_monkey_commodity_brand (id, first_letter, name_ch, name_en,
+      online_website, code, profile, 
+      country, creator, modifier, 
+      gmt_modified, gmt_create, isdelete
+      )
+    values (#{id,jdbcType=INTEGER}, #{firstLetter,jdbcType=VARCHAR}, #{nameCh,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR},
+      #{onlineWebsite,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{profile,jdbcType=VARCHAR}, 
+      #{country,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{modifier,jdbcType=INTEGER}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
+          parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityBrandDO" >
+    insert into db_monkey_commodity_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="firstLetter != null" >
+        first_letter,
+      </if>
+      <if test="nameCh != null" >
+        name_ch,
+      </if>
+      <if test="nameEn != null" >
+        name_en,
+      </if>
+      <if test="onlineWebsite != null" >
+        online_website,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="profile != null" >
+        profile,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+        gmt_modified,
+        gmt_create,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="firstLetter != null" >
+        #{firstLetter,jdbcType=VARCHAR},
+      </if>
+      <if test="nameCh != null" >
+        #{nameCh,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null" >
+        #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineWebsite != null" >
+        #{onlineWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="profile != null" >
+        #{profile,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityBrandDO" >
+    update db_monkey_commodity_brand
+    <set >
+      <if test="firstLetter != null" >
+        first_letter = #{firstLetter,jdbcType=VARCHAR},
+      </if>
+      <if test="nameCh != null" >
+        name_ch = #{nameCh,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null" >
+        name_en = #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineWebsite != null" >
+        online_website = #{onlineWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="profile != null" >
+        profile = #{profile,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=INTEGER},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+        gmt_modified = now(),
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityBrandDO" >
+    update db_monkey_commodity_brand
+    set    first_letter = #{firstLetter,jdbcType=VARCHAR},
+      name_ch = #{nameCh,jdbcType=VARCHAR},
+      name_en = #{nameEn,jdbcType=VARCHAR},
+      online_website = #{onlineWebsite,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      profile = #{profile,jdbcType=VARCHAR},
+      country = #{country,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=INTEGER},
+      modifier = #{modifier,jdbcType=INTEGER},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="changeIsDelete" parameterType="com.tqmall.monkey.domain.entity.commodity.CommodityBrandDO" >
+    update db_monkey_commodity_brand
+    set
+      modifier = #{modifier,jdbcType=INTEGER},
+      gmt_modified = now(),
+      isdelete = #{isdelete,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getPageByCountroyKey" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_commodity_brand
+    where
+    <if test="country != null" >
+      country = #{country,jdbcType=INTEGER} AND
+    </if>
+    <if test="nameCh != null" >
+      name_ch LIKE #{nameCh,jdbcType=VARCHAR} And
+    </if>
+    <if test="nameEn != null" >
+      name_en LIKE #{nameEn,jdbcType=VARCHAR} And
+    </if>
+    isdelete = 0
+
+    ORDER BY first_letter
+  </select>
+
+  <select id="getPageByCountroyKeyCount" resultType="java.lang.Integer" parameterType="map" >
+    select count(1)
+    from db_monkey_commodity_brand
+    where
+    <if test="country != null" >
+      country = #{country,jdbcType=INTEGER} AND
+    </if>
+    <if test="nameCh != null" >
+      name_ch LIKE #{nameCh,jdbcType=VARCHAR} And
+    </if>
+    <if test="nameEn != null" >
+      name_en LIKE #{nameEn,jdbcType=VARCHAR} And
+    </if>
+    isdelete = 0
+  </select>
+
+
+  <select id="getCommodityBrandDOByNameKey" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_commodity_brand
+    where
+    <if test="nameCh != null" >
+      name_ch = #{nameCh,jdbcType=VARCHAR} And
+    </if>
+    <if test="nameEn != null" >
+      name_en = #{nameEn,jdbcType=VARCHAR} And
+    </if>
+      isdelete = 0
+    limit 1
+  </select>
+
+  <select id="getAllCommodityBrand" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from db_monkey_commodity_brand
+    where
+      isdelete = 0
+  </select>
+
+  <select id="selectByNameCode" resultType="java.lang.Integer" >
+    select id
+    from db_monkey_commodity_brand
+    where
+      name_ch = #{nameCh,jdbcType=VARCHAR} And
+      name_en = #{nameEn,jdbcType=VARCHAR} And
+      code = #{code,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

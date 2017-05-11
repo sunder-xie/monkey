@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqmall.monkey.dal.mapper.staffPer.StaffPerHandleDOMapper" >
+  <resultMap id="BaseResultMap" type="com.tqmall.monkey.domain.entity.staffPer.StaffPerHandleDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="time_year_month" property="timeYearMonth" jdbcType="VARCHAR" />
+    <result column="start_day" property="startDay" jdbcType="VARCHAR" />
+    <result column="actual_days" property="actualDays" jdbcType="REAL" />
+    <result column="total_num" property="totalNum" jdbcType="INTEGER" />
+    <result column="error_num" property="errorNum" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gmt_create, gmt_modified, is_deleted, staff_id, time_year_month, start_day, actual_days, 
+    total_num, error_num, remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_per_handle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_per_handle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerHandleDO" >
+    insert into db_per_handle (id, gmt_create, gmt_modified, 
+      is_deleted, staff_id, time_year_month, 
+      start_day, actual_days, total_num, 
+      error_num, remarks)
+    values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{staffId,jdbcType=INTEGER}, #{timeYearMonth,jdbcType=VARCHAR}, 
+      #{startDay,jdbcType=VARCHAR}, #{actualDays,jdbcType=REAL}, #{totalNum,jdbcType=INTEGER}, 
+      #{errorNum,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerHandleDO" >
+    insert into db_per_handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="timeYearMonth != null" >
+        time_year_month,
+      </if>
+      <if test="startDay != null" >
+        start_day,
+      </if>
+      <if test="actualDays != null" >
+        actual_days,
+      </if>
+      <if test="totalNum != null" >
+        total_num,
+      </if>
+      <if test="errorNum != null" >
+        error_num,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="timeYearMonth != null" >
+        #{timeYearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="startDay != null" >
+        #{startDay,jdbcType=VARCHAR},
+      </if>
+      <if test="actualDays != null" >
+        #{actualDays,jdbcType=REAL},
+      </if>
+      <if test="totalNum != null" >
+        #{totalNum,jdbcType=INTEGER},
+      </if>
+      <if test="errorNum != null" >
+        #{errorNum,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerHandleDO" >
+    update db_per_handle
+    <set >
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="timeYearMonth != null" >
+        time_year_month = #{timeYearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="startDay != null" >
+        start_day = #{startDay,jdbcType=VARCHAR},
+      </if>
+      <if test="actualDays != null" >
+        actual_days = #{actualDays,jdbcType=REAL},
+      </if>
+      <if test="totalNum != null" >
+        total_num = #{totalNum,jdbcType=INTEGER},
+      </if>
+      <if test="errorNum != null" >
+        error_num = #{errorNum,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerHandleDO" >
+    update db_per_handle
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=INTEGER},
+      time_year_month = #{timeYearMonth,jdbcType=VARCHAR},
+      start_day = #{startDay,jdbcType=VARCHAR},
+      actual_days = #{actualDays,jdbcType=REAL},
+      total_num = #{totalNum,jdbcType=INTEGER},
+      error_num = #{errorNum,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--自己业务-->
+  <select id="select2MonthDataByMonth" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_per_handle
+    where is_deleted = 'N'
+    and time_year_month in (#{month,jdbcType=VARCHAR}, #{prevMonth,jdbcType=VARCHAR})
+  </select>
+  <insert id="insertBatch" parameterType="list">
+    insert into db_per_handle
+    (gmt_create, gmt_modified, is_deleted, staff_id, time_year_month, start_day, actual_days, total_num, error_num, remarks)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.gmtCreate,jdbcType=TIMESTAMP}, #{item.gmtModified,jdbcType=TIMESTAMP}, #{item.isDeleted,jdbcType=VARCHAR},
+      #{item.staffId,jdbcType=INTEGER}, #{item.timeYearMonth,jdbcType=VARCHAR}, #{item.startDay,jdbcType=INTEGER},
+      #{item.actualDays,jdbcType=INTEGER}, #{item.totalNum,jdbcType=INTEGER}, #{item.errorNum,jdbcType=INTEGER},
+      #{item.remarks,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <select id="selectMonthDataByMonthStaff" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from db_per_handle
+    where is_deleted = 'N'
+    and time_year_month
+    in
+    <foreach item="item" index="index" collection="monthStrArray" open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    <if test="staffId != null">
+      and staff_id = #{staffId,jdbcType=INTEGER}
+    </if>
+    order by time_year_month
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.tqmall.monkey.domain.entity.staffPer.StaffPerHandleDO" >
+    select
+    <include refid="Base_Column_List" />
+    from db_per_handle
+    <where>
+      is_deleted = 'N'
+      <if test="staffId != null">
+        and staff_id = #{staffId,jdbcType=INTEGER}
+      </if>
+      <if test="timeYearMonth != null">
+        and time_year_month = #{timeYearMonth,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

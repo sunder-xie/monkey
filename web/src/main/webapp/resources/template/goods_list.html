@@ -1,0 +1,140 @@
+<div class="clearfix">
+    <div class="col-sm-3">
+        订单编号：<span><%= orderInfoVo.orderSn %></span>
+    </div>
+    <div class="col-sm-3">
+        门店名称：<span class="companyName"><%= orderInfoVo.companyName %></span>
+    </div>
+    <div class="col-sm-6">
+        收货地址：<span class="address"><%= orderInfoVo.address %></span>
+    </div>
+    <div class="col-sm-3">
+        收货人：<span class="consignee"><%= orderInfoVo.consignee %></span>
+    </div>
+    <div class="col-sm-9">
+        手机号：<span class="mobile"><%= orderInfoVo.mobile %></span>
+    </div>
+</div>
+<div class="table-responsive">
+<%
+for (var i in hdActivityVos) {
+if (hdActivityVos[i].activityId == null) {
+var activityName = '普通商品';
+} else {
+var activityName = hdActivityVos[i]['activityName'];
+}
+var groupList = hdActivityVos[i]['groupList']; %>
+<table class="table">
+    <colgroup>
+        <col width="5%"/>
+        <col width="45%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col/>
+    </colgroup>
+    <thead>
+        <tr>
+            <th></th>
+            <th>商品名称</th>
+            <th>零件号</th>
+            <th>价格</th>
+            <th>数量</th>
+            <th>金额</th>
+            <th>库存</th>
+        </tr>
+        <tr>
+            <th style="text-align: center"><input class="select_all" type="checkbox"/></th>
+            <th colspan="6"><span style="border:1px solid #ffa500;padding:5px;color:#ffa500;"><%= activityName %></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%
+        for (var j in groupList) {
+        var groupInfo = {};
+        groupInfo['groupId'] = groupList[j]['groupId'];
+        groupInfo['groupName'] = groupList[j]['groupName'];
+        groupInfo['groupPrice'] = groupList[j]['groupPrice'];
+        groupInfo['groupNum'] = groupList[j]['groupNum'];
+        groupInfo['allGroupPrice'] = groupList[j]['allGroupPrice'];
+        var groupGoods = groupList[j]['orderGoodsList'];
+        var groupGoodsLength = groupGoods.length;
+        var recIdArr = [];
+        for (var m = 0; m < groupGoodsLength; m++) {
+        recIdArr.push(groupGoods[m]['id']);
+        }
+        var recIdStr = recIdArr.join(',');
+        for (var k = 0; k < groupGoodsLength; k++) {
+        var groupGoodsDetail = groupGoods[k]; %>
+        <tr group_id="<%= groupInfo['groupId'] == null ? 0 : groupInfo['groupId'] %>">
+            <% if (hdActivityVos[i].activityId == null) { %>
+            <td style="text-align:center;"><input class="check_rec" type="checkbox" value="<%= groupGoodsDetail.id %>" /></td><%
+            } else {
+            if (k == 0) { %>
+            <td rowspan="<%= groupGoodsLength %>" style="text-align:center;">
+                <input class="check_rec" type="checkbox" value="<%= recIdStr %>" />
+            </td><%
+            }
+            } %>
+            <td class="hidden-phone" >
+                <input type="hidden" class="rec_id" value="<%= groupGoodsDetail.id %>">
+                <div class="media">
+                    <div class="pull-left"><img width="125" src="http://img.tqmall.com/<%= groupGoodsDetail.imgUrl %>"/></div>
+                    <div class="media-body">
+                        <a href="http://www.tqmall.com/Goods/detail.html?id=<%= groupGoodsDetail.goodsId %>" target="blank"><%= groupGoodsDetail.goodsName %></a>
+                    </div>
+                </div>
+            </td>
+            <td ><%= groupGoodsDetail.goodsFormat %></td>
+            <%
+            if (hdActivityVos[i].activityId == null) { %>
+            <td ><%= groupGoodsDetail.goodsPrice %></td>
+            <td ><%= groupGoodsDetail.goodsNumber %></td>
+            <td ><%= Math.round(groupGoodsDetail.goodsPrice * groupGoodsDetail.goodsNumber * 100) / 100 %></td>
+            <%
+            } else {
+            if (k == 0) { %>
+            <td rowspan="<%= groupGoodsLength %>" ><%= groupInfo.groupPrice %>元</td>
+            <td rowspan="<%= groupGoodsLength %>" ><%= groupInfo.groupNum %></td>
+            <td rowspan="<%= groupGoodsLength %>" ><%= groupInfo.allGroupPrice %>元</td>
+            <%
+            }
+            } %>
+            <td class="goods_inventory_info" >
+                <p>
+                    数量：<%= groupGoodsDetail.goodsNumber %><%= groupGoodsDetail.measureUnit %>
+                </p>
+                <%
+                var order_goods_number = groupGoodsDetail.goodsNumber;
+                var child_warehouse_goods_number = Math.floor(groupGoodsDetail.amount / groupGoodsDetail.conversionValue);
+                var parent_warehouse_goods_number = Math.floor(groupGoodsDetail.parentAmount / groupGoodsDetail.conversionValue);
+                var childColor = order_goods_number > child_warehouse_goods_number ? 'red' : 'green';
+                var parentColor = order_goods_number > parent_warehouse_goods_number ? 'red' : 'green';
+                %>
+                <p style="color:<%= childColor %>">
+                    <%= groupGoodsDetail.warehouseName %>
+                    <span class="goods_number"><%= groupGoodsDetail.goodsNumber %></span>/<span class="child_warehouse_goods_number"><%= child_warehouse_goods_number %></span>
+                </p>
+                <p style="color:<%= parentColor %>">
+                    <% if(groupGoodsDetail.parentWarehouseName != null ) {%>
+                    <%= groupGoodsDetail.parentWarehouseName %>
+                    <span class="parent_warehouse_goods_number"><%= parent_warehouse_goods_number %></span>
+                    <% } %>
+                </p>
+            </td>
+        </tr>
+        <%
+        }
+        } %>
+    </tbody>
+</table>
+
+<% } %>
+</div>
+<div class="alert alert-info" style="margin:0px;text-align: center;">
+    商品金额：￥<span class="goods_amount"><%= orderInfoVo.goodsAmount %></span>
+    - 优惠：￥<span class="bonus"><%= orderInfoVo.bonus %></span>
+    + 快递费：￥<span class="shipping_fee"><%= orderInfoVo.shippingFee %></span>
+    = 应付金额：<span class="order_amount" style="color:#ff0000;font-size:20px;">￥<strong><%= orderInfoVo.orderAmount %></strong></span>
+</div>
